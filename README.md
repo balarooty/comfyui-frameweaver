@@ -13,7 +13,7 @@ It solves the biggest problem with long-form AI video generation: **continuity**
 Standard multi-scene generation in ComfyUI often results in character mutation, style drift, and jarring transitions because workflows are stateless. FrameWeaver introduces a **Continuity Layer**:
 
 - **Prompt Evolution:** Inherit, blend, or delta-update prompts from scene to scene instead of rewriting them.
-- **Style Anchors:** Persist CLIP embeddings across your entire DAG to lock in visual identity.
+- **Style Anchors:** Persist a reference image plus stable style and identity text across your DAG.
 - **Stateful Bridging:** Smart frame extraction and Qwen-powered edits for seamless scene transitions.
 - **VRAM Smart:** Built for 24GB consumer GPUs. Designed to load and unload heavy models (LTX 22B + Qwen 20B) sequentially without crashing.
 
@@ -40,18 +40,49 @@ We intentionally delegate the heavy lifting (model loading, VAE decoding) to the
 
 ## 📦 Installation
 
-1. **Prerequisites:** Ensure you have the official LTX Video 2.3 nodes and models installed.
-2. **Clone the Repository:**
-   ```bash
-   cd ComfyUI/custom_nodes/
-   git clone https://github.com/balarooty/comfyui-frameweaver.git
-   ```
-3. **Install Dependencies:**
-   ```bash
-   cd comfyui-frameweaver
-   pip install -r requirements.txt
-   ```
-4. **Restart ComfyUI.**
+### One-shot install
+
+```bash
+COMFYUI_DIR=/workspace/ComfyUI bash scripts/setup_frameweaver.sh
+```
+
+### Install only the custom node
+
+```bash
+COMFYUI_DIR=/workspace/ComfyUI bash scripts/install_custom_node.sh
+```
+
+This clones or updates:
+
+```text
+https://github.com/balarooty/comfyui-frameweaver.git
+```
+
+into:
+
+```text
+/workspace/ComfyUI/custom_nodes/comfyui-frameweaver
+```
+
+### Download only the models
+
+```bash
+COMFYUI_DIR=/workspace/ComfyUI bash scripts/download_models.sh
+```
+
+To include the optional Qwen Image Edit bridge model bundle:
+
+```bash
+COMFYUI_DIR=/workspace/ComfyUI INCLUDE_QWEN_EDIT=1 bash scripts/download_models.sh
+```
+
+The downloader supports private/gated Hugging Face downloads with:
+
+```bash
+HF_TOKEN=hf_your_token COMFYUI_DIR=/workspace/ComfyUI bash scripts/download_models.sh
+```
+
+Restart ComfyUI after installing nodes or downloading models.
 
 ### Required Models
 Place these in their respective ComfyUI model folders (as documented by the stock LTX example workflows):
