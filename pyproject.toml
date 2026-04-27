@@ -1,0 +1,13 @@
+[project]
+name = "comfyui-frameweaver"
+version = "0.1.0"
+description = "FrameWeaver custom nodes and workflows for multi-scene ComfyUI LTX 2.3 video generation."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
