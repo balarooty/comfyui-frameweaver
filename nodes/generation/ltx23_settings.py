@@ -6,7 +6,7 @@ except ImportError:
 
 class FW_LTX23Settings:
     CATEGORY = "FrameWeaver/Generation"
-    RETURN_TYPES = ("INT", "INT", "INT", "INT", "FLOAT", "COMBO", "COMBO", "COMBO", "COMBO")
+    RETURN_TYPES = ("INT", "INT", "INT", "INT", "FLOAT", "STRING", "STRING", "STRING", "STRING")
     RETURN_NAMES = (
         "width",
         "height",

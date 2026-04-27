@@ -4475,7 +4475,7 @@
   },
   "groups": [],
   "id": "07824bbb-6672-4bb0-ac36-4313a519e35b",
-  "last_link_id": 759,
+  "last_link_id": 755,
   "last_node_id": 347,
   "links": [
     [
@@ -4605,38 +4605,6 @@
       340,
       7,
       "FLOAT"
-    ],
-    [
-      756,
-      342,
-      5,
-      340,
-      8,
-      "COMBO"
-    ],
-    [
-      757,
-      342,
-      6,
-      340,
-      9,
-      "COMBO"
-    ],
-    [
-      758,
-      342,
-      7,
-      340,
-      10,
-      "COMBO"
-    ],
-    [
-      759,
-      342,
-      8,
-      340,
-      11,
-      "COMBO"
     ]
   ],
   "nodes": [
@@ -4885,23 +4853,23 @@
         {
           "name": "ckpt_name",
           "type": "COMBO",
-          "link": 756
+          "link": null
         },
         {
           "name": "lora_name",
           "type": "COMBO",
-          "link": 757,
+          "link": null,
           "label": "distilled_lora"
         },
         {
           "name": "text_encoder",
           "type": "COMBO",
-          "link": 758
+          "link": null
         },
         {
           "name": "model_name",
           "type": "COMBO",
-          "link": 759,
+          "link": null,
           "label": "upscale_model"
         }
       ],
@@ -5041,31 +5009,23 @@
         },
         {
           "name": "checkpoint_name",
-          "type": "COMBO",
-          "links": [
-            756
-          ]
+          "type": "STRING",
+          "links": []
         },
         {
           "name": "distilled_lora_name",
-          "type": "COMBO",
-          "links": [
-            757
-          ]
+          "type": "STRING",
+          "links": []
         },
         {
           "name": "text_encoder_name",
-          "type": "COMBO",
-          "links": [
-            758
-          ]
+          "type": "STRING",
+          "links": []
         },
         {
           "name": "upscale_model_name",
-          "type": "COMBO",
-          "links": [
-            759
-          ]
+          "type": "STRING",
+          "links": []
         }
       ],
       "properties": {

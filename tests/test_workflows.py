@@ -37,4 +37,16 @@ def test_ia2v_workflow_is_connected_to_frameweaver_prompt_and_audio():
     inputs = {item["name"]: item for item in ltx_node["inputs"]}
     assert inputs["audio"]["link"] is not None
     assert inputs["value"]["link"] is not None
-    assert inputs["lora_name"]["link"] is not None
+    assert inputs["lora_name"]["link"] is None
+
+
+def test_ltx_combo_inputs_are_not_linked_to_generic_outputs():
+    for name, ltx_type in [
+        ("frameweaver_ltx23_i2v_single_scene.json", "b94257db-cdc1-45d3-8913-ca61e782d9c1"),
+        ("frameweaver_ltx23_ia2v_single_scene.json", "98ee9e5b-467b-40aa-a534-36033f27d0b4"),
+    ]:
+        workflow = load(name)
+        ltx_node = [node for node in workflow["nodes"] if node["type"] == ltx_type][0]
+        inputs = {item["name"]: item for item in ltx_node["inputs"]}
+        for combo_name in ["ckpt_name", "lora_name", "text_encoder", "model_name"]:
+            assert inputs[combo_name]["link"] is None

@@ -93,10 +93,10 @@ def add_i2v_frameweaver_nodes(workflow):
                     output("frames", "INT"),
                     output("fps", "INT"),
                     output("duration_seconds", "FLOAT"),
-                    output("checkpoint_name", "COMBO"),
-                    output("distilled_lora_name", "COMBO"),
-                    output("text_encoder_name", "COMBO"),
-                    output("upscale_model_name", "COMBO"),
+                    output("checkpoint_name", "STRING"),
+                    output("distilled_lora_name", "STRING"),
+                    output("text_encoder_name", "STRING"),
+                    output("upscale_model_name", "STRING"),
                 ],
             ),
             node(
@@ -214,10 +214,6 @@ def add_i2v_frameweaver_nodes(workflow):
     wire(ids["settings"], 0, ltx_node["id"], 3, "INT")
     wire(ids["settings"], 1, ltx_node["id"], 4, "INT")
     wire(ids["settings"], 2, ltx_node["id"], 5, "INT")
-    wire(ids["settings"], 5, ltx_node["id"], 6, "COMBO")
-    wire(ids["settings"], 6, ltx_node["id"], 7, "COMBO")
-    wire(ids["settings"], 7, ltx_node["id"], 8, "COMBO")
-    wire(ids["settings"], 8, ltx_node["id"], 9, "COMBO")
     wire(ids["settings"], 3, ltx_node["id"], 11, "INT")
 
     del workflow["nodes_by_id"]
@@ -265,10 +261,10 @@ def add_ia2v_frameweaver_nodes(workflow):
                     output("frames", "INT"),
                     output("fps", "INT"),
                     output("duration_seconds", "FLOAT"),
-                    output("checkpoint_name", "COMBO"),
-                    output("distilled_lora_name", "COMBO"),
-                    output("text_encoder_name", "COMBO"),
-                    output("upscale_model_name", "COMBO"),
+                    output("checkpoint_name", "STRING"),
+                    output("distilled_lora_name", "STRING"),
+                    output("text_encoder_name", "STRING"),
+                    output("upscale_model_name", "STRING"),
                 ],
             ),
             node(
@@ -387,10 +383,6 @@ def add_ia2v_frameweaver_nodes(workflow):
     wire(ids["settings"], 1, ltx_node["id"], 4, "INT")
     wire(ids["settings"], 3, ltx_node["id"], 5, "INT")
     wire(ids["settings"], 4, ltx_node["id"], 7, "FLOAT")
-    wire(ids["settings"], 5, ltx_node["id"], 8, "COMBO")
-    wire(ids["settings"], 6, ltx_node["id"], 9, "COMBO")
-    wire(ids["settings"], 7, ltx_node["id"], 10, "COMBO")
-    wire(ids["settings"], 8, ltx_node["id"], 11, "COMBO")
 
     del workflow["nodes_by_id"]
     workflow["last_link_id"] = link_id - 1

@@ -4188,7 +4188,7 @@
   },
   "groups": [],
   "id": "07824bbb-6672-4bb0-ac36-4313a519e35b",
-  "last_link_id": 627,
+  "last_link_id": 623,
   "last_node_id": 275,
   "links": [
     [
@@ -4305,38 +4305,6 @@
     ],
     [
       623,
-      270,
-      5,
-      267,
-      6,
-      "COMBO"
-    ],
-    [
-      624,
-      270,
-      6,
-      267,
-      7,
-      "COMBO"
-    ],
-    [
-      625,
-      270,
-      7,
-      267,
-      8,
-      "COMBO"
-    ],
-    [
-      626,
-      270,
-      8,
-      267,
-      9,
-      "COMBO"
-    ],
-    [
-      627,
       270,
       3,
       267,
@@ -4500,23 +4468,23 @@
         {
           "name": "ckpt_name",
           "type": "COMBO",
-          "link": 623
+          "link": null
         },
         {
           "name": "lora_name",
           "type": "COMBO",
-          "link": 624,
+          "link": null,
           "label": "distilled_lora"
         },
         {
           "name": "text_encoder",
           "type": "COMBO",
-          "link": 625
+          "link": null
         },
         {
           "name": "model_name",
           "type": "COMBO",
-          "link": 626,
+          "link": null,
           "label": "latent_upscale_model"
         },
         {
@@ -4528,7 +4496,7 @@
         {
           "name": "value_5",
           "type": "INT",
-          "link": 627,
+          "link": 623,
           "label": "fps"
         }
       ],
@@ -4662,7 +4630,7 @@
           "name": "fps",
           "type": "INT",
           "links": [
-            627
+            623
           ]
         },
         {
@@ -4672,31 +4640,23 @@
         },
         {
           "name": "checkpoint_name",
-          "type": "COMBO",
-          "links": [
-            623
-          ]
+          "type": "STRING",
+          "links": []
         },
         {
           "name": "distilled_lora_name",
-          "type": "COMBO",
-          "links": [
-            624
-          ]
+          "type": "STRING",
+          "links": []
         },
         {
           "name": "text_encoder_name",
-          "type": "COMBO",
-          "links": [
-            625
-          ]
+          "type": "STRING",
+          "links": []
         },
         {
           "name": "upscale_model_name",
-          "type": "COMBO",
-          "links": [
-            626
-          ]
+          "type": "STRING",
+          "links": []
         }
       ],
       "properties": {
