@@ -1,4 +1,7 @@
-from utils.validation import nearest_valid_frame_count
+try:
+    from ...utils.validation import nearest_valid_frame_count
+except ImportError:
+    from utils.validation import nearest_valid_frame_count
 
 
 class FW_SceneDurationList:

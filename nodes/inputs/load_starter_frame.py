@@ -1,4 +1,7 @@
-from utils.validation import normalize_dimensions
+try:
+    from ...utils.validation import normalize_dimensions
+except ImportError:
+    from utils.validation import normalize_dimensions
 
 
 class FW_LoadStarterFrame:

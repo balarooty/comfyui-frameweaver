@@ -1,5 +1,9 @@
-from utils.prompt_utils import build_scene_prompts
-from utils.validation import nearest_valid_frame_count, normalize_dimensions
+try:
+    from ...utils.prompt_utils import build_scene_prompts
+    from ...utils.validation import nearest_valid_frame_count, normalize_dimensions
+except ImportError:
+    from utils.prompt_utils import build_scene_prompts
+    from utils.validation import nearest_valid_frame_count, normalize_dimensions
 
 
 class FW_QuickPipeline:

@@ -1,5 +1,9 @@
-from utils.checkpoint_manager import CheckpointManager
-from utils.tensor_utils import image_batch_length, image_resolution
+try:
+    from ...utils.checkpoint_manager import CheckpointManager
+    from ...utils.tensor_utils import image_batch_length, image_resolution
+except ImportError:
+    from utils.checkpoint_manager import CheckpointManager
+    from utils.tensor_utils import image_batch_length, image_resolution
 
 
 class FW_SceneCollector:

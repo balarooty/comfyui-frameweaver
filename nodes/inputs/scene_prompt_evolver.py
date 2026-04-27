@@ -1,4 +1,7 @@
-from utils.prompt_utils import build_scene_prompts, select_scene
+try:
+    from ...utils.prompt_utils import build_scene_prompts, select_scene
+except ImportError:
+    from utils.prompt_utils import build_scene_prompts, select_scene
 
 
 class FW_ScenePromptEvolver:

@@ -1,4 +1,7 @@
-from utils.tensor_utils import last_frame
+try:
+    from ...utils.tensor_utils import last_frame
+except ImportError:
+    from utils.tensor_utils import last_frame
 
 
 class FW_LastFrameExtractor:

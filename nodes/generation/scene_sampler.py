@@ -1,4 +1,7 @@
-from utils.vram_manager import cleanup_vram
+try:
+    from ...utils.vram_manager import cleanup_vram
+except ImportError:
+    from utils.vram_manager import cleanup_vram
 
 
 class FW_SceneSampler:

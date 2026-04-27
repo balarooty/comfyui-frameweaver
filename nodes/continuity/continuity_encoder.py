@@ -1,4 +1,7 @@
-from utils.validation import clamp_float
+try:
+    from ...utils.validation import clamp_float
+except ImportError:
+    from utils.validation import clamp_float
 
 
 class FW_ContinuityEncoder:

@@ -1,4 +1,7 @@
-from utils.validation import nearest_valid_frame_count, normalize_dimensions
+try:
+    from ...utils.validation import nearest_valid_frame_count, normalize_dimensions
+except ImportError:
+    from utils.validation import nearest_valid_frame_count, normalize_dimensions
 
 
 class FW_LatentVideoInit:
