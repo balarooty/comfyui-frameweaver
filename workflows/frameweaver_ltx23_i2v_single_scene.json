@@ -4636,7 +4636,7 @@
       ],
       "size": [
         420,
-        260
+        380
       ],
       "flags": {},
       "order": 270,
@@ -4714,7 +4714,11 @@
         1280,
         720,
         97,
-        24
+        24,
+        "ltx-2.3-22b-dev-fp8.safetensors",
+        "ltx-2.3-22b-distilled-lora-384.safetensors",
+        "gemma_3_12B_it_fp4_mixed.safetensors",
+        "ltx-2.3-spatial-upscaler-x2-1.1.safetensors"
       ]
     },
     {
