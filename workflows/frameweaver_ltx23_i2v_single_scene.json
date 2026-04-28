@@ -229,7 +229,7 @@
             ],
             "type": "INT"
           },
-          {
+           {
             "id": "d7255058-319a-4880-8f9a-7e542c8f3c3c",
             "linkIds": [
               601,
@@ -241,9 +241,9 @@
               1020.162109375,
               5074
             ],
-            "type": "COMBO"
+            "type": "STRING"
           },
-          {
+           {
             "id": "4afce68d-8f65-4342-9d6d-ae0a7688c3e3",
             "label": "distilled_lora",
             "linkIds": [
@@ -254,9 +254,9 @@
               1020.162109375,
               5094
             ],
-            "type": "COMBO"
+            "type": "STRING"
           },
-          {
+           {
             "id": "ab842b4b-c977-4679-b421-424722785b57",
             "linkIds": [
               606
@@ -266,9 +266,9 @@
               1020.162109375,
               5114
             ],
-            "type": "COMBO"
+            "type": "STRING"
           },
-          {
+           {
             "id": "9e47372d-28d9-4311-91e9-e90d03f4eb43",
             "label": "latent_upscale_model",
             "linkIds": [
@@ -279,7 +279,7 @@
               1020.162109375,
               5134
             ],
-            "type": "COMBO"
+            "type": "STRING"
           },
           {
             "id": "de51f04f-4ebc-4407-b1b7-779273aa9e08",
@@ -4188,7 +4188,7 @@
   },
   "groups": [],
   "id": "07824bbb-6672-4bb0-ac36-4313a519e35b",
-  "last_link_id": 624,
+  "last_link_id": 628,
   "last_node_id": 276,
   "links": [
     [
@@ -4318,6 +4318,38 @@
       267,
       11,
       "INT"
+    ],
+    [
+      625,
+      270,
+      5,
+      267,
+      6,
+      "STRING"
+    ],
+    [
+      626,
+      270,
+      6,
+      267,
+      7,
+      "STRING"
+    ],
+    [
+      627,
+      270,
+      7,
+      267,
+      8,
+      "STRING"
+    ],
+    [
+      628,
+      270,
+      8,
+      267,
+      9,
+      "STRING"
     ]
   ],
   "nodes": [
@@ -4475,24 +4507,24 @@
         },
         {
           "name": "ckpt_name",
-          "type": "COMBO",
-          "link": null
+          "type": "STRING",
+          "link": 625
         },
         {
           "name": "lora_name",
-          "type": "COMBO",
-          "link": null,
+          "type": "STRING",
+          "link": 626,
           "label": "distilled_lora"
         },
         {
           "name": "text_encoder",
-          "type": "COMBO",
-          "link": null
+          "type": "STRING",
+          "link": 627
         },
         {
           "name": "model_name",
-          "type": "COMBO",
-          "link": null,
+          "type": "STRING",
+          "link": 628,
           "label": "latent_upscale_model"
         },
         {
@@ -4649,22 +4681,30 @@
         {
           "name": "checkpoint_name",
           "type": "STRING",
-          "links": []
+          "links": [
+            625
+          ]
         },
         {
           "name": "distilled_lora_name",
           "type": "STRING",
-          "links": []
+          "links": [
+            626
+          ]
         },
         {
           "name": "text_encoder_name",
           "type": "STRING",
-          "links": []
+          "links": [
+            627
+          ]
         },
         {
           "name": "upscale_model_name",
           "type": "STRING",
-          "links": []
+          "links": [
+            628
+          ]
         }
       ],
       "properties": {
@@ -4982,7 +5022,7 @@
         "Node name for S&R": "PrimitiveBoolean"
       },
       "widgets_values": [
-        true
+        false
       ],
       "title": "Switch to Text-to-Video"
     }
