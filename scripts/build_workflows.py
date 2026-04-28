@@ -78,6 +78,8 @@ def add_i2v_frameweaver_nodes(workflow):
     node_id += 1
     ids["continuity"] = node_id
     node_id += 1
+    ids["t2v_mode"] = node_id
+    node_id += 1
 
     workflow["nodes"].extend(
         [
@@ -174,6 +176,15 @@ def add_i2v_frameweaver_nodes(workflow):
                 ],
                 outputs=[output("positive_prompt", "STRING"), output("scene_state", "FW_SCENE_STATE")],
             ),
+            node(
+                ids["t2v_mode"],
+                "PrimitiveBoolean",
+                (-560, 4940),
+                (360, 104),
+                title="Switch to Text-to-Video",
+                widgets=[True],
+                outputs=[output("BOOLEAN", "BOOLEAN")],
+            ),
         ]
     )
 
@@ -211,6 +222,7 @@ def add_i2v_frameweaver_nodes(workflow):
     wire(ids["selector"], 0, ids["continuity"], 1, "STRING")
     wire(ids["selector"], 2, ids["continuity"], 3, "STRING")
     wire(ids["continuity"], 0, ltx_node["id"], 1, "STRING")
+    wire(ids["t2v_mode"], 0, ltx_node["id"], 2, "BOOLEAN")
     wire(ids["settings"], 0, ltx_node["id"], 3, "INT")
     wire(ids["settings"], 1, ltx_node["id"], 4, "INT")
     wire(ids["settings"], 2, ltx_node["id"], 5, "INT")

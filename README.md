@@ -100,8 +100,27 @@ FrameWeaver comes with ready-to-use JSON workflows located in the `workflows/` d
 ### 1. `frameweaver_ltx23_i2v_single_scene.json`
 A foundational Image-to-Video setup. It uses the stock LTX 2.3 subgraph but connects FrameWeaver's prompt evolver, duration validator, and settings nodes to expose a cleaner, safer UX.
 
+If your prompt changes the scene heavily, such as turning a village-running image
+into a football-field story with a new ball and an extra character, turn on
+`Switch to Text-to-Video`. Image-to-video preserves the starter image; it will
+not reliably invent a different location, props, and characters from scratch.
+
 ### 2. `frameweaver_ltx23_ia2v_single_scene.json`
 The Image + Audio to Video workflow. Similar to the above, but pre-wired for audio reactivity and synchronization using LTX's audio features.
+
+## Prompting Reality Check
+
+LTX image-to-video is strongest when the first frame already contains the main
+subject, setting, and props. For complex stories, split the action into short
+clips:
+
+1. Boys play football in a field, ball visible, energetic footwork.
+2. A small girl runs into the field and trips near them.
+3. The boys stop playing, run to her, and comfort her.
+
+Use text-to-video for the first shot if your source image does not already match
+the requested scene. Use image-to-video only after you have a starter frame that
+already contains the football scene.
 
 *Note: For multi-scene generation, duplicate the core scene block and use `FW_LastFrameExtractor` to bridge the output of Scene N into the input of Scene N+1.*
 

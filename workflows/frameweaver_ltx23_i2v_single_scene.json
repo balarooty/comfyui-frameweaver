@@ -4188,8 +4188,8 @@
   },
   "groups": [],
   "id": "07824bbb-6672-4bb0-ac36-4313a519e35b",
-  "last_link_id": 623,
-  "last_node_id": 275,
+  "last_link_id": 624,
+  "last_node_id": 276,
   "links": [
     [
       594,
@@ -4281,6 +4281,14 @@
     ],
     [
       620,
+      276,
+      0,
+      267,
+      2,
+      "BOOLEAN"
+    ],
+    [
+      621,
       270,
       0,
       267,
@@ -4288,7 +4296,7 @@
       "INT"
     ],
     [
-      621,
+      622,
       270,
       1,
       267,
@@ -4296,7 +4304,7 @@
       "INT"
     ],
     [
-      622,
+      623,
       270,
       2,
       267,
@@ -4304,7 +4312,7 @@
       "INT"
     ],
     [
-      623,
+      624,
       270,
       3,
       267,
@@ -4444,25 +4452,25 @@
         {
           "name": "value_1",
           "type": "BOOLEAN",
-          "link": null,
+          "link": 620,
           "label": "disable_i2v"
         },
         {
           "name": "value_2",
           "type": "INT",
-          "link": 620,
+          "link": 621,
           "label": "width"
         },
         {
           "name": "value_3",
           "type": "INT",
-          "link": 621,
+          "link": 622,
           "label": "height"
         },
         {
           "name": "value_4",
           "type": "INT",
-          "link": 622,
+          "link": 623,
           "label": "length"
         },
         {
@@ -4496,7 +4504,7 @@
         {
           "name": "value_5",
           "type": "INT",
-          "link": 623,
+          "link": 624,
           "label": "fps"
         }
       ],
@@ -4608,7 +4616,7 @@
           "type": "INT",
           "links": [
             611,
-            620
+            621
           ]
         },
         {
@@ -4616,21 +4624,21 @@
           "type": "INT",
           "links": [
             612,
-            621
+            622
           ]
         },
         {
           "name": "frames",
           "type": "INT",
           "links": [
-            622
+            623
           ]
         },
         {
           "name": "fps",
           "type": "INT",
           "links": [
-            623
+            624
           ]
         },
         {
@@ -4945,6 +4953,38 @@
       "widgets_values": [
         0.35
       ]
+    },
+    {
+      "id": 276,
+      "type": "PrimitiveBoolean",
+      "pos": [
+        -560,
+        4940
+      ],
+      "size": [
+        360,
+        104
+      ],
+      "flags": {},
+      "order": 276,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "BOOLEAN",
+          "type": "BOOLEAN",
+          "links": [
+            620
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveBoolean"
+      },
+      "widgets_values": [
+        true
+      ],
+      "title": "Switch to Text-to-Video"
     }
   ],
   "revision": 0,
