@@ -32,3 +32,11 @@ htmlcov/
 output/
 input/
 temp/
+
+
+#plans
+plan.md
+phase_*
+
+
+
