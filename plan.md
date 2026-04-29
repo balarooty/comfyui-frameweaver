@@ -224,45 +224,46 @@ transformers    # Optional: Whisper (Phase 5)
 
 ### Phase 1 — Foundation (Input + Sequencing)
 
-- [ ] **1.1** `FW_MultiImageLoader` — Gallery JS, 50 outputs, resize modes, compression
-- [ ] **1.2** `FW_GlobalSequencer` — JS real-time sync of FPS/resolution/scene-index
-- [ ] **1.3** `FW_SpeechLengthCalc` — Quoted-text WPM calculator (3 speeds)
-- [ ] **1.4** Enhance `FW_ScenePromptEvolver` — Pipe-delimited split + dynamic outputs
-- [ ] **Verify:** 5 images → sequencer synced → speech calc outputs valid frames
+- [x] **1.1** `FW_MultiImageLoader` — Gallery JS, 50 outputs, resize modes, compression
+- [x] **1.2** `FW_GlobalSequencer` — JS real-time sync of FPS/resolution/scene-index
+- [x] **1.3** `FW_SpeechLengthCalc` — Quoted-text WPM calculator (3 speeds)
+- [x] **1.4** Enhance `FW_ScenePromptEvolver` — Pipe-delimited split + dynamic outputs
+- [x] **Verify:** 5 images → sequencer synced → speech calc outputs valid frames
 
 ### Phase 2 — Generation Pipeline
 
-- [ ] **2.1** `FW_LTXSequencer` — Extends `LTXVAddGuide`, seconds/frames, 50 guides
-- [ ] **2.2** `FW_PrerollCompensator` — Preroll +6, tail-loss +8, post-trim
-- [ ] **2.3** Enhance `FW_LTX23Settings` — Seconds↔frames toggle, audio-connected duration
-- [ ] **Verify:** 3-scene FFLF generates correctly, smooth transitions
+- [x] **2.1** `FW_LTXSequencer` — Extends `LTXVAddGuide`, seconds/frames, 50 guides
+- [x] **2.2** `FW_PrerollCompensator` — Preroll +6, tail-loss +8, post-trim
+- [x] **2.3** Enhance `FW_LTX23Settings` — Seconds↔frames toggle, audio-connected duration
+- [x] **Verify:** 3-scene FFLF generates correctly, smooth transitions
 
 ### Phase 3 — Post-Processing Suite
 
-- [ ] **3.1** `FW_ColorMatch` — LAB matching, kornia, batch_size limiter
-- [ ] **3.2** `FW_FilmGrain` — Intensity + saturation, batch-safe
-- [ ] **3.3** `FW_CinematicPolish` — Unified sharpen (3 modes), CPU+GPU
-- [ ] **3.4** `FW_LUTApply` — `.cube` parser, trilinear interp, strength blend
-- [ ] **3.5** `FW_LUTCreate` — Hex palette → `.cube` generator
-- [ ] **Verify:** Full chain on 97 frames without OOM (8GB VRAM)
+- [x] **3.1** `FW_ColorMatch` — LAB matching, kornia, batch_size limiter
+- [x] **3.2** `FW_FilmGrain` — Intensity + saturation, batch-safe
+- [x] **3.3** `FW_CinematicPolish` — Unified sharpen (3 modes), CPU+GPU
+- [x] **3.4** `FW_LUTApply` — `.cube` parser, trilinear interp, strength blend
+- [x] **3.5** `FW_LUTCreate` — Hex palette → `.cube` generator
+- [x] **Verify:** Full chain on 97 frames without OOM (8GB VRAM)
 
 ### Phase 4 — Audio Automation
 
-- [ ] **4.1** `FW_AudioSplitter` — Fixed + custom duration, silence pad, stereo
-- [ ] **4.2** `FW_AutoQueue` — PromptServer auto-queue, folder indexing, override
-- [ ] **4.3** Enhance `FW_SmartAssembler` — Meta trim/pad, ffmpeg audio mux
-- [ ] **Verify:** 2-min audio → auto-split → auto-queue → assembled with audio
+- [x] **4.1** `FW_AudioSplitter` — Fixed + custom duration, silence pad, stereo
+- [x] **4.2** `FW_AutoQueue` — PromptServer auto-queue, folder indexing, override
+- [x] **4.3** Enhance `FW_SmartAssembler` — Meta trim/pad, ffmpeg audio mux
+- [x] **Verify:** 2-min audio → auto-split → auto-queue → assembled with audio
 
 ### Phase 5 — AI-Powered Lyrics
 
-- [ ] **5.1** `FW_WhisperTranscriber` — Per-chunk Whisper, language select, fallbacks
-- [ ] **5.2** Wire transcription → prompt evolver — Auto-populate from lyrics
-- [ ] **Verify:** Music → per-scene lyrics → prompts → video
+- [x] **5.1** `FW_WhisperTranscriber` — Per-chunk Whisper, language select, fallbacks
+- [x] **5.2** Wire transcription → prompt evolver — Auto-populate from lyrics
+- [x] **Verify:** Music → per-scene lyrics → prompts → video
 
 ### Phase 6 — Polish & Publish
 
-- [ ] **6.1** Example workflows (Quick I2V, Multi-Scene FFLF, Music Video)
-- [ ] **6.2** Frontend JS polish — colors, categories, tooltips
-- [ ] **6.3** README with install, tutorials, screenshots
-- [ ] **6.4** `pyproject.toml` for ComfyUI Manager
-- [ ] **6.5** Unit tests (frame math, audio split, color match)
+- [x] **6.1** Example workflows (Quick I2V, Multi-Scene FFLF, Music Video, PostProcess Demo)
+- [x] **6.2** Frontend JS polish — colors, categories, tooltips
+- [x] **6.3** README with install, tutorials, screenshots
+- [x] **6.4** `pyproject.toml` for ComfyUI Manager
+- [x] **6.5** Unit tests (frame math, audio split, color match, whisper, auto-queue)
+
