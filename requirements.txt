@@ -1,3 +1,31 @@
-# Runtime nodes use ComfyUI's bundled dependencies.
-# Install pytest only for local tests if needed:
+# FrameWeaver — Dependency Guide
+#
+# Core nodes use only torch + numpy which are bundled with ComfyUI.
+# Install optional groups below for specific feature sets.
+#
+# Post-Processing (Phase 3): ColorMatch, FilmGrain, CinematicPolish, LUT
+#   pip install kornia>=0.7
+#
+# Audio Automation (Phase 4): AudioSplitter
+#   pip install torchaudio>=2.0
+#
+# AI Transcription (Phase 5): WhisperTranscriber
+#   pip install transformers>=4.36 torchaudio>=2.0
+#
+# Install everything at once:
+#   pip install kornia>=0.7 torchaudio>=2.0 transformers>=4.36
+#
+# Or use pyproject.toml extras:
+#   pip install -e ".[all]"
+#   pip install -e ".[postprocess]"
+#   pip install -e ".[audio]"
+#   pip install -e ".[whisper]"
+#   pip install -e ".[test]"
+
+# --- Optional dependencies (uncomment as needed) ---
+# kornia>=0.7
+# torchaudio>=2.0
+# transformers>=4.36
+
+# --- Development ---
 # pytest>=8

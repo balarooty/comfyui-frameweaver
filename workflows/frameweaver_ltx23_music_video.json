@@ -1,0 +1,329 @@
+{
+    "id": "frameweaver-music-video",
+    "version": 1,
+    "revision": 0,
+    "config": {},
+    "extra": {
+        "info": {
+            "name": "FrameWeaver Music Video Pipeline",
+            "description": "Audio-driven video generation: AudioSplitter → WhisperTranscriber → auto-prompted scenes → AutoQueue → post-processing → SmartAssembler with audio mux.",
+            "author": "balarooty",
+            "version": "3.0.0"
+        }
+    },
+    "definitions": [],
+    "groups": [
+        {
+            "id": 1,
+            "title": "Audio Input & Splitting",
+            "bounding": [-1200, 100, 1000, 700],
+            "color": "#4a6e1a",
+            "font_size": 24
+        },
+        {
+            "id": 2,
+            "title": "AI Transcription & Prompt Planning",
+            "bounding": [-100, 100, 1200, 700],
+            "color": "#1a1a6e",
+            "font_size": 24
+        },
+        {
+            "id": 3,
+            "title": "Generation & Auto-Queue",
+            "bounding": [1200, 100, 1000, 700],
+            "color": "#6e4a1a",
+            "font_size": 24
+        },
+        {
+            "id": 4,
+            "title": "Post-Processing Chain",
+            "bounding": [2300, 100, 1200, 700],
+            "color": "#6e1a4a",
+            "font_size": 24
+        },
+        {
+            "id": 5,
+            "title": "Final Assembly",
+            "bounding": [3600, 100, 800, 700],
+            "color": "#1a6e4a",
+            "font_size": 24
+        },
+        {
+            "id": 6,
+            "title": "📋 Instructions",
+            "bounding": [-1200, -300, 4600, 300],
+            "color": "#6e6e1a",
+            "font_size": 24
+        }
+    ],
+    "nodes": [
+        {
+            "id": 1,
+            "type": "MarkdownNote",
+            "pos": [-1100, -200],
+            "size": [4400, 200],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "properties": {},
+            "widgets_values": [
+                "# FrameWeaver Music Video Pipeline\n\n## How to use:\n1. Load your music audio into the LoadAudio node\n2. FW_AudioSplitter splits it into 5 × 4s chunks with 8n+1 frame alignment\n3. FW_WhisperTranscriber extracts lyrics from each chunk (or use fallback_words for manual prompting)\n4. The pipe_text feeds into FW_ScenePromptEvolver for auto-prompted scenes\n5. FW_AutoQueue manages multi-chunk generation — enable auto_queue for hands-free runs\n6. Each chunk passes through ColorMatch → FilmGrain → CinematicPolish for consistent cinematic look\n7. FW_SmartAssembler joins all chunks with crossfade transitions and muxes the original audio\n\n**Connect your LTX 2.3 subgraph between FW_ContinuityEncoder and FW_DecodeVideo.**"
+            ]
+        },
+        {
+            "id": 10,
+            "type": "LoadImage",
+            "pos": [-1100, 200],
+            "size": [300, 300],
+            "flags": {},
+            "order": 1,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+                {"name": "IMAGE", "type": "IMAGE", "links": [1, 20]},
+                {"name": "MASK", "type": "MASK", "links": []}
+            ],
+            "properties": {"Node name for S&R": "LoadImage"},
+            "widgets_values": ["reference_frame.png", "image"]
+        },
+        {
+            "id": 11,
+            "type": "FW_AudioSplitter",
+            "pos": [-700, 200],
+            "size": [450, 350],
+            "flags": {},
+            "order": 2,
+            "mode": 0,
+            "inputs": [
+                {"name": "audio", "type": "AUDIO", "link": null}
+            ],
+            "outputs": [
+                {"name": "audio_meta", "type": "FW_AUDIO_META", "links": [2, 14]},
+                {"name": "total_duration", "type": "FLOAT", "links": []},
+                {"name": "audio_1", "type": "AUDIO", "links": [3]},
+                {"name": "audio_2", "type": "AUDIO", "links": [4]},
+                {"name": "audio_3", "type": "AUDIO", "links": [5]},
+                {"name": "audio_4", "type": "AUDIO", "links": [6]},
+                {"name": "audio_5", "type": "AUDIO", "links": [7]}
+            ],
+            "properties": {"Node name for S&R": "FW_AudioSplitter"},
+            "widgets_values": [5, 4.0, 24, true]
+        },
+        {
+            "id": 12,
+            "type": "FW_WhisperTranscriber",
+            "pos": [0, 200],
+            "size": [500, 400],
+            "flags": {},
+            "order": 3,
+            "mode": 0,
+            "inputs": [
+                {"name": "audio_1", "type": "AUDIO", "link": 3},
+                {"name": "audio_2", "type": "AUDIO", "link": 4},
+                {"name": "audio_3", "type": "AUDIO", "link": 5},
+                {"name": "audio_4", "type": "AUDIO", "link": 6},
+                {"name": "audio_5", "type": "AUDIO", "link": 7}
+            ],
+            "outputs": [
+                {"name": "pipe_text", "type": "STRING", "links": [8]},
+                {"name": "scene_1_text", "type": "STRING", "links": []},
+                {"name": "scene_2_text", "type": "STRING", "links": []},
+                {"name": "scene_3_text", "type": "STRING", "links": []},
+                {"name": "scene_4_text", "type": "STRING", "links": []},
+                {"name": "scene_5_text", "type": "STRING", "links": []}
+            ],
+            "properties": {"Node name for S&R": "FW_WhisperTranscriber"},
+            "widgets_values": [5, "openai/whisper-base", "english", true, 0.0, "dancing, singing, moving, performing, rocking"]
+        },
+        {
+            "id": 13,
+            "type": "FW_ScenePromptEvolver",
+            "pos": [600, 200],
+            "size": [450, 350],
+            "flags": {},
+            "order": 4,
+            "mode": 0,
+            "inputs": [
+                {"name": "pipe_text_input", "type": "STRING", "link": 8}
+            ],
+            "outputs": [
+                {"name": "scene_prompts", "type": "FW_SCENE_PROMPTS", "links": [9]}
+            ],
+            "properties": {"Node name for S&R": "FW_ScenePromptEvolver"},
+            "widgets_values": [
+                "cinematic music video, dynamic camera movement, vibrant colors, concert lighting",
+                "blurry, distorted, low quality, static",
+                "cumulative",
+                5
+            ]
+        },
+        {
+            "id": 14,
+            "type": "FW_ScenePromptSelector",
+            "pos": [600, 600],
+            "size": [300, 150],
+            "flags": {},
+            "order": 5,
+            "mode": 0,
+            "inputs": [
+                {"name": "scene_prompts", "type": "FW_SCENE_PROMPTS", "link": 9},
+                {"name": "scene_index_override", "type": "INT", "link": 13}
+            ],
+            "outputs": [
+                {"name": "positive", "type": "STRING", "links": [10]},
+                {"name": "negative", "type": "STRING", "links": []}
+            ],
+            "properties": {"Node name for S&R": "FW_ScenePromptSelector"},
+            "widgets_values": [1]
+        },
+        {
+            "id": 15,
+            "type": "FW_ContinuityEncoder",
+            "pos": [1000, 200],
+            "size": [350, 200],
+            "flags": {},
+            "order": 6,
+            "mode": 0,
+            "inputs": [
+                {"name": "scene_prompt", "type": "STRING", "link": 10}
+            ],
+            "outputs": [
+                {"name": "positive_prompt", "type": "STRING", "links": []},
+                {"name": "continuity_state", "type": "FW_CONTINUITY_STATE", "links": []}
+            ],
+            "properties": {"Node name for S&R": "FW_ContinuityEncoder"},
+            "widgets_values": [0.5]
+        },
+        {
+            "id": 16,
+            "type": "FW_AutoQueue",
+            "pos": [1300, 200],
+            "size": [400, 300],
+            "flags": {},
+            "order": 7,
+            "mode": 0,
+            "inputs": [
+                {"name": "audio_meta", "type": "FW_AUDIO_META", "link": 2}
+            ],
+            "outputs": [
+                {"name": "chunk_index", "type": "INT", "links": [13]},
+                {"name": "total_chunks", "type": "INT", "links": []},
+                {"name": "instructions", "type": "STRING", "links": []},
+                {"name": "output_folder", "type": "STRING", "links": []}
+            ],
+            "properties": {"Node name for S&R": "FW_AutoQueue"},
+            "widgets_values": ["MusicVideo", true, "skip"]
+        },
+        {
+            "id": 30,
+            "type": "FW_ColorMatch",
+            "pos": [2400, 200],
+            "size": [350, 200],
+            "flags": {},
+            "order": 8,
+            "mode": 0,
+            "inputs": [
+                {"name": "images", "type": "IMAGE", "link": null},
+                {"name": "reference", "type": "IMAGE", "link": 20}
+            ],
+            "outputs": [
+                {"name": "IMAGE", "type": "IMAGE", "links": [15]}
+            ],
+            "properties": {"Node name for S&R": "FW_ColorMatch"},
+            "widgets_values": []
+        },
+        {
+            "id": 31,
+            "type": "FW_FilmGrain",
+            "pos": [2400, 450],
+            "size": [350, 180],
+            "flags": {},
+            "order": 9,
+            "mode": 0,
+            "inputs": [
+                {"name": "images", "type": "IMAGE", "link": 15}
+            ],
+            "outputs": [
+                {"name": "IMAGE", "type": "IMAGE", "links": [16]}
+            ],
+            "properties": {"Node name for S&R": "FW_FilmGrain"},
+            "widgets_values": [0.3, 0.4]
+        },
+        {
+            "id": 32,
+            "type": "FW_CinematicPolish",
+            "pos": [2850, 200],
+            "size": [350, 200],
+            "flags": {},
+            "order": 10,
+            "mode": 0,
+            "inputs": [
+                {"name": "images", "type": "IMAGE", "link": 16}
+            ],
+            "outputs": [
+                {"name": "IMAGE", "type": "IMAGE", "links": [17]}
+            ],
+            "properties": {"Node name for S&R": "FW_CinematicPolish"},
+            "widgets_values": ["unsharp", 0.5]
+        },
+        {
+            "id": 33,
+            "type": "FW_SceneCollector",
+            "pos": [3300, 200],
+            "size": [350, 200],
+            "flags": {},
+            "order": 11,
+            "mode": 0,
+            "inputs": [
+                {"name": "scene_images", "type": "IMAGE", "link": 17}
+            ],
+            "outputs": [
+                {"name": "scene_collection", "type": "FW_SCENE_COLLECTION", "links": [18]}
+            ],
+            "properties": {"Node name for S&R": "FW_SceneCollector"},
+            "widgets_values": []
+        },
+        {
+            "id": 34,
+            "type": "FW_SmartAssembler",
+            "pos": [3700, 200],
+            "size": [450, 350],
+            "flags": {},
+            "order": 12,
+            "mode": 0,
+            "inputs": [
+                {"name": "scene_collection", "type": "FW_SCENE_COLLECTION", "link": 18},
+                {"name": "audio_meta", "type": "FW_AUDIO_META", "link": 14}
+            ],
+            "outputs": [
+                {"name": "IMAGE", "type": "IMAGE", "links": []},
+                {"name": "video_path", "type": "STRING", "links": []}
+            ],
+            "properties": {"Node name for S&R": "FW_SmartAssembler"},
+            "widgets_values": ["crossfade", 4, 24, "music_video_output", true]
+        }
+    ],
+    "links": [
+        [1, 10, 0, 11, 0, "IMAGE"],
+        [2, 11, 0, 16, 0, "FW_AUDIO_META"],
+        [3, 11, 2, 12, 0, "AUDIO"],
+        [4, 11, 3, 12, 1, "AUDIO"],
+        [5, 11, 4, 12, 2, "AUDIO"],
+        [6, 11, 5, 12, 3, "AUDIO"],
+        [7, 11, 6, 12, 4, "AUDIO"],
+        [8, 12, 0, 13, 0, "STRING"],
+        [9, 13, 0, 14, 0, "FW_SCENE_PROMPTS"],
+        [10, 14, 0, 15, 0, "STRING"],
+        [13, 16, 0, 14, 1, "INT"],
+        [14, 11, 0, 34, 1, "FW_AUDIO_META"],
+        [15, 30, 0, 31, 0, "IMAGE"],
+        [16, 31, 0, 32, 0, "IMAGE"],
+        [17, 32, 0, 33, 0, "IMAGE"],
+        [18, 33, 0, 34, 0, "FW_SCENE_COLLECTION"],
+        [20, 10, 0, 30, 1, "IMAGE"]
+    ],
+    "last_node_id": 34,
+    "last_link_id": 20
+}

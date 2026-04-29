@@ -1,12 +1,26 @@
 [project]
 name = "comfyui-frameweaver"
-version = "0.1.0"
-description = "FrameWeaver custom nodes and workflows for multi-scene ComfyUI LTX 2.3 video generation."
+version = "3.0.0"
+description = "30-node stateful video generation system for LTX 2.3 with continuity, post-processing, audio automation, and AI transcription."
+license = {text = "MIT"}
 requires-python = ">=3.10"
 dependencies = []
 
 [project.optional-dependencies]
+postprocess = ["kornia>=0.7"]
+audio = ["torchaudio>=2.0"]
+whisper = ["transformers>=4.36", "torchaudio>=2.0"]
+all = ["kornia>=0.7", "torchaudio>=2.0", "transformers>=4.36"]
 test = ["pytest>=8"]
+
+[project.urls]
+Repository = "https://github.com/balarooty/comfyui-frameweaver"
+Documentation = "https://github.com/balarooty/comfyui-frameweaver/blob/main/tutorial.md"
+
+[tool.comfy]
+PublisherId = "balarooty"
+DisplayName = "FrameWeaver"
+Icon = "🎬"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

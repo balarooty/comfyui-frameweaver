@@ -1,110 +1,268 @@
-# ComfyUI-FrameWeaver v2 Implementation Plan
+# ComfyUI-FrameWeaver v3 — Implementation Plan
 
-FrameWeaver is a ComfyUI custom node pack for building multi-scene LTX 2.3
-video workflows. The custom nodes handle scene planning, prompt continuity,
-frame-count validation, bridge prompts, scene collection, checkpoint metadata,
-and final frame assembly. LTX generation remains delegated to the supported
-stock LTX 2.3 nodes from `example-workflow/` so fp8 checkpoint and distilled
-LoRA wiring stays compatible with ComfyUI updates.
+> **Updated:** 2026-04-29 — Incorporates learnings from [VRGameDevGirl](https://github.com/vrgamegirl19/comfyui-vrgamedevgirl) and [WhatDreamsCost](https://github.com/WhatDreamsCost/WhatDreamsCost-ComfyUI).
+
+FrameWeaver is a ComfyUI custom node pack for automated, cinematic multi-scene LTX 2.3 video workflows. It replaces cumbersome manual DAG wiring with a real-time synced Sequencer architecture featuring audio-driven scene durations, automated prompt continuity, multi-image gallery loading, and cinematic post-processing.
+
+LTX generation remains delegated to the stock LTX 2.3 nodes (fp8 checkpoints, distilled LoRAs, Gemma-3 text encoder, optional latent upscaler).
+
+---
+
+## Gap Analysis — What We're Missing vs. The Competition
+
+| Capability | VRGameDevGirl | WhatDreamsCost | FrameWeaver v2 | **v3 Target** |
+|---|---|---|---|---|
+| Multi-Image Loader with gallery & resize | ❌ | ✅ (50 outputs, gallery JS, resize) | ❌ (basic starter frame) | ✅ **Adopt** |
+| Real-time widget sync across nodes | ❌ | ✅ (JS-side sync on Sequencer) | ❌ (planned, not built) | ✅ **Adopt** |
+| Seconds ↔ Frames toggle | ❌ | ✅ (`insert_mode` on Sequencer) | ❌ | ✅ **Adopt** |
+| Speech Length Calculator | ❌ | ✅ (WPM-based, real-time) | ❌ | ✅ **Adopt** |
+| Film Grain (batch-safe) | ✅ (kornia, batch_size limiter) | ❌ | ❌ (planned) | ✅ **Port** |
+| Color Match LAB | ✅ (kornia, batch-safe) | ❌ | ❌ (planned) | ✅ **Port** |
+| Sharpening (Unsharp/Laplacian/Sobel) | ✅ (CPU+GPU dual-path) | ❌ | ❌ (planned) | ✅ **Port** |
+| 3D LUT Loader + LUT Creator | ✅ (.cube parser, palette-to-LUT) | ❌ | ❌ | ✅ **New** |
+| Audio Split (dynamic scenes) | ✅ (50 scenes, HUMO mode) | ❌ | ❌ (basic duration calc) | ✅ **Port** |
+| Whisper Transcription → Lyrics | ✅ (whisper-large-v3, per-scene) | ❌ | ❌ | ✅ **New** |
+| Prompt Splitter (pipe-delimited) | ✅ (dynamic outputs) | ❌ | partial | ✅ **Enhance** |
+| Video Combine + Trim/Pad | ✅ (meta-driven, crossfade) | ❌ | partial (SmartAssembler) | ✅ **Enhance** |
+| Auto-Queue (multi-run orchestration) | ✅ (`PromptServer.send_sync`) | ❌ | ❌ | ✅ **New** |
+| Preroll frame compensation | ✅ (+6 preroll, +8 tail-loss) | ❌ | ❌ | ✅ **New** |
+| LTX Sequencer (multi-guide FFLF) | ❌ | ✅ (extends `LTXVAddGuide`, 50 frames) | partial (single guide) | ✅ **Enhance** |
+| Frame Math (`8n+1`) | ✅ | ❌ | ✅ | ✅ Keep |
+
+---
 
 ## Scope
 
-### MVP
+### MVP (Phases 1–3)
 
-1. Use the stock LTX 2.3 image-to-video graph:
-   - checkpoint: `ltx-2.3-22b-dev-fp8.safetensors`
-   - distilled LoRA: `ltx-2.3-22b-distilled-lora-384.safetensors`
-   - prompt-enhancer text encoder: `gemma_3_12B_it_fp4_mixed.safetensors`
-   - optional prompt-enhancer LoRA:
-     `gemma-3-12b-it-abliterated_lora_rank64_bf16.safetensors`
-   - optional latent upscaler:
-     `ltx-2.3-spatial-upscaler-x2-1.1.safetensors`
-2. Add FrameWeaver utility nodes around the stock graph.
-3. Provide loadable workflows that connect FrameWeaver nodes to the stock LTX
-   2.3 subgraph.
-4. Support manual scene chains first, because ComfyUI workflows are DAGs and do
-   not natively loop.
+1. **Core LTX 2.3 Integration** — Stock LTX 2.3 I2V graph
+2. **Multi-Image Gallery Loader** — 50 outputs, resize modes, compression, drag-and-drop
+3. **LTX Sequencer** — Extends `LTXVAddGuide` with seconds/frames toggle, per-image strength, JS sync
+4. **Audio Split + Duration Calc** — Dynamic chunking with `8n+1` enforcement, speech-length estimation
+5. **Post-Processing Suite** — Film grain, color match, sharpening (all batch-safe)
+6. **LUT System** — `.cube` 3D LUT loader + palette-based LUT creator
 
-### Advanced
+### Advanced (Phases 4–6)
 
-1. Add Qwen image-edit bridge workflows using the local Qwen examples.
-2. Add checkpoint resume helpers for long chains.
-3. Add optional motion blending or interpolation only after simple assembly is
-   stable.
+1. **Auto-Queue Orchestration** — Multi-run chunked generation with preroll/tail-loss compensation
+2. **Whisper Transcription** — Per-scene lyric extraction driving prompt evolution
+3. **Full Music Video Pipeline** — End-to-end audio → lyrics → scenes → combine → export
+
+---
 
 ## Architecture
 
 ```mermaid
 graph TD
-    A["FW_ScenePromptEvolver"] --> B["FW_ScenePromptSelector"]
-    C["FW_StyleAnchor"] --> D["FW_ContinuityEncoder"]
-    B --> D
-    E["FW_LTX23Settings"] --> F["Stock LTX 2.3 I2V Subgraph"]
-    D --> F
-    G["LoadImage"] --> H["FW_LoadStarterFrame"]
-    H --> C
-    H --> F
-    F --> I["SaveVideo"]
+    subgraph "INPUT LAYER"
+        A["FW_MultiImageLoader<br/>(Gallery + Resize)"]
+        B["FW_AudioSplitter<br/>(Dynamic Scene Chunks)"]
+        C["FW_SpeechLengthCalc<br/>(WPM → Frames)"]
+    end
 
-    F -. "for manual multi-scene chains" .-> J["FW_LastFrameExtractor"]
-    J --> K["FW_FrameBridge"]
-    K --> F
-    F --> L["FW_SceneCollector"]
-    L --> M["FW_SmartAssembler"]
+    subgraph "SEQUENCING LAYER"
+        D["FW_GlobalSequencer<br/>(Real-time JS Sync)"]
+        E["FW_ScenePromptEvolver<br/>(Pipe-Split + Inherit)"]
+        F["FW_LTX23Settings<br/>(8n+1 + Model Select)"]
+    end
+
+    subgraph "GENERATION LAYER"
+        G["FW_LTXSequencer<br/>(Multi-Guide FFLF)"]
+        H["Stock LTX 2.3 I2V Subgraph"]
+        I["FW_PrerollCompensator<br/>(+6 preroll, +8 tail)"]
+    end
+
+    subgraph "POST-PROCESSING LAYER"
+        J["FW_ColorMatch<br/>(LAB, batch-safe)"]
+        K["FW_CinematicPolish<br/>(Grain + Sharpen)"]
+        L["FW_LUTApply<br/>(.cube 3D LUT)"]
+    end
+
+    subgraph "OUTPUT LAYER"
+        M["FW_SceneCollector"]
+        N["FW_SmartAssembler<br/>(Crossfade + Audio Mux)"]
+        O["FW_AutoQueue<br/>(Multi-Run Orchestrator)"]
+    end
+
+    A --> D
+    B --> D
+    C --> D
+    D --> E & F
+    E --> G
+    F --> G
+    A --> G
+    G --> H
+    I --> H
+    H --> J --> K --> L --> M --> N --> O
 ```
 
-## Node Inventory
+---
 
-| Node | Purpose |
-| --- | --- |
-| `FW_ScenePromptEvolver` | Builds up to five inherited scene prompts plus negative prompts and bridge prompts. |
-| `FW_ScenePromptSelector` | Selects one scene from a `FW_PROMPT_LIST` for manual DAG wiring. |
-| `FW_SceneDurationList` | Validates per-scene frame counts to LTX `8n+1` values. |
-| `FW_LoadStarterFrame` | Resizes a loaded image tensor to dimensions safe for LTX. |
-| `FW_StyleAnchor` | Stores a reference image plus stable style/character description. |
-| `FW_ContinuityEncoder` | Produces a continuity-aware text prompt from a scene prompt and style anchor. |
-| `FW_LTX23Settings` | Emits model names and validated width, height, frame count, fps, duration. |
-| `FW_LatentVideoInit` | Generic latent initializer for tests and non-stock experiments. Stock workflows use `EmptyLTXVLatentVideo`. |
-| `FW_LatentGuideInjector` | Generic latent guide helper. Stock workflows use `LTXVImgToVideoInplace`. |
-| `FW_SceneSampler` | Sampler settings helper. Stock workflows use `SamplerCustomAdvanced`. |
-| `FW_DecodeVideo` | Generic VAE decode helper. Stock workflows use `VAEDecodeTiled`. |
-| `FW_LastFrameExtractor` | Extracts the last frame from an `IMAGE` batch. |
-| `FW_FrameBridge` | Builds a structured keep/change prompt for a bridge image-edit step. |
-| `FW_SceneCollector` | Accumulates scene frames and metadata in `FW_SCENE_COLLECTION`. |
-| `FW_SmartAssembler` | Concatenates or crossfades image batches before `CreateVideo`. |
-| `FW_QuickPipeline` | Emits ready-to-connect prompts and settings for a simple two-scene setup. |
+## Node Inventory (25 Nodes)
 
-## Workflow Strategy
+### Input Nodes (4)
 
-`workflows/frameweaver_ltx23_i2v_single_scene.json` is based on
-`example-workflow/video_ltx2_3_i2v.json`. It keeps the stock LTX 2.3 subgraph
-and connects FrameWeaver nodes to its image, prompt, model, LoRA, dimensions,
-length, and fps inputs where the ComfyUI template exposes connectable sockets.
+| Node | Status | Source | Purpose |
+|---|---|---|---|
+| `FW_MultiImageLoader` | **NEW** | WDC `MultiImageLoader` | Gallery UI, 50 outputs, resize (keep/stretch/pad/crop), compression |
+| `FW_AudioSplitter` | **NEW** | VRGDG `LoadAudioSplit_General` | Split audio into per-scene chunks, fixed + custom duration modes |
+| `FW_SpeechLengthCalc` | **NEW** | WDC `SpeechLengthCalculator` | Real-time WPM calc (slow/avg/fast) from quoted speech |
+| `FW_LoadStarterFrame` | EXISTS | — | Single image loader for first-scene init |
 
-`workflows/frameweaver_ltx23_ia2v_single_scene.json` follows the audio workflow
-and connects the same settings and prompt helpers, plus the audio input.
+### Sequencing Nodes (4)
 
-Manual multi-scene workflows should duplicate the stock LTX scene block per
-scene. The last frame from scene N can feed `FW_FrameBridge` and then the next
-scene's first-frame input after a Qwen edit node or another image-reference
-step.
+| Node | Status | Source | Purpose |
+|---|---|---|---|
+| `FW_GlobalSequencer` | **NEW** | WDC JS sync | Real-time sync of FPS/resolution/scene-index via JS callbacks |
+| `FW_ScenePromptEvolver` | ENHANCE | VRGDG `PromptSplitter` | Pipe-delimited split + per-scene context overlay |
+| `FW_SceneDurationList` | EXISTS | — | Per-scene duration list with `8n+1` enforcement |
+| `FW_LTX23Settings` | EXISTS | — | Model selection + dimension/frame validation |
 
-## Technical Constraints
+### Generation Nodes (6)
 
-- LTX 2.3 frame counts must be `8n+1`.
-- Width and height are rounded to multiples of 32.
-- Image tensors are ComfyUI `IMAGE` tensors: `[B, H, W, C]`, float, `0..1`.
-- The fp8 checkpoint and distilled LoRA should be loaded by stock nodes, not by
-  custom code.
-- ComfyUI workflows are DAGs. `FW_QuickPipeline` can prepare values, but it
-  cannot internally execute a dynamic loop in the UI graph.
+| Node | Status | Source | Purpose |
+|---|---|---|---|
+| `FW_LTXSequencer` | **NEW** | WDC `LTXSequencer` | Extends `LTXVAddGuide` — multi-guide FFLF, seconds/frames, per-image strength |
+| `FW_PrerollCompensator` | **NEW** | VRGDG preroll | +6 preroll, +8 tail-loss, trim after generation |
+| `FW_LatentVideoInit` | EXISTS | — | Initialize blank latent |
+| `FW_LatentGuideInjector` | EXISTS | — | Single-guide injection (simple workflows) |
+| `FW_SceneSampler` | EXISTS | — | KSampler wrapper |
+| `FW_DecodeVideo` | EXISTS | — | VAE decode |
 
-## Verification
+### Continuity Nodes (3)
 
-1. Import the custom node package with only stdlib dependencies.
-2. Unit test prompt evolution, frame validation, continuity prompt generation,
-   and scene collection.
-3. Validate workflow JSON references existing FrameWeaver node class names and
-   preserves the stock LTX 2.3 model/LoRA filenames.
-4. Runtime validation inside ComfyUI requires the LTX node pack and model files
-   installed in the directories documented by the stock example workflow.
+| Node | Status | Purpose |
+|---|---|---|
+| `FW_StyleAnchor` | EXISTS | Reference image + style description storage |
+| `FW_ContinuityEncoder` | EXISTS | Encode style anchor for conditioning |
+| `FW_FrameBridge` | EXISTS | Pass last frame → next scene |
+
+### Post-Processing Nodes (5)
+
+| Node | Status | Source | Purpose |
+|---|---|---|---|
+| `FW_ColorMatch` | **NEW** | VRGDG `ColorMatchToReference` | LAB color-space matching, kornia, batch_size limiter |
+| `FW_CinematicPolish` | **NEW** | VRGDG sharpen nodes | Unified: Unsharp/Laplacian/Sobel modes, CPU+GPU dual-path |
+| `FW_FilmGrain` | **NEW** | VRGDG `FastFilmGrain` | Grain intensity + saturation_mix, batch_size limiter |
+| `FW_LUTApply` | **NEW** | VRGDG `VRGDG_LUTS` | `.cube` 3D LUT parser with trilinear interp + strength blend |
+| `FW_LUTCreate` | **NEW** | VRGDG `VRGDG_MakeLUT` | Hex color palette → `.cube` LUT file generator |
+
+### Output Nodes (3)
+
+| Node | Status | Source | Purpose |
+|---|---|---|---|
+| `FW_SceneCollector` | EXISTS | — | Accumulate scenes in memory |
+| `FW_SmartAssembler` | ENHANCE | VRGDG `CombineVideosV2` | Meta-driven trim/pad, ffmpeg audio mux, crossfade |
+| `FW_AutoQueue` | **NEW** | VRGDG auto-queue | `PromptServer.send_sync` for multi-run orchestration |
+
+---
+
+## Technical Design Decisions
+
+### 1. Frame Math (Critical)
+
+```python
+# LTX 2.3 requires 8n+1 frames (9, 17, 25, ..., 241)
+def nearest_valid_frame_count(frames: int) -> int:
+    n = max(1, round((frames - 1) / 8))
+    return 8 * n + 1
+```
+
+### 2. Preroll + Tail-Loss Compensation (from VRGDG)
+
+- **Preroll:** +6 frames prepended (overlap with previous scene)
+- **Tail-loss:** +8 frames appended (LTX drops 7–8 trailing frames)
+- After generation, trim to exact target frame count
+
+### 3. Batch-Safe VRAM Pattern (from VRGDG)
+
+```python
+def process(self, images, batch_size, ...):
+    outputs = []
+    for i in range(0, images.shape[0], batch_size):
+        batch = images[i:i + batch_size].to(device)
+        result = self._process_batch(batch)
+        outputs.append(result.cpu())
+        del batch; torch.cuda.empty_cache()
+    return (torch.cat(outputs, dim=0),)
+```
+
+### 4. Real-Time JS Sync (from WDC)
+
+JS extension registers `nodeCreated` callback → on widget change, broadcasts to all sibling nodes → backend receives synced values.
+
+### 5. Auto-Queue Pattern (from VRGDG)
+
+```python
+from server import PromptServer
+def _auto_queue(self, total_chunks, current_index, enabled):
+    if not enabled or current_index != 0:
+        return
+    for _ in range(total_chunks - 1):
+        PromptServer.instance.send_sync("impact-add-queue", {})
+```
+
+### 6. Audio Resampling Safety
+
+Always resample to 44.1kHz before splitting for consistent frame calculations.
+
+---
+
+## Dependencies
+
+```
+kornia          # LAB color matching
+librosa         # Audio loading
+imageio         # Video frame I/O
+torchaudio      # Audio metadata, resampling
+transformers    # Optional: Whisper (Phase 5)
+```
+
+---
+
+## Implementation Phases
+
+### Phase 1 — Foundation (Input + Sequencing)
+
+- [ ] **1.1** `FW_MultiImageLoader` — Gallery JS, 50 outputs, resize modes, compression
+- [ ] **1.2** `FW_GlobalSequencer` — JS real-time sync of FPS/resolution/scene-index
+- [ ] **1.3** `FW_SpeechLengthCalc` — Quoted-text WPM calculator (3 speeds)
+- [ ] **1.4** Enhance `FW_ScenePromptEvolver` — Pipe-delimited split + dynamic outputs
+- [ ] **Verify:** 5 images → sequencer synced → speech calc outputs valid frames
+
+### Phase 2 — Generation Pipeline
+
+- [ ] **2.1** `FW_LTXSequencer` — Extends `LTXVAddGuide`, seconds/frames, 50 guides
+- [ ] **2.2** `FW_PrerollCompensator` — Preroll +6, tail-loss +8, post-trim
+- [ ] **2.3** Enhance `FW_LTX23Settings` — Seconds↔frames toggle, audio-connected duration
+- [ ] **Verify:** 3-scene FFLF generates correctly, smooth transitions
+
+### Phase 3 — Post-Processing Suite
+
+- [ ] **3.1** `FW_ColorMatch` — LAB matching, kornia, batch_size limiter
+- [ ] **3.2** `FW_FilmGrain` — Intensity + saturation, batch-safe
+- [ ] **3.3** `FW_CinematicPolish` — Unified sharpen (3 modes), CPU+GPU
+- [ ] **3.4** `FW_LUTApply` — `.cube` parser, trilinear interp, strength blend
+- [ ] **3.5** `FW_LUTCreate` — Hex palette → `.cube` generator
+- [ ] **Verify:** Full chain on 97 frames without OOM (8GB VRAM)
+
+### Phase 4 — Audio Automation
+
+- [ ] **4.1** `FW_AudioSplitter` — Fixed + custom duration, silence pad, stereo
+- [ ] **4.2** `FW_AutoQueue` — PromptServer auto-queue, folder indexing, override
+- [ ] **4.3** Enhance `FW_SmartAssembler` — Meta trim/pad, ffmpeg audio mux
+- [ ] **Verify:** 2-min audio → auto-split → auto-queue → assembled with audio
+
+### Phase 5 — AI-Powered Lyrics
+
+- [ ] **5.1** `FW_WhisperTranscriber` — Per-chunk Whisper, language select, fallbacks
+- [ ] **5.2** Wire transcription → prompt evolver — Auto-populate from lyrics
+- [ ] **Verify:** Music → per-scene lyrics → prompts → video
+
+### Phase 6 — Polish & Publish
+
+- [ ] **6.1** Example workflows (Quick I2V, Multi-Scene FFLF, Music Video)
+- [ ] **6.2** Frontend JS polish — colors, categories, tooltips
+- [ ] **6.3** README with install, tutorials, screenshots
+- [ ] **6.4** `pyproject.toml` for ComfyUI Manager
+- [ ] **6.5** Unit tests (frame math, audio split, color match)

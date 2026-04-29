@@ -229,7 +229,7 @@
             ],
             "type": "INT"
           },
-           {
+          {
             "id": "d7255058-319a-4880-8f9a-7e542c8f3c3c",
             "linkIds": [
               601,
@@ -241,9 +241,9 @@
               1020.162109375,
               5074
             ],
-            "type": "STRING"
+            "type": "COMBO"
           },
-           {
+          {
             "id": "4afce68d-8f65-4342-9d6d-ae0a7688c3e3",
             "label": "distilled_lora",
             "linkIds": [
@@ -254,9 +254,9 @@
               1020.162109375,
               5094
             ],
-            "type": "STRING"
+            "type": "COMBO"
           },
-           {
+          {
             "id": "ab842b4b-c977-4679-b421-424722785b57",
             "linkIds": [
               606
@@ -266,9 +266,9 @@
               1020.162109375,
               5114
             ],
-            "type": "STRING"
+            "type": "COMBO"
           },
-           {
+          {
             "id": "9e47372d-28d9-4311-91e9-e90d03f4eb43",
             "label": "latent_upscale_model",
             "linkIds": [
@@ -279,7 +279,7 @@
               1020.162109375,
               5134
             ],
-            "type": "STRING"
+            "type": "COMBO"
           },
           {
             "id": "de51f04f-4ebc-4407-b1b7-779273aa9e08",
@@ -4188,8 +4188,8 @@
   },
   "groups": [],
   "id": "07824bbb-6672-4bb0-ac36-4313a519e35b",
-  "last_link_id": 628,
-  "last_node_id": 276,
+  "last_link_id": 627,
+  "last_node_id": 275,
   "links": [
     [
       594,
@@ -4281,14 +4281,6 @@
     ],
     [
       620,
-      276,
-      0,
-      267,
-      2,
-      "BOOLEAN"
-    ],
-    [
-      621,
       270,
       0,
       267,
@@ -4296,7 +4288,7 @@
       "INT"
     ],
     [
-      622,
+      621,
       270,
       1,
       267,
@@ -4304,7 +4296,7 @@
       "INT"
     ],
     [
-      623,
+      622,
       270,
       2,
       267,
@@ -4312,44 +4304,44 @@
       "INT"
     ],
     [
+      623,
+      270,
+      5,
+      267,
+      6,
+      "COMBO"
+    ],
+    [
       624,
+      270,
+      6,
+      267,
+      7,
+      "COMBO"
+    ],
+    [
+      625,
+      270,
+      7,
+      267,
+      8,
+      "COMBO"
+    ],
+    [
+      626,
+      270,
+      8,
+      267,
+      9,
+      "COMBO"
+    ],
+    [
+      627,
       270,
       3,
       267,
       11,
       "INT"
-    ],
-    [
-      625,
-      270,
-      5,
-      267,
-      6,
-      "STRING"
-    ],
-    [
-      626,
-      270,
-      6,
-      267,
-      7,
-      "STRING"
-    ],
-    [
-      627,
-      270,
-      7,
-      267,
-      8,
-      "STRING"
-    ],
-    [
-      628,
-      270,
-      8,
-      267,
-      9,
-      "STRING"
     ]
   ],
   "nodes": [
@@ -4484,47 +4476,47 @@
         {
           "name": "value_1",
           "type": "BOOLEAN",
-          "link": 620,
+          "link": null,
           "label": "disable_i2v"
         },
         {
           "name": "value_2",
           "type": "INT",
-          "link": 621,
+          "link": 620,
           "label": "width"
         },
         {
           "name": "value_3",
           "type": "INT",
-          "link": 622,
+          "link": 621,
           "label": "height"
         },
         {
           "name": "value_4",
           "type": "INT",
-          "link": 623,
+          "link": 622,
           "label": "length"
         },
         {
           "name": "ckpt_name",
-          "type": "STRING",
-          "link": 625
+          "type": "COMBO",
+          "link": 623
         },
         {
           "name": "lora_name",
-          "type": "STRING",
-          "link": 626,
+          "type": "COMBO",
+          "link": 624,
           "label": "distilled_lora"
         },
         {
           "name": "text_encoder",
-          "type": "STRING",
-          "link": 627
+          "type": "COMBO",
+          "link": 625
         },
         {
           "name": "model_name",
-          "type": "STRING",
-          "link": 628,
+          "type": "COMBO",
+          "link": 626,
           "label": "latent_upscale_model"
         },
         {
@@ -4536,7 +4528,7 @@
         {
           "name": "value_5",
           "type": "INT",
-          "link": 624,
+          "link": 627,
           "label": "fps"
         }
       ],
@@ -4636,7 +4628,7 @@
       ],
       "size": [
         420,
-        380
+        260
       ],
       "flags": {},
       "order": 270,
@@ -4648,7 +4640,7 @@
           "type": "INT",
           "links": [
             611,
-            621
+            620
           ]
         },
         {
@@ -4656,21 +4648,21 @@
           "type": "INT",
           "links": [
             612,
-            622
+            621
           ]
         },
         {
           "name": "frames",
           "type": "INT",
           "links": [
-            623
+            622
           ]
         },
         {
           "name": "fps",
           "type": "INT",
           "links": [
-            624
+            627
           ]
         },
         {
@@ -4680,30 +4672,30 @@
         },
         {
           "name": "checkpoint_name",
-          "type": "STRING",
+          "type": "COMBO",
+          "links": [
+            623
+          ]
+        },
+        {
+          "name": "distilled_lora_name",
+          "type": "COMBO",
+          "links": [
+            624
+          ]
+        },
+        {
+          "name": "text_encoder_name",
+          "type": "COMBO",
           "links": [
             625
           ]
         },
         {
-          "name": "distilled_lora_name",
-          "type": "STRING",
+          "name": "upscale_model_name",
+          "type": "COMBO",
           "links": [
             626
-          ]
-        },
-        {
-          "name": "text_encoder_name",
-          "type": "STRING",
-          "links": [
-            627
-          ]
-        },
-        {
-          "name": "upscale_model_name",
-          "type": "STRING",
-          "links": [
-            628
           ]
         }
       ],
@@ -4714,11 +4706,7 @@
         1280,
         720,
         97,
-        24,
-        "ltx-2.3-22b-dev-fp8.safetensors",
-        "ltx-2.3-22b-distilled-lora-384.safetensors",
-        "gemma_3_12B_it_fp4_mixed.safetensors",
-        "ltx-2.3-spatial-upscaler-x2-1.1.safetensors"
+        24
       ]
     },
     {
@@ -4997,38 +4985,6 @@
       "widgets_values": [
         0.35
       ]
-    },
-    {
-      "id": 276,
-      "type": "PrimitiveBoolean",
-      "pos": [
-        -560,
-        4940
-      ],
-      "size": [
-        360,
-        104
-      ],
-      "flags": {},
-      "order": 276,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "BOOLEAN",
-          "type": "BOOLEAN",
-          "links": [
-            620
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimitiveBoolean"
-      },
-      "widgets_values": [
-        false
-      ],
-      "title": "Switch to Text-to-Video"
     }
   ],
   "revision": 0,
