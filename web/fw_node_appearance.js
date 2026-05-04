@@ -16,16 +16,16 @@ import { app } from "../../scripts/app.js";
 // ------------------------------------------------------------------ //
 
 const FW_CATEGORY_THEME = {
-    "FrameWeaver/Input":       { color: "#2d5a27", badge: "📥" },
-    "FrameWeaver/Sequencing":  { color: "#1a4a6e", badge: "🔗" },
-    "FrameWeaver/Continuity":  { color: "#5a2d5a", badge: "🔒" },
-    "FrameWeaver/Generation":  { color: "#6e4a1a", badge: "⚡" },
-    "FrameWeaver/Bridge":      { color: "#4a1a1a", badge: "🌉" },
-    "FrameWeaver/Output":      { color: "#1a6e4a", badge: "📤" },
-    "FrameWeaver/PostProcess":  { color: "#6e1a4a", badge: "🎨" },
-    "FrameWeaver/Audio":       { color: "#4a6e1a", badge: "🎵" },
-    "FrameWeaver/AI":          { color: "#1a1a6e", badge: "🧠" },
-    "FrameWeaver/UX":          { color: "#6e6e1a", badge: "✨" },
+    "FrameWeaver/Input":       { color: "#1e3a8a", bgcolor: "#172554", badge: "📥" }, // Blue
+    "FrameWeaver/Sequencing":  { color: "#0f766e", bgcolor: "#042f2e", badge: "🔗" }, // Teal
+    "FrameWeaver/Continuity":  { color: "#581c87", bgcolor: "#3b0764", badge: "🔒" }, // Purple
+    "FrameWeaver/Generation":  { color: "#4c1d95", bgcolor: "#2e1065", badge: "⚡" }, // Violet
+    "FrameWeaver/Bridge":      { color: "#7c2d12", bgcolor: "#451a03", badge: "🌉" }, // Orange/Brown
+    "FrameWeaver/Output":      { color: "#065f46", bgcolor: "#022c22", badge: "📤" }, // Emerald
+    "FrameWeaver/PostProcess": { color: "#9f1239", bgcolor: "#4c0519", badge: "🎨" }, // Rose
+    "FrameWeaver/Audio":       { color: "#92400e", bgcolor: "#451a03", badge: "🎵" }, // Amber
+    "FrameWeaver/AI":          { color: "#3730a3", bgcolor: "#1e1b4b", badge: "🧠" }, // Indigo
+    "FrameWeaver/UX":          { color: "#0f766e", bgcolor: "#042f2e", badge: "✨" }, // Teal
 };
 
 // Node name → category lookup (built from the Python NODE_CLASS_MAPPINGS)
@@ -97,19 +97,7 @@ const FW_WORKFLOW_LINKS = {
 
 const FW_DOCS_URL = "https://github.com/balarooty/comfyui-frameweaver";
 
-// ------------------------------------------------------------------ //
-//  Utility: lighten a hex color for the title bar
-// ------------------------------------------------------------------ //
-
-function lightenHex(hex, amount) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    const lr = Math.min(255, Math.round(r + (255 - r) * amount));
-    const lg = Math.min(255, Math.round(g + (255 - g) * amount));
-    const lb = Math.min(255, Math.round(b + (255 - b) * amount));
-    return `#${lr.toString(16).padStart(2, "0")}${lg.toString(16).padStart(2, "0")}${lb.toString(16).padStart(2, "0")}`;
-}
+// (Removed lightenHex utility as colors are now explicitly defined)
 
 // ------------------------------------------------------------------ //
 //  Extension registration
@@ -127,7 +115,7 @@ app.registerExtension({
 
         // Apply node background color
         node.color = theme.color;
-        node.bgcolor = lightenHex(theme.color, 0.15);
+        node.bgcolor = theme.bgcolor;
 
         // Prepend badge to title
         if (node.title && !node.title.startsWith(theme.badge)) {

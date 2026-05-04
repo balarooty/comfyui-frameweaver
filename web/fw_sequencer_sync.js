@@ -17,18 +17,6 @@ const FW_SYNCED_WIDGETS = ["width", "height", "frames_per_scene", "fps", "scene_
 const FW_SEQUENCER_TYPE = "FW_GlobalSequencer";
 
 /**
- * Tooltip descriptions for each synced widget.
- */
-const FW_WIDGET_TOOLTIPS = {
-    width:            "Output video width in pixels. Rounded to nearest multiple of 32 for LTX 2.3 compatibility.",
-    height:           "Output video height in pixels. Rounded to nearest multiple of 32 for LTX 2.3 compatibility.",
-    frames_per_scene: "Number of frames per scene. Enforced to 8n+1 for LTX 2.3 (e.g. 9, 17, 25, …, 97, …, 241).",
-    fps:              "Frames per second for the output video. Standard values: 24 (film), 25 (PAL), 30 (NTSC).",
-    scene_count:      "Total number of scenes in your project. Controls prompt evolver and duration list sizing.",
-    current_scene:    "Which scene is currently being generated (1-indexed). Synced to all FW nodes in the graph.",
-};
-
-/**
  * Find all FW_GlobalSequencer nodes currently in the graph.
  */
 function findSequencerNodes() {
@@ -76,12 +64,6 @@ app.registerExtension({
         // Attach change listeners and tooltips to synced widgets
         for (const widget of node.widgets || []) {
             if (!FW_SYNCED_WIDGETS.includes(widget.name)) continue;
-
-            // Inject tooltip if ComfyUI supports it
-            const tooltip = FW_WIDGET_TOOLTIPS[widget.name];
-            if (tooltip) {
-                widget.tooltip = tooltip;
-            }
 
             const originalCallback = widget.callback;
 
