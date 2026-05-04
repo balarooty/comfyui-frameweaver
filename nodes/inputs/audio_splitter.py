@@ -29,10 +29,10 @@ except ImportError:
     _get_device = lambda: "cpu"
 
 
-def _nearest_valid_frame_count(frames):
-    """LTX 2.3 requires 8n+1 frames."""
-    n = max(1, round((frames - 1) / 8))
-    return 8 * n + 1
+try:
+    from ...utils.validation import nearest_valid_frame_count
+except ImportError:
+    from utils.validation import nearest_valid_frame_count
 
 
 class FW_AudioSplitter:
@@ -137,7 +137,7 @@ class FW_AudioSplitter:
         for dur in durations_sec:
             raw_frames = int(round(fps * dur))
             if enforce_8n1:
-                raw_frames = _nearest_valid_frame_count(raw_frames)
+                raw_frames = nearest_valid_frame_count(raw_frames)
             frames_per_scene.append(raw_frames)
             # Audio samples for this scene
             real_dur = raw_frames / fps

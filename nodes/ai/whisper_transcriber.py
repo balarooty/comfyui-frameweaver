@@ -78,6 +78,9 @@ _WHISPER_MODELS = [
     "openai/whisper-base",
 ]
 
+# Module-level model cache to avoid repeated loading/unloading
+_whisper_cache = {}
+
 
 class FW_WhisperTranscriber:
     """Transcribe per-scene audio segments into pipe-delimited text for prompt generation."""

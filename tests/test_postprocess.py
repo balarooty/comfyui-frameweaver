@@ -8,7 +8,7 @@ class TestColorMatchSchema:
         from nodes.postprocess.color_match import FW_ColorMatch
         it = FW_ColorMatch.INPUT_TYPES()
         assert "images" in it["required"]
-        assert "reference" in it["required"]
+        assert "reference_image" in it["required"]
         assert FW_ColorMatch.CATEGORY == "FrameWeaver/PostProcess"
 
     def test_return_types(self):
