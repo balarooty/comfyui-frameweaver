@@ -1,0 +1,1800 @@
+{
+  "id": "frameweaver-three-act-feature",
+  "version": 1,
+  "revision": 0,
+  "config": {},
+  "definitions": {
+    "subgraphs": []
+  },
+  "groups": [
+    {
+      "bounding": [
+        -700,
+        50,
+        350,
+        400
+      ],
+      "color": "#3f789e",
+      "flags": {},
+      "font_size": 18,
+      "id": 1,
+      "title": "Global Setup"
+    },
+    {
+      "bounding": [
+        -700,
+        500,
+        350,
+        400
+      ],
+      "color": "#5e9e7e",
+      "flags": {},
+      "font_size": 18,
+      "id": 2,
+      "title": "Prompt Building"
+    },
+    {
+      "bounding": [
+        -700,
+        950,
+        350,
+        400
+      ],
+      "color": "#9e7e5e",
+      "flags": {},
+      "font_size": 18,
+      "id": 3,
+      "title": "Continuity"
+    },
+    {
+      "bounding": [
+        0,
+        650,
+        200,
+        700
+      ],
+      "color": "#7e5e9e",
+      "flags": {},
+      "font_size": 18,
+      "id": 4,
+      "title": "Scene Gen"
+    },
+    {
+      "bounding": [
+        1200,
+        350,
+        1100,
+        400
+      ],
+      "color": "#7e9e5e",
+      "flags": {},
+      "font_size": 18,
+      "id": 5,
+      "title": "Assembly & Output"
+    }
+  ],
+  "nodes": [
+    {
+      "id": 1,
+      "type": "MarkdownNote",
+      "pos": [
+        -900,
+        100
+      ],
+      "size": [
+        600,
+        200
+      ],
+      "flags": {},
+      "order": 0,
+      "properties": {
+        "text": "# Three-Act Feature\n8n+1 narrative film \u00b7 5 scenes\nDrag images to LoadImage nodes before running."
+      },
+      "widgets": []
+    },
+    {
+      "id": 10,
+      "type": "LoadImage",
+      "pos": [
+        -600,
+        300
+      ],
+      "size": [
+        300,
+        200
+      ],
+      "flags": {},
+      "order": 1,
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets": [
+        {
+          "name": "image",
+          "config": {},
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "type": "LoadImage",
+      "pos": [
+        -600,
+        600
+      ],
+      "size": [
+        300,
+        200
+      ],
+      "flags": {},
+      "order": 2,
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets": [
+        {
+          "name": "image",
+          "config": {},
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "type": "FW_GlobalSequencer",
+      "pos": [
+        -600,
+        900
+      ],
+      "size": [
+        300,
+        400
+      ],
+      "flags": {},
+      "order": 3,
+      "properties": {
+        "Node name for S&R": "FW_GlobalSequencer"
+      },
+      "widgets": [
+        {
+          "name": "width",
+          "config": {
+            "default": 1280
+          },
+          "value": 1280
+        },
+        {
+          "name": "height",
+          "config": {
+            "default": 720
+          },
+          "value": 720
+        },
+        {
+          "name": "frames_per_scene",
+          "config": {
+            "default": 97
+          },
+          "value": 97
+        },
+        {
+          "name": "fps",
+          "config": {
+            "default": 24
+          },
+          "value": 24
+        },
+        {
+          "name": "scene_count",
+          "config": {
+            "default": 5
+          },
+          "value": 5
+        },
+        {
+          "name": "current_scene",
+          "config": {
+            "default": 1
+          },
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "type": "FW_SceneDurationList",
+      "pos": [
+        -600,
+        1400
+      ],
+      "size": [
+        300,
+        400
+      ],
+      "flags": {},
+      "order": 4,
+      "properties": {
+        "Node name for S&R": "FW_SceneDurationList"
+      },
+      "widgets": [
+        {
+          "name": "scene_1_frames",
+          "config": {
+            "default": 97
+          },
+          "value": 97
+        },
+        {
+          "name": "scene_2_frames",
+          "config": {
+            "default": 193
+          },
+          "value": 193
+        },
+        {
+          "name": "scene_3_frames",
+          "config": {
+            "default": 193
+          },
+          "value": 193
+        },
+        {
+          "name": "scene_4_frames",
+          "config": {
+            "default": 289
+          },
+          "value": 289
+        },
+        {
+          "name": "scene_5_frames",
+          "config": {
+            "default": 289
+          },
+          "value": 289
+        },
+        {
+          "name": "scene_count",
+          "config": {
+            "default": 5
+          },
+          "value": 5
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "type": "FW_LTX23Settings",
+      "pos": [
+        -600,
+        1850
+      ],
+      "size": [
+        300,
+        400
+      ],
+      "flags": {},
+      "order": 5,
+      "properties": {
+        "Node name for S&R": "FW_LTX23Settings"
+      },
+      "widgets": [
+        {
+          "name": "width",
+          "config": {
+            "default": 1280
+          },
+          "value": 1280
+        },
+        {
+          "name": "height",
+          "config": {
+            "default": 720
+          },
+          "value": 720
+        },
+        {
+          "name": "duration_mode",
+          "config": {
+            "default": "frames"
+          },
+          "value": "frames"
+        },
+        {
+          "name": "frames",
+          "config": {
+            "default": 97
+          },
+          "value": 97
+        },
+        {
+          "name": "fps",
+          "config": {
+            "default": 24
+          },
+          "value": 24
+        },
+        {
+          "name": "checkpoint_name",
+          "config": {},
+          "value": "ltx-2.3-22b-dev-fp8.safetensors"
+        },
+        {
+          "name": "distilled_lora_name",
+          "config": {},
+          "value": "ltx-2.3-22b-distilled-lora-384.safetensors"
+        }
+      ]
+    },
+    {
+      "id": 110,
+      "type": "FW_ScenePromptEvolver",
+      "pos": [
+        -300,
+        100
+      ],
+      "size": [
+        300,
+        200
+      ],
+      "flags": {},
+      "order": 6,
+      "properties": {
+        "Node name for S&R": "FW_ScenePromptEvolver"
+      },
+      "widgets": []
+    },
+    {
+      "id": 120,
+      "type": "FW_StyleAnchor",
+      "pos": [
+        -300,
+        400
+      ],
+      "size": [
+        300,
+        200
+      ],
+      "flags": {},
+      "order": 7,
+      "properties": {
+        "Node name for S&R": "FW_StyleAnchor"
+      },
+      "widgets": []
+    },
+    {
+      "id": 60,
+      "type": "FW_LoadStarterFrame",
+      "pos": [
+        0,
+        700
+      ],
+      "size": [
+        200,
+        200
+      ],
+      "flags": {},
+      "order": 8,
+      "properties": {
+        "Node name for S&R": "FW_LoadStarterFrame"
+      },
+      "widgets": []
+    },
+    {
+      "id": 200,
+      "type": "FW_ContinuityEncoder",
+      "pos": [
+        0,
+        1000
+      ],
+      "size": [
+        200,
+        200
+      ],
+      "flags": {},
+      "order": 9,
+      "properties": {
+        "Node name for S&R": "FW_ContinuityEncoder"
+      },
+      "widgets": []
+    },
+    {
+      "id": 257,
+      "type": "FW_PrerollCompensator",
+      "pos": [
+        0,
+        1300
+      ],
+      "size": [
+        200,
+        200
+      ],
+      "flags": {},
+      "order": 10,
+      "properties": {
+        "Node name for S&R": "FW_PrerollCompensator"
+      },
+      "widgets": []
+    },
+    {
+      "id": 600,
+      "type": "FW_SmartAssembler",
+      "pos": [
+        1200,
+        400
+      ],
+      "size": [
+        300,
+        200
+      ],
+      "flags": {},
+      "order": 11,
+      "properties": {
+        "Node name for S&R": "FW_SmartAssembler"
+      },
+      "widgets": []
+    },
+    {
+      "id": 700,
+      "type": "FW_CinematicPolish",
+      "pos": [
+        1550,
+        400
+      ],
+      "size": [
+        200,
+        200
+      ],
+      "flags": {},
+      "order": 12,
+      "properties": {
+        "Node name for S&R": "FW_CinematicPolish"
+      },
+      "widgets": []
+    },
+    {
+      "id": 710,
+      "type": "FW_FilmGrain",
+      "pos": [
+        1800,
+        400
+      ],
+      "size": [
+        200,
+        200
+      ],
+      "flags": {},
+      "order": 13,
+      "properties": {
+        "Node name for S&R": "FW_FilmGrain"
+      },
+      "widgets": []
+    },
+    {
+      "id": 610,
+      "type": "VHS_VideoCombine",
+      "pos": [
+        2100,
+        400
+      ],
+      "size": [
+        200,
+        200
+      ],
+      "flags": {},
+      "order": 14,
+      "properties": {
+        "Node name for S&R": "VHS_VideoCombine"
+      },
+      "widgets": []
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      60,
+      0,
+      "IMAGE"
+    ],
+    [
+      2,
+      2,
+      0,
+      61,
+      0,
+      "IMAGE"
+    ],
+    [
+      3,
+      3,
+      0,
+      62,
+      0,
+      "IMAGE"
+    ],
+    [
+      4,
+      4,
+      0,
+      63,
+      0,
+      "IMAGE"
+    ],
+    [
+      5,
+      5,
+      0,
+      64,
+      0,
+      "IMAGE"
+    ],
+    [
+      6,
+      10,
+      0,
+      120,
+      0,
+      "IMAGE"
+    ],
+    [
+      7,
+      20,
+      0,
+      120,
+      1,
+      "IMAGE"
+    ],
+    [
+      8,
+      60,
+      0,
+      200,
+      0,
+      "IMAGE"
+    ],
+    [
+      9,
+      61,
+      0,
+      210,
+      0,
+      "IMAGE"
+    ],
+    [
+      10,
+      62,
+      0,
+      220,
+      0,
+      "IMAGE"
+    ],
+    [
+      11,
+      63,
+      0,
+      230,
+      0,
+      "IMAGE"
+    ],
+    [
+      12,
+      64,
+      0,
+      240,
+      0,
+      "IMAGE"
+    ],
+    [
+      13,
+      110,
+      0,
+      130,
+      0,
+      "FW_PROMPT_LIST"
+    ],
+    [
+      14,
+      129,
+      0,
+      200,
+      1,
+      "FW_PROMPT_LIST"
+    ],
+    [
+      15,
+      130,
+      0,
+      210,
+      1,
+      "FW_PROMPT_LIST"
+    ],
+    [
+      16,
+      131,
+      0,
+      220,
+      1,
+      "FW_PROMPT_LIST"
+    ],
+    [
+      17,
+      132,
+      0,
+      230,
+      1,
+      "FW_PROMPT_LIST"
+    ],
+    [
+      18,
+      133,
+      0,
+      240,
+      1,
+      "FW_PROMPT_LIST"
+    ],
+    [
+      19,
+      130,
+      0,
+      200,
+      1,
+      "STRING"
+    ],
+    [
+      20,
+      130,
+      2,
+      200,
+      3,
+      "STRING"
+    ],
+    [
+      21,
+      131,
+      0,
+      210,
+      1,
+      "STRING"
+    ],
+    [
+      22,
+      131,
+      2,
+      210,
+      3,
+      "STRING"
+    ],
+    [
+      23,
+      132,
+      0,
+      220,
+      1,
+      "STRING"
+    ],
+    [
+      24,
+      132,
+      2,
+      220,
+      3,
+      "STRING"
+    ],
+    [
+      25,
+      133,
+      0,
+      230,
+      1,
+      "STRING"
+    ],
+    [
+      26,
+      133,
+      2,
+      230,
+      3,
+      "STRING"
+    ],
+    [
+      27,
+      134,
+      0,
+      240,
+      1,
+      "STRING"
+    ],
+    [
+      28,
+      134,
+      2,
+      240,
+      3,
+      "STRING"
+    ],
+    [
+      29,
+      120,
+      0,
+      200,
+      0,
+      "FW_STYLE_ANCHOR"
+    ],
+    [
+      30,
+      120,
+      0,
+      210,
+      0,
+      "FW_STYLE_ANCHOR"
+    ],
+    [
+      31,
+      120,
+      0,
+      220,
+      0,
+      "FW_STYLE_ANCHOR"
+    ],
+    [
+      32,
+      120,
+      0,
+      230,
+      0,
+      "FW_STYLE_ANCHOR"
+    ],
+    [
+      33,
+      120,
+      0,
+      240,
+      0,
+      "FW_STYLE_ANCHOR"
+    ],
+    [
+      34,
+      257,
+      0,
+      270,
+      3,
+      "INT"
+    ],
+    [
+      35,
+      258,
+      0,
+      271,
+      3,
+      "INT"
+    ],
+    [
+      36,
+      259,
+      0,
+      272,
+      3,
+      "INT"
+    ],
+    [
+      37,
+      260,
+      0,
+      273,
+      3,
+      "INT"
+    ],
+    [
+      38,
+      261,
+      0,
+      274,
+      3,
+      "INT"
+    ],
+    [
+      39,
+      270,
+      0,
+      280,
+      0,
+      "LATENT"
+    ],
+    [
+      40,
+      250,
+      0,
+      280,
+      1,
+      "MODEL"
+    ],
+    [
+      41,
+      340,
+      0,
+      280,
+      2,
+      "LATENT"
+    ],
+    [
+      42,
+      256,
+      0,
+      311,
+      0,
+      "NOISE"
+    ],
+    [
+      43,
+      310,
+      0,
+      311,
+      1,
+      "GUIDER"
+    ],
+    [
+      44,
+      254,
+      0,
+      311,
+      4,
+      "SIGMAS"
+    ],
+    [
+      45,
+      311,
+      0,
+      320,
+      0,
+      "LATENT"
+    ],
+    [
+      46,
+      250,
+      2,
+      320,
+      1,
+      "VAE"
+    ],
+    [
+      47,
+      320,
+      0,
+      330,
+      0,
+      "LATENT"
+    ],
+    [
+      48,
+      400,
+      0,
+      500,
+      0,
+      "IMAGE"
+    ],
+    [
+      49,
+      401,
+      0,
+      501,
+      0,
+      "IMAGE"
+    ],
+    [
+      50,
+      402,
+      0,
+      502,
+      0,
+      "IMAGE"
+    ],
+    [
+      51,
+      403,
+      0,
+      503,
+      0,
+      "IMAGE"
+    ],
+    [
+      52,
+      404,
+      0,
+      504,
+      0,
+      "IMAGE"
+    ],
+    [
+      53,
+      500,
+      0,
+      600,
+      0,
+      "FW_SCENE_COLLECTION"
+    ],
+    [
+      54,
+      501,
+      0,
+      600,
+      0,
+      "FW_SCENE_COLLECTION"
+    ],
+    [
+      55,
+      500,
+      0,
+      501,
+      4,
+      "FW_SCENE_COLLECTION"
+    ],
+    [
+      56,
+      501,
+      0,
+      502,
+      4,
+      "FW_SCENE_COLLECTION"
+    ],
+    [
+      57,
+      502,
+      0,
+      503,
+      4,
+      "FW_SCENE_COLLECTION"
+    ],
+    [
+      58,
+      503,
+      0,
+      504,
+      4,
+      "FW_SCENE_COLLECTION"
+    ],
+    [
+      59,
+      504,
+      0,
+      600,
+      0,
+      "FW_SCENE_COLLECTION"
+    ],
+    [
+      60,
+      600,
+      0,
+      700,
+      0,
+      "IMAGE"
+    ],
+    [
+      61,
+      700,
+      0,
+      710,
+      0,
+      "IMAGE"
+    ],
+    [
+      62,
+      710,
+      0,
+      610,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "last_link_id": 62,
+  "last_node_id": 900,
+  "extra": {
+    "info": {
+      "name": "FrameWeaver Three-Act Feature",
+      "author": "FrameWeaver",
+      "version": "1.0.0",
+      "description": "5-scene variable-duration narrative film with dramatic arc structure."
+    },
+    "prompt": {
+      "1": {
+        "_meta": {
+          "title": "LoadImage (starter scene 1)"
+        },
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "starter_scene_1.png"
+        }
+      },
+      "2": {
+        "_meta": {
+          "title": "LoadImage (starter scene 2)"
+        },
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "starter_scene_2.png"
+        }
+      },
+      "3": {
+        "_meta": {
+          "title": "LoadImage (starter scene 3)"
+        },
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "starter_scene_3.png"
+        }
+      },
+      "4": {
+        "_meta": {
+          "title": "LoadImage (starter scene 4)"
+        },
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "starter_scene_4.png"
+        }
+      },
+      "5": {
+        "_meta": {
+          "title": "LoadImage (starter scene 5)"
+        },
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "starter_scene_5.png"
+        }
+      },
+      "10": {
+        "_meta": {
+          "title": "LoadImage (character reference)"
+        },
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "character_reference.png"
+        }
+      },
+      "20": {
+        "_meta": {
+          "title": "LoadImage (style reference)"
+        },
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "style_reference.png"
+        }
+      },
+      "11": {
+        "_meta": {
+          "title": "FW_SceneDurationList"
+        },
+        "class_type": "FW_SceneDurationList",
+        "inputs": {
+          "scene_1_frames": 97,
+          "scene_2_frames": 193,
+          "scene_3_frames": 193,
+          "scene_4_frames": 289,
+          "scene_5_frames": 289,
+          "scene_count": 5
+        }
+      },
+      "30": {
+        "_meta": {
+          "title": "FW_GlobalSequencer"
+        },
+        "class_type": "FW_GlobalSequencer",
+        "inputs": {
+          "width": 1280,
+          "height": 720,
+          "frames_per_scene": 97,
+          "fps": 24,
+          "scene_count": 5,
+          "current_scene": 1
+        }
+      },
+      "12": {
+        "_meta": {
+          "title": "FW_LTX23Settings"
+        },
+        "class_type": "FW_LTX23Settings",
+        "inputs": {
+          "width": 1280,
+          "height": 720,
+          "duration_mode": "frames",
+          "frames": 97,
+          "fps": 24,
+          "checkpoint_name": "ltx-2.3-22b-dev-fp8.safetensors",
+          "distilled_lora_name": "ltx-2.3-22b-distilled-lora-384.safetensors",
+          "text_encoder_name": "gemma_3_12B_it_fp4_mixed.safetensors",
+          "upscale_model_name": "ltx-2.3-spatial-upscaler-x2-1.1.safetensors"
+        }
+      },
+      "250": {
+        "_meta": {
+          "title": "CheckpointLoaderSimple"
+        },
+        "class_type": "CheckpointLoaderSimple",
+        "inputs": {
+          "ckpt_name": "ltx-2.3-22b-dev-fp8.safetensors"
+        }
+      },
+      "251": {
+        "_meta": {
+          "title": "LTXVGemmaCLIPModelLoader"
+        },
+        "class_type": "LTXVGemmaCLIPModelLoader",
+        "inputs": {
+          "gemma_path": "gemma-3-12b-it-qat-q4_0-unquantized_readout_proj/model/model.safetensors",
+          "ltxv_path": "ltx-av-step-1751000_vocoder_24K.safetensors",
+          "max_length": 1024
+        }
+      },
+      "120": {
+        "_meta": {
+          "title": "FW_StyleAnchor"
+        },
+        "class_type": "FW_StyleAnchor",
+        "inputs": {
+          "style_description": "cinematic film look, high contrast, desaturated warm tones, anamorphic flares, film grain",
+          "identity_description": "Same character across all scenes: consistent face, clothing, body proportions, movement patterns."
+        }
+      },
+      "110": {
+        "_meta": {
+          "title": "FW_ScenePromptEvolver"
+        },
+        "class_type": "FW_ScenePromptEvolver",
+        "inputs": {
+          "base_style": "cinematic, high quality, film grain, anamorphic lens, 35mm stock, coherent character identity, stable wardrobe, detailed motion",
+          "base_negative": "blurry, low quality, warped anatomy, flicker, inconsistent identity, static shot, watermark",
+          "scene_1": "Character enters a dimly lit room, establishing the environment and mood.",
+          "inheritance_mode": "cumulative"
+        }
+      },
+      "130": {
+        "_meta": {
+          "title": "FW_ScenePromptSelector (scene 1)"
+        },
+        "class_type": "FW_ScenePromptSelector",
+        "inputs": {
+          "scene_index": 1
+        }
+      },
+      "131": {
+        "_meta": {
+          "title": "FW_ScenePromptSelector (scene 2)"
+        },
+        "class_type": "FW_ScenePromptSelector",
+        "inputs": {
+          "scene_index": 2
+        }
+      },
+      "132": {
+        "_meta": {
+          "title": "FW_ScenePromptSelector (scene 3)"
+        },
+        "class_type": "FW_ScenePromptSelector",
+        "inputs": {
+          "scene_index": 3
+        }
+      },
+      "133": {
+        "_meta": {
+          "title": "FW_ScenePromptSelector (scene 4)"
+        },
+        "class_type": "FW_ScenePromptSelector",
+        "inputs": {
+          "scene_index": 4
+        }
+      },
+      "134": {
+        "_meta": {
+          "title": "FW_ScenePromptSelector (scene 5)"
+        },
+        "class_type": "FW_ScenePromptSelector",
+        "inputs": {
+          "scene_index": 5
+        }
+      },
+      "200": {
+        "_meta": {
+          "title": "FW_ContinuityEncoder (scene 1)"
+        },
+        "class_type": "FW_ContinuityEncoder",
+        "inputs": {
+          "style_strength": 0.35,
+          "bridge_prompt": ""
+        }
+      },
+      "210": {
+        "_meta": {
+          "title": "FW_ContinuityEncoder (scene 2)"
+        },
+        "class_type": "FW_ContinuityEncoder",
+        "inputs": {
+          "style_strength": 0.35,
+          "bridge_prompt": ""
+        }
+      },
+      "220": {
+        "_meta": {
+          "title": "FW_ContinuityEncoder (scene 3)"
+        },
+        "class_type": "FW_ContinuityEncoder",
+        "inputs": {
+          "style_strength": 0.4,
+          "bridge_prompt": ""
+        }
+      },
+      "230": {
+        "_meta": {
+          "title": "FW_ContinuityEncoder (scene 4)"
+        },
+        "class_type": "FW_ContinuityEncoder",
+        "inputs": {
+          "style_strength": 0.45,
+          "bridge_prompt": ""
+        }
+      },
+      "240": {
+        "_meta": {
+          "title": "FW_ContinuityEncoder (scene 5)"
+        },
+        "class_type": "FW_ContinuityEncoder",
+        "inputs": {
+          "style_strength": 0.45,
+          "bridge_prompt": ""
+        }
+      },
+      "60": {
+        "_meta": {
+          "title": "FW_LoadStarterFrame (scene 1)"
+        },
+        "class_type": "FW_LoadStarterFrame",
+        "inputs": {
+          "target_width": 1280,
+          "target_height": 720
+        }
+      },
+      "61": {
+        "_meta": {
+          "title": "FW_LoadStarterFrame (scene 2)"
+        },
+        "class_type": "FW_LoadStarterFrame",
+        "inputs": {
+          "target_width": 1280,
+          "target_height": 720
+        }
+      },
+      "62": {
+        "_meta": {
+          "title": "FW_LoadStarterFrame (scene 3)"
+        },
+        "class_type": "FW_LoadStarterFrame",
+        "inputs": {
+          "target_width": 1280,
+          "target_height": 720
+        }
+      },
+      "63": {
+        "_meta": {
+          "title": "FW_LoadStarterFrame (scene 4)"
+        },
+        "class_type": "FW_LoadStarterFrame",
+        "inputs": {
+          "target_width": 1280,
+          "target_height": 720
+        }
+      },
+      "64": {
+        "_meta": {
+          "title": "FW_LoadStarterFrame (scene 5)"
+        },
+        "class_type": "FW_LoadStarterFrame",
+        "inputs": {
+          "target_width": 1280,
+          "target_height": 720
+        }
+      },
+      "257": {
+        "_meta": {
+          "title": "FW_PrerollCompensator (scene 1)"
+        },
+        "class_type": "FW_PrerollCompensator",
+        "inputs": {
+          "target_frames": 97,
+          "scene_index": 0,
+          "preroll_frames": 6,
+          "tail_loss_frames": 8
+        }
+      },
+      "258": {
+        "_meta": {
+          "title": "FW_PrerollCompensator (scene 2)"
+        },
+        "class_type": "FW_PrerollCompensator",
+        "inputs": {
+          "target_frames": 193,
+          "scene_index": 1,
+          "preroll_frames": 6,
+          "tail_loss_frames": 8
+        }
+      },
+      "259": {
+        "_meta": {
+          "title": "FW_PrerollCompensator (scene 3)"
+        },
+        "class_type": "FW_PrerollCompensator",
+        "inputs": {
+          "target_frames": 193,
+          "scene_index": 2,
+          "preroll_frames": 6,
+          "tail_loss_frames": 8
+        }
+      },
+      "260": {
+        "_meta": {
+          "title": "FW_PrerollCompensator (scene 4)"
+        },
+        "class_type": "FW_PrerollCompensator",
+        "inputs": {
+          "target_frames": 289,
+          "scene_index": 3,
+          "preroll_frames": 6,
+          "tail_loss_frames": 8
+        }
+      },
+      "261": {
+        "_meta": {
+          "title": "FW_PrerollCompensator (scene 5)"
+        },
+        "class_type": "FW_PrerollCompensator",
+        "inputs": {
+          "target_frames": 289,
+          "scene_index": 4,
+          "preroll_frames": 6,
+          "tail_loss_frames": 8
+        }
+      },
+      "270": {
+        "_meta": {
+          "title": "EmptyLTXVLatentVideo (scene 1)"
+        },
+        "class_type": "EmptyLTXVLatentVideo",
+        "inputs": {
+          "width": 1280,
+          "height": 720,
+          "length": 105,
+          "batch_size": 1
+        }
+      },
+      "271": {
+        "_meta": {
+          "title": "EmptyLTXVLatentVideo (scene 2)"
+        },
+        "class_type": "EmptyLTXVLatentVideo",
+        "inputs": {
+          "width": 1280,
+          "height": 720,
+          "length": 209,
+          "batch_size": 1
+        }
+      },
+      "272": {
+        "_meta": {
+          "title": "EmptyLTXVLatentVideo (scene 3)"
+        },
+        "class_type": "EmptyLTXVLatentVideo",
+        "inputs": {
+          "width": 1280,
+          "height": 720,
+          "length": 209,
+          "batch_size": 1
+        }
+      },
+      "273": {
+        "_meta": {
+          "title": "EmptyLTXVLatentVideo (scene 4)"
+        },
+        "class_type": "EmptyLTXVLatentVideo",
+        "inputs": {
+          "width": 1280,
+          "height": 720,
+          "length": 305,
+          "batch_size": 1
+        }
+      },
+      "274": {
+        "_meta": {
+          "title": "EmptyLTXVLatentVideo (scene 5)"
+        },
+        "class_type": "EmptyLTXVLatentVideo",
+        "inputs": {
+          "width": 1280,
+          "height": 720,
+          "length": 305,
+          "batch_size": 1
+        }
+      },
+      "280": {
+        "_meta": {
+          "title": "LTXVSequenceParallelMultiGPUPatcher"
+        },
+        "class_type": "LTXVSequenceParallelMultiGPUPatcher",
+        "inputs": {
+          "disable_backup": false,
+          "torch_compile": true
+        }
+      },
+      "282": {
+        "_meta": {
+          "title": "LTXVEmptyLatentAudio"
+        },
+        "class_type": "LTXVEmptyLatentAudio",
+        "inputs": {
+          "batch_size": 1
+        }
+      },
+      "285": {
+        "_meta": {
+          "title": "INTConstant"
+        },
+        "class_type": "INTConstant",
+        "inputs": {
+          "value": 105
+        }
+      },
+      "284": {
+        "_meta": {
+          "title": "FloatConstant"
+        },
+        "class_type": "FloatConstant",
+        "inputs": {
+          "value": 25.0
+        }
+      },
+      "283": {
+        "_meta": {
+          "title": "CM_FloatToInt"
+        },
+        "class_type": "CM_FloatToInt",
+        "inputs": {}
+      },
+      "256": {
+        "_meta": {
+          "title": "RandomNoise"
+        },
+        "class_type": "RandomNoise",
+        "inputs": {
+          "noise_seed": 42
+        }
+      },
+      "255": {
+        "_meta": {
+          "title": "KSamplerSelect"
+        },
+        "class_type": "KSamplerSelect",
+        "inputs": {
+          "sampler_name": "euler"
+        }
+      },
+      "254": {
+        "_meta": {
+          "title": "LTXVScheduler"
+        },
+        "class_type": "LTXVScheduler",
+        "inputs": {
+          "base_shift": 0.95,
+          "max_shift": 2.05,
+          "steps": 20,
+          "stretch": true,
+          "terminal": 0.1
+        }
+      },
+      "253": {
+        "_meta": {
+          "title": "CLIPTextEncode (negative)"
+        },
+        "class_type": "CLIPTextEncode",
+        "inputs": {
+          "text": "blurry, low quality, still frame, flicker, inconsistent character, watermark, overlay"
+        }
+      },
+      "252": {
+        "_meta": {
+          "title": "CLIPTextEncode (positive)"
+        },
+        "class_type": "CLIPTextEncode",
+        "inputs": {
+          "text": ""
+        }
+      },
+      "300": {
+        "_meta": {
+          "title": "GuiderParameters"
+        },
+        "class_type": "GuiderParameters",
+        "inputs": {
+          "cfg": 3,
+          "modality": "VIDEO",
+          "modality_scale": 3,
+          "rescale": 0,
+          "stg": 0
+        }
+      },
+      "301": {
+        "_meta": {
+          "title": "GuiderParameters (negative)"
+        },
+        "class_type": "GuiderParameters",
+        "inputs": {
+          "cfg": 3,
+          "modality": "VIDEO",
+          "modality_scale": 3,
+          "rescale": 0,
+          "stg": 0
+        }
+      },
+      "310": {
+        "_meta": {
+          "title": "MultimodalGuider"
+        },
+        "class_type": "MultimodalGuider",
+        "inputs": {
+          "skip_blocks": 29
+        }
+      },
+      "311": {
+        "_meta": {
+          "title": "SamplerCustomAdvanced"
+        },
+        "class_type": "SamplerCustomAdvanced",
+        "inputs": {}
+      },
+      "340": {
+        "_meta": {
+          "title": "LTXVAddGuide (keyframe)"
+        },
+        "class_type": "LTXVAddGuide",
+        "inputs": {
+          "frame_idx": 0,
+          "strength": 1.0
+        }
+      },
+      "320": {
+        "_meta": {
+          "title": "VAEDecode"
+        },
+        "class_type": "VAEDecode",
+        "inputs": {}
+      },
+      "330": {
+        "_meta": {
+          "title": "LTXVSeparateAVLatent"
+        },
+        "class_type": "LTXVSeparateAVLatent",
+        "inputs": {}
+      },
+      "400": {
+        "_meta": {
+          "title": "FW_FrameTrimmer (scene 1)"
+        },
+        "class_type": "FW_FrameTrimmer",
+        "inputs": {
+          "trim_start": 0,
+          "target_frames": 97
+        }
+      },
+      "401": {
+        "_meta": {
+          "title": "FW_FrameTrimmer (scene 2)"
+        },
+        "class_type": "FW_FrameTrimmer",
+        "inputs": {
+          "trim_start": 6,
+          "target_frames": 193
+        }
+      },
+      "402": {
+        "_meta": {
+          "title": "FW_FrameTrimmer (scene 3)"
+        },
+        "class_type": "FW_FrameTrimmer",
+        "inputs": {
+          "trim_start": 6,
+          "target_frames": 193
+        }
+      },
+      "403": {
+        "_meta": {
+          "title": "FW_FrameTrimmer (scene 4)"
+        },
+        "class_type": "FW_FrameTrimmer",
+        "inputs": {
+          "trim_start": 6,
+          "target_frames": 289
+        }
+      },
+      "404": {
+        "_meta": {
+          "title": "FW_FrameTrimmer (scene 5)"
+        },
+        "class_type": "FW_FrameTrimmer",
+        "inputs": {
+          "trim_start": 6,
+          "target_frames": 289
+        }
+      },
+      "410": {
+        "_meta": {
+          "title": "FW_LastFrameExtractor (scene 1\u21922)"
+        },
+        "class_type": "FW_LastFrameExtractor",
+        "inputs": {}
+      },
+      "411": {
+        "_meta": {
+          "title": "FW_LastFrameExtractor (scene 2\u21923)"
+        },
+        "class_type": "FW_LastFrameExtractor",
+        "inputs": {}
+      },
+      "412": {
+        "_meta": {
+          "title": "FW_LastFrameExtractor (scene 3\u21924)"
+        },
+        "class_type": "FW_LastFrameExtractor",
+        "inputs": {}
+      },
+      "413": {
+        "_meta": {
+          "title": "FW_LastFrameExtractor (scene 4\u21925)"
+        },
+        "class_type": "FW_LastFrameExtractor",
+        "inputs": {}
+      },
+      "420": {
+        "_meta": {
+          "title": "FW_FrameBridge (scene 1\u21922)"
+        },
+        "class_type": "FW_FrameBridge",
+        "inputs": {
+          "keep": "Keep the same character identity, clothing, face, lighting direction, and camera continuity.",
+          "change": "Change only the environment and action needed for scene 2."
+        }
+      },
+      "421": {
+        "_meta": {
+          "title": "FW_FrameBridge (scene 2\u21923)"
+        },
+        "class_type": "FW_FrameBridge",
+        "inputs": {
+          "keep": "Keep the same character identity, clothing, face, lighting direction, and camera continuity.",
+          "change": "Change only the environment and action needed for scene 3."
+        }
+      },
+      "422": {
+        "_meta": {
+          "title": "FW_FrameBridge (scene 3\u21924)"
+        },
+        "class_type": "FW_FrameBridge",
+        "inputs": {
+          "keep": "Keep the same character identity, clothing, face, lighting direction, and camera continuity.",
+          "change": "Change only the environment and action needed for scene 4."
+        }
+      },
+      "423": {
+        "_meta": {
+          "title": "FW_FrameBridge (scene 4\u21925)"
+        },
+        "class_type": "FW_FrameBridge",
+        "inputs": {
+          "keep": "Keep the same character identity, clothing, face, lighting direction, and camera continuity.",
+          "change": "Change only the environment and action needed for scene 5."
+        }
+      },
+      "500": {
+        "_meta": {
+          "title": "FW_SceneCollector (scene 1)"
+        },
+        "class_type": "FW_SceneCollector",
+        "inputs": {
+          "scene_index": 1,
+          "prompt_used": "",
+          "seed_used": 42
+        }
+      },
+      "501": {
+        "_meta": {
+          "title": "FW_SceneCollector (scene 2)"
+        },
+        "class_type": "FW_SceneCollector",
+        "inputs": {
+          "scene_index": 2,
+          "prompt_used": "",
+          "seed_used": 43
+        }
+      },
+      "502": {
+        "_meta": {
+          "title": "FW_SceneCollector (scene 3)"
+        },
+        "class_type": "FW_SceneCollector",
+        "inputs": {
+          "scene_index": 3,
+          "prompt_used": "",
+          "seed_used": 44
+        }
+      },
+      "503": {
+        "_meta": {
+          "title": "FW_SceneCollector (scene 4)"
+        },
+        "class_type": "FW_SceneCollector",
+        "inputs": {
+          "scene_index": 4,
+          "prompt_used": "",
+          "seed_used": 45
+        }
+      },
+      "504": {
+        "_meta": {
+          "title": "FW_SceneCollector (scene 5)"
+        },
+        "class_type": "FW_SceneCollector",
+        "inputs": {
+          "scene_index": 5,
+          "prompt_used": "",
+          "seed_used": 46
+        }
+      },
+      "600": {
+        "_meta": {
+          "title": "FW_SmartAssembler"
+        },
+        "class_type": "FW_SmartAssembler",
+        "inputs": {
+          "blend_mode": "crossfade",
+          "blend_frames": 8,
+          "fps": 24.0
+        }
+      },
+      "700": {
+        "_meta": {
+          "title": "FW_CinematicPolish"
+        },
+        "class_type": "FW_CinematicPolish",
+        "inputs": {
+          "mode": "unsharp",
+          "strength": 0.5,
+          "use_gpu": true
+        }
+      },
+      "710": {
+        "_meta": {
+          "title": "FW_FilmGrain"
+        },
+        "class_type": "FW_FilmGrain",
+        "inputs": {
+          "intensity": 0.04,
+          "saturation_mix": 0.5,
+          "batch_size": 8
+        }
+      },
+      "610": {
+        "_meta": {
+          "title": "VHS_VideoCombine"
+        },
+        "class_type": "VHS_VideoCombine",
+        "inputs": {
+          "crf": 19,
+          "filename_prefix": "three_act_feature",
+          "format": "video/h264-mp4",
+          "frame_rate": 24,
+          "loop_count": 0,
+          "pingpong": false,
+          "pix_fmt": "yuv420p",
+          "save_metadata": true,
+          "save_output": true,
+          "trim_to_audio": false
+        }
+      }
+    }
+  }
+}
