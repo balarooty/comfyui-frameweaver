@@ -5,28 +5,27 @@
  * FrameWeaver nodes in the graph. This ensures FPS, resolution, and scene
  * index stay in sync across the UI before execution.
  *
- * Also provides tooltip descriptions for synced widgets so users understand
- * what each parameter controls without consulting external docs.
- *
- * Pattern inspired by WhatDreamsCost's LTXSequencer JS sync implementation.
+ * Also syncs between multiple FW_GlobalSequencer instances (if the user
+ * places more than one for visual clarity).
  */
 
 import { app } from "../../scripts/app.js";
 
-const FW_SYNCED_WIDGETS = ["width", "height", "frames_per_scene", "fps", "scene_count", "current_scene"];
+const FW_SYNCED_WIDGETS = [
+    "width", "height", "frames_per_scene", "fps",
+    "scene_count", "current_scene",
+];
+
 const FW_SEQUENCER_TYPE = "FW_GlobalSequencer";
 
-/**
- * Find all FW_GlobalSequencer nodes currently in the graph.
- */
-function findSequencerNodes() {
-    if (!app.graph || !app.graph._nodes) return [];
-    return app.graph._nodes.filter((n) => n.type === FW_SEQUENCER_TYPE);
-}
+// Widget names that should propagate to other FW_ nodes
+const FW_DOWNSTREAM_WIDGETS = new Set([
+    "width", "height", "fps", "scene_count", "current_scene",
+]);
 
 /**
- * Sync a widget value from one sequencer to all other sequencer nodes
- * and to all downstream FrameWeaver nodes that share the same widget name.
+ * Sync a widget value from one sequencer to peer sequencers
+ * and to downstream FrameWeaver nodes that share the same widget name.
  */
 function broadcastWidgetChange(sourceNode, widgetName, value) {
     if (!app.graph || !app.graph._nodes) return;
@@ -44,8 +43,8 @@ function broadcastWidgetChange(sourceNode, widgetName, value) {
             continue;
         }
 
-        // Sync to downstream FrameWeaver nodes that accept this widget
-        if (node.type?.startsWith("FW_")) {
+        // Sync to downstream FrameWeaver nodes
+        if (node.type?.startsWith("FW_") && FW_DOWNSTREAM_WIDGETS.has(widgetName)) {
             const widget = node.widgets?.find((w) => w.name === widgetName);
             if (widget && widget.value !== value) {
                 widget.value = value;
@@ -61,19 +60,16 @@ app.registerExtension({
     nodeCreated(node) {
         if (node.type !== FW_SEQUENCER_TYPE) return;
 
-        // Attach change listeners and tooltips to synced widgets
+        // Attach broadcast listeners to synced widgets
         for (const widget of node.widgets || []) {
             if (!FW_SYNCED_WIDGETS.includes(widget.name)) continue;
 
             const originalCallback = widget.callback;
 
             widget.callback = function (value) {
-                // Call the original callback if one existed
                 if (typeof originalCallback === "function") {
                     originalCallback.call(this, value);
                 }
-
-                // Broadcast the change to all other nodes
                 broadcastWidgetChange(node, widget.name, value);
             };
         }
