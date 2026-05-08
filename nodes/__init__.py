@@ -1,93 +1,118 @@
-from .ai.whisper_transcriber import FW_WhisperTranscriber
-from .bridge.frame_bridge import FW_FrameBridge
-from .bridge.last_frame_extractor import FW_LastFrameExtractor
-from .continuity.continuity_encoder import FW_ContinuityEncoder
-from .continuity.style_anchor import FW_StyleAnchor
-from .generation.decode_video import FW_DecodeVideo
-from .generation.latent_guide_injector import FW_LatentGuideInjector
-from .generation.latent_video_init import FW_LatentVideoInit
-from .generation.ltx23_settings import FW_LTX23Settings
-from .generation.ltx_sequencer import FW_LTXSequencer
-from .generation.preroll_compensator import FW_PrerollCompensator, FW_FrameTrimmer
-from .generation.scene_sampler import FW_SceneSampler
-from .inputs.load_starter_frame import FW_LoadStarterFrame
-from .inputs.multi_image_loader import FW_MultiImageLoader
-from .inputs.scene_duration_list import FW_SceneDurationList
-from .inputs.scene_prompt_evolver import FW_ScenePromptEvolver, FW_ScenePromptSelector
-from .inputs.speech_length_calc import FW_SpeechLengthCalc
-from .inputs.audio_splitter import FW_AudioSplitter
-from .output.auto_queue import FW_AutoQueue
-from .output.scene_collector import FW_SceneCollector
-from .output.smart_assembler import FW_SmartAssembler
-from .postprocess.color_match import FW_ColorMatch
-from .postprocess.film_grain import FW_FilmGrain
-from .postprocess.cinematic_polish import FW_CinematicPolish
-from .postprocess.lut_system import FW_LUTApply, FW_LUTCreate
-from .sequencing.global_sequencer import FW_GlobalSequencer
-from .ux.quick_pipeline import FW_QuickPipeline
+"""FrameWeaver — Node Registry
 
-NODE_CLASS_MAPPINGS = {
-    "FW_ScenePromptEvolver": FW_ScenePromptEvolver,
-    "FW_ScenePromptSelector": FW_ScenePromptSelector,
-    "FW_SceneDurationList": FW_SceneDurationList,
-    "FW_LoadStarterFrame": FW_LoadStarterFrame,
-    "FW_MultiImageLoader": FW_MultiImageLoader,
-    "FW_SpeechLengthCalc": FW_SpeechLengthCalc,
-    "FW_GlobalSequencer": FW_GlobalSequencer,
-    "FW_StyleAnchor": FW_StyleAnchor,
-    "FW_ContinuityEncoder": FW_ContinuityEncoder,
-    "FW_LTX23Settings": FW_LTX23Settings,
-    "FW_LTXSequencer": FW_LTXSequencer,
-    "FW_PrerollCompensator": FW_PrerollCompensator,
-    "FW_FrameTrimmer": FW_FrameTrimmer,
-    "FW_LatentVideoInit": FW_LatentVideoInit,
-    "FW_LatentGuideInjector": FW_LatentGuideInjector,
-    "FW_SceneSampler": FW_SceneSampler,
-    "FW_DecodeVideo": FW_DecodeVideo,
-    "FW_LastFrameExtractor": FW_LastFrameExtractor,
-    "FW_FrameBridge": FW_FrameBridge,
-    "FW_SceneCollector": FW_SceneCollector,
-    "FW_SmartAssembler": FW_SmartAssembler,
-    "FW_QuickPipeline": FW_QuickPipeline,
-    "FW_ColorMatch": FW_ColorMatch,
-    "FW_FilmGrain": FW_FilmGrain,
-    "FW_CinematicPolish": FW_CinematicPolish,
-    "FW_LUTApply": FW_LUTApply,
-    "FW_LUTCreate": FW_LUTCreate,
-    "FW_AudioSplitter": FW_AudioSplitter,
-    "FW_AutoQueue": FW_AutoQueue,
-    "FW_WhisperTranscriber": FW_WhisperTranscriber,
-}
+Bulletproof import system: each node is imported in its own try/except
+so a single broken node never prevents the other nodes from loading.
+Failed imports are logged to the ComfyUI console for easy debugging.
+"""
 
-NODE_DISPLAY_NAME_MAPPINGS = {
-    "FW_ScenePromptEvolver": "FrameWeaver Scene Prompt Evolver",
-    "FW_ScenePromptSelector": "FrameWeaver Scene Prompt Selector",
-    "FW_SceneDurationList": "FrameWeaver Scene Duration List",
-    "FW_LoadStarterFrame": "FrameWeaver Starter Frame",
-    "FW_MultiImageLoader": "FrameWeaver Multi Image Loader",
-    "FW_SpeechLengthCalc": "FrameWeaver Speech Length Calculator",
-    "FW_GlobalSequencer": "FrameWeaver Global Sequencer",
-    "FW_StyleAnchor": "FrameWeaver Style Anchor",
-    "FW_ContinuityEncoder": "FrameWeaver Continuity Encoder",
-    "FW_LTX23Settings": "FrameWeaver LTX 2.3 Settings",
-    "FW_LTXSequencer": "FrameWeaver LTX Sequencer",
-    "FW_PrerollCompensator": "FrameWeaver Preroll Compensator",
-    "FW_FrameTrimmer": "FrameWeaver Frame Trimmer",
-    "FW_LatentVideoInit": "FrameWeaver Latent Video Init",
-    "FW_LatentGuideInjector": "FrameWeaver Latent Guide Injector",
-    "FW_SceneSampler": "FrameWeaver Scene Sampler",
-    "FW_DecodeVideo": "FrameWeaver Decode Video",
-    "FW_LastFrameExtractor": "FrameWeaver Last Frame Extractor",
-    "FW_FrameBridge": "FrameWeaver Frame Bridge",
-    "FW_SceneCollector": "FrameWeaver Scene Collector",
-    "FW_SmartAssembler": "FrameWeaver Smart Assembler",
-    "FW_QuickPipeline": "FrameWeaver Quick Pipeline",
-    "FW_ColorMatch": "FrameWeaver Color Match",
-    "FW_FilmGrain": "FrameWeaver Film Grain",
-    "FW_CinematicPolish": "FrameWeaver Cinematic Polish",
-    "FW_LUTApply": "FrameWeaver LUT Apply",
-    "FW_LUTCreate": "FrameWeaver LUT Create",
-    "FW_AudioSplitter": "FrameWeaver Audio Splitter",
-    "FW_AutoQueue": "FrameWeaver Auto Queue",
-    "FW_WhisperTranscriber": "FrameWeaver Whisper Transcriber",
-}
+import os
+import sys
+import traceback
+
+# ------------------------------------------------------------------ #
+#  Ensure the package root is on sys.path so that bare fallback
+#  imports like "from utils.validation import ..." always resolve
+#  to THIS package's utils directory, not something else on the path.
+# ------------------------------------------------------------------ #
+_PKG_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _PKG_ROOT not in sys.path:
+    sys.path.insert(0, _PKG_ROOT)
+
+
+# ------------------------------------------------------------------ #
+#  Per-node imports with individual error handling
+# ------------------------------------------------------------------ #
+
+NODE_CLASS_MAPPINGS = {}
+NODE_DISPLAY_NAME_MAPPINGS = {}
+
+_IMPORT_ERRORS = []
+
+
+def _register(module_path, class_name, display_name):
+    """Import a single node class and register it."""
+    try:
+        # Use relative import from this package
+        parts = module_path.split(".")
+        mod = __import__(f"nodes.{module_path}", fromlist=[class_name])  # noqa: F841
+        cls = getattr(mod, class_name)
+        NODE_CLASS_MAPPINGS[class_name] = cls
+        NODE_DISPLAY_NAME_MAPPINGS[class_name] = display_name
+    except Exception as e:
+        _IMPORT_ERRORS.append((class_name, str(e)))
+        # Also try the relative import path
+        try:
+            from importlib import import_module
+            mod = import_module(f".{module_path}", package="nodes")
+            cls = getattr(mod, class_name)
+            NODE_CLASS_MAPPINGS[class_name] = cls
+            NODE_DISPLAY_NAME_MAPPINGS[class_name] = display_name
+            # Remove from errors since it succeeded on retry
+            _IMPORT_ERRORS.pop()
+        except Exception:
+            pass
+
+
+# ---- Input nodes ---- #
+_register("inputs.scene_prompt_evolver", "FW_ScenePromptEvolver", "FrameWeaver Scene Prompt Evolver")
+_register("inputs.scene_prompt_evolver", "FW_ScenePromptSelector", "FrameWeaver Scene Prompt Selector")
+_register("inputs.scene_duration_list", "FW_SceneDurationList", "FrameWeaver Scene Duration List")
+_register("inputs.load_starter_frame", "FW_LoadStarterFrame", "FrameWeaver Starter Frame")
+_register("inputs.multi_image_loader", "FW_MultiImageLoader", "FrameWeaver Multi Image Loader")
+_register("inputs.speech_length_calc", "FW_SpeechLengthCalc", "FrameWeaver Speech Length Calculator")
+_register("inputs.audio_splitter", "FW_AudioSplitter", "FrameWeaver Audio Splitter")
+
+# ---- Sequencing ---- #
+_register("sequencing.global_sequencer", "FW_GlobalSequencer", "FrameWeaver Global Sequencer")
+
+# ---- Continuity ---- #
+_register("continuity.style_anchor", "FW_StyleAnchor", "FrameWeaver Style Anchor")
+_register("continuity.continuity_encoder", "FW_ContinuityEncoder", "FrameWeaver Continuity Encoder")
+
+# ---- Generation ---- #
+_register("generation.ltx23_settings", "FW_LTX23Settings", "FrameWeaver LTX 2.3 Settings")
+_register("generation.ltx_sequencer", "FW_LTXSequencer", "FrameWeaver LTX Sequencer")
+_register("generation.preroll_compensator", "FW_PrerollCompensator", "FrameWeaver Preroll Compensator")
+_register("generation.preroll_compensator", "FW_FrameTrimmer", "FrameWeaver Frame Trimmer")
+_register("generation.latent_video_init", "FW_LatentVideoInit", "FrameWeaver Latent Video Init")
+_register("generation.latent_guide_injector", "FW_LatentGuideInjector", "FrameWeaver Latent Guide Injector")
+_register("generation.scene_sampler", "FW_SceneSampler", "FrameWeaver Scene Sampler")
+_register("generation.decode_video", "FW_DecodeVideo", "FrameWeaver Decode Video")
+
+# ---- Bridge ---- #
+_register("bridge.last_frame_extractor", "FW_LastFrameExtractor", "FrameWeaver Last Frame Extractor")
+_register("bridge.frame_bridge", "FW_FrameBridge", "FrameWeaver Frame Bridge")
+
+# ---- Output ---- #
+_register("output.scene_collector", "FW_SceneCollector", "FrameWeaver Scene Collector")
+_register("output.smart_assembler", "FW_SmartAssembler", "FrameWeaver Smart Assembler")
+_register("output.auto_queue", "FW_AutoQueue", "FrameWeaver Auto Queue")
+
+# ---- PostProcess ---- #
+_register("postprocess.color_match", "FW_ColorMatch", "FrameWeaver Color Match")
+_register("postprocess.film_grain", "FW_FilmGrain", "FrameWeaver Film Grain")
+_register("postprocess.cinematic_polish", "FW_CinematicPolish", "FrameWeaver Cinematic Polish")
+_register("postprocess.lut_system", "FW_LUTApply", "FrameWeaver LUT Apply")
+_register("postprocess.lut_system", "FW_LUTCreate", "FrameWeaver LUT Create")
+
+# ---- AI ---- #
+_register("ai.whisper_transcriber", "FW_WhisperTranscriber", "FrameWeaver Whisper Transcriber")
+
+# ---- UX ---- #
+_register("ux.quick_pipeline", "FW_QuickPipeline", "FrameWeaver Quick Pipeline")
+
+
+# ------------------------------------------------------------------ #
+#  Report results
+# ------------------------------------------------------------------ #
+
+_TOTAL = 30
+_LOADED = len(NODE_CLASS_MAPPINGS)
+
+if _IMPORT_ERRORS:
+    print(f"\n[FrameWeaver] ⚠️  {_LOADED}/{_TOTAL} nodes loaded. {len(_IMPORT_ERRORS)} failed:")
+    for name, err in _IMPORT_ERRORS:
+        print(f"  ❌ {name}: {err}")
+    print()
+else:
+    print(f"[FrameWeaver] ✅ All {_LOADED} nodes loaded successfully")
