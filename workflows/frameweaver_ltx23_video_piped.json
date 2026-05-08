@@ -1,0 +1,577 @@
+{
+  "last_node_id": 30,
+  "last_link_id": 40,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "FW_LTX23Settings",
+      "pos": [200, 200],
+      "size": [400, 320],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        { "name": "width", "type": "INT", "links": [1, 15], "slot_index": 0 },
+        { "name": "height", "type": "INT", "links": [2, 16], "slot_index": 1 },
+        { "name": "frames", "type": "INT", "links": [3, 17], "slot_index": 2 },
+        { "name": "fps", "type": "INT", "links": [4, 18, 22, 30], "slot_index": 3 },
+        { "name": "duration_seconds", "type": "FLOAT", "links": [], "slot_index": 4 },
+        { "name": "checkpoint_name", "type": "STRING", "links": [5], "slot_index": 5 },
+        { "name": "distilled_lora_name", "type": "STRING", "links": [6], "slot_index": 6 },
+        { "name": "text_encoder_name", "type": "STRING", "links": [7], "slot_index": 7 },
+        { "name": "upscale_model_name", "type": "STRING", "links": [], "slot_index": 8 }
+      ],
+      "properties": { "Node name for S&R": "FW_LTX23Settings" },
+      "widgets_values": [
+        1280,
+        720,
+        "frames",
+        97,
+        4.0,
+        24,
+        "ltx-2.3-22b-dev-fp8.safetensors",
+        "ltx-2.3-22b-distilled-lora-384.safetensors",
+        "gemma_3_12B_it_fp4_mixed.safetensors",
+        "ltx-2.3-spatial-upscaler-x2-1.1.safetensors"
+      ],
+      "color": "#6d28d9",
+      "bgcolor": "#3b0764"
+    },
+    {
+      "id": 2,
+      "type": "LoadAudio",
+      "pos": [200, 600],
+      "size": [400, 120],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        { "name": "AUDIO", "type": "AUDIO", "links": [8, 23], "slot_index": 0 }
+      ],
+      "properties": { "Node name for S&R": "LoadAudio" },
+      "widgets_values": ["input/audio.mp3"],
+      "color": "#d97706",
+      "bgcolor": "#78350f"
+    },
+    {
+      "id": 3,
+      "type": "FW_AudioSplitter",
+      "pos": [700, 600],
+      "size": [400, 200],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        { "name": "audio", "type": "AUDIO", "link": 8 },
+        { "name": "custom_durations_csv", "type": "STRING", "link": null, "widget": { "name": "custom_durations_csv" } }
+      ],
+      "outputs": [
+        { "name": "audio_meta", "type": "FW_AUDIO_META", "links": [31], "slot_index": 0 },
+        { "name": "total_duration", "type": "FLOAT", "links": [], "slot_index": 1 },
+        { "name": "audio_1", "type": "AUDIO", "links": [9], "slot_index": 2 },
+        { "name": "audio_2", "type": "AUDIO", "links": [10], "slot_index": 3 },
+        { "name": "audio_3", "type": "AUDIO", "links": [11], "slot_index": 4 }
+      ],
+      "properties": { "Node name for S&R": "FW_AudioSplitter" },
+      "widgets_values": [3, 4.0, 24, true, "", 0],
+      "color": "#d97706",
+      "bgcolor": "#78350f"
+    },
+    {
+      "id": 4,
+      "type": "FW_WhisperTranscriber",
+      "pos": [1200, 600],
+      "size": [450, 300],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        { "name": "audio_1", "type": "AUDIO", "link": 9 },
+        { "name": "audio_2", "type": "AUDIO", "link": 10 },
+        { "name": "audio_3", "type": "AUDIO", "link": 11 }
+      ],
+      "outputs": [
+        { "name": "pipe_text", "type": "STRING", "links": [12], "slot_index": 0 },
+        { "name": "scene_1_text", "type": "STRING", "links": [], "slot_index": 1 },
+        { "name": "scene_2_text", "type": "STRING", "links": [], "slot_index": 2 },
+        { "name": "scene_3_text", "type": "STRING", "links": [], "slot_index": 3 }
+      ],
+      "properties": { "Node name for S&R": "FW_WhisperTranscriber" },
+      "widgets_values": [
+        3,
+        "openai/whisper-large-v3",
+        "english",
+        true,
+        0.0,
+        "thinking, walking, sitting, looking, waiting"
+      ],
+      "color": "#4f46e5",
+      "bgcolor": "#312e81"
+    },
+    {
+      "id": 5,
+      "type": "FW_ScenePromptEvolver",
+      "pos": [1750, 200],
+      "size": [500, 400],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        { "name": "pipe_text_input", "type": "STRING", "link": 12 }
+      ],
+      "outputs": [
+        { "name": "prompt_list", "type": "FW_PROMPT_LIST", "links": [13], "slot_index": 0 },
+        { "name": "scene_1_positive", "type": "STRING", "links": [], "slot_index": 1 },
+        { "name": "negative", "type": "STRING", "links": [], "slot_index": 2 },
+        { "name": "scene_count", "type": "INT", "links": [], "slot_index": 3 }
+      ],
+      "properties": { "Node name for S&R": "FW_ScenePromptEvolver" },
+      "widgets_values": [
+        "cinematic, high quality, coherent character identity, stable wardrobe, detailed motion, consistent lighting",
+        "blurry, low quality, warped anatomy, flicker, inconsistent identity, static shot, text, watermark",
+        "A character starts moving through the scene.",
+        "cumulative",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "color": "#2563eb",
+      "bgcolor": "#1e3a8a"
+    },
+    {
+      "id": 6,
+      "type": "FW_ScenePromptSelector",
+      "pos": [2350, 200],
+      "size": [350, 120],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        { "name": "prompt_list", "type": "FW_PROMPT_LIST", "link": 13 }
+      ],
+      "outputs": [
+        { "name": "positive", "type": "STRING", "links": [14], "slot_index": 0 },
+        { "name": "negative", "type": "STRING", "links": [19], "slot_index": 1 },
+        { "name": "bridge_prompt", "type": "STRING", "links": [24], "slot_index": 2 },
+        { "name": "selected_index", "type": "INT", "links": [], "slot_index": 3 }
+      ],
+      "properties": { "Node name for S&R": "FW_ScenePromptSelector" },
+      "widgets_values": [1],
+      "color": "#2563eb",
+      "bgcolor": "#1e3a8a"
+    },
+    {
+      "id": 7,
+      "type": "FW_StyleAnchor",
+      "pos": [2350, 400],
+      "size": [350, 200],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        { "name": "reference_image", "type": "IMAGE", "link": null }
+      ],
+      "outputs": [
+        { "name": "style_anchor", "type": "FW_STYLE_ANCHOR", "links": [20], "slot_index": 0 },
+        { "name": "reference_image", "type": "IMAGE", "links": [], "slot_index": 1 }
+      ],
+      "properties": { "Node name for S&R": "FW_StyleAnchor" },
+      "widgets_values": [
+        "cinematic, warm tones, soft lighting, film look",
+        "consistent character, same outfit, same face",
+        "warm golden"
+      ],
+      "color": "#7c3aed",
+      "bgcolor": "#4c1d95"
+    },
+    {
+      "id": 8,
+      "type": "FW_ContinuityEncoder",
+      "pos": [2800, 200],
+      "size": [400, 200],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        { "name": "style_anchor", "type": "FW_STYLE_ANCHOR", "link": 20 },
+        { "name": "scene_prompt", "type": "STRING", "link": 14, "widget": { "name": "scene_prompt" } },
+        { "name": "bridge_prompt", "type": "STRING", "link": 24, "widget": { "name": "bridge_prompt" } }
+      ],
+      "outputs": [
+        { "name": "positive_prompt", "type": "STRING", "links": [21], "slot_index": 0 },
+        { "name": "scene_state", "type": "FW_SCENE_STATE", "links": [], "slot_index": 1 }
+      ],
+      "properties": { "Node name for S&R": "FW_ContinuityEncoder" },
+      "widgets_values": [0.35],
+      "color": "#7c3aed",
+      "bgcolor": "#4c1d95"
+    },
+    {
+      "id": 10,
+      "type": "DualCLIPLoader",
+      "pos": [200, 900],
+      "size": [400, 120],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        { "name": "clip_name1", "type": "STRING", "link": 7, "widget": { "name": "clip_name1" } }
+      ],
+      "outputs": [
+        { "name": "CLIP", "type": "CLIP", "links": [25, 26], "slot_index": 0 }
+      ],
+      "properties": { "Node name for S&R": "DualCLIPLoader" },
+      "widgets_values": ["gemma_3_12B_it_fp4_mixed.safetensors", "t5xxl_fp16.safetensors", "ltxv"]
+    },
+    {
+      "id": 11,
+      "type": "CLIPTextEncode",
+      "pos": [3300, 200],
+      "size": [350, 120],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        { "name": "clip", "type": "CLIP", "link": 25 },
+        { "name": "text", "type": "STRING", "link": 21, "widget": { "name": "text" } }
+      ],
+      "outputs": [
+        { "name": "CONDITIONING", "type": "CONDITIONING", "links": [27], "slot_index": 0 }
+      ],
+      "properties": { "Node name for S&R": "CLIPTextEncode" },
+      "widgets_values": [""]
+    },
+    {
+      "id": 12,
+      "type": "CLIPTextEncode",
+      "pos": [3300, 400],
+      "size": [350, 120],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        { "name": "clip", "type": "CLIP", "link": 26 },
+        { "name": "text", "type": "STRING", "link": 19, "widget": { "name": "text" } }
+      ],
+      "outputs": [
+        { "name": "CONDITIONING", "type": "CONDITIONING", "links": [28], "slot_index": 0 }
+      ],
+      "properties": { "Node name for S&R": "CLIPTextEncode" },
+      "widgets_values": [""]
+    },
+    {
+      "id": 13,
+      "type": "UNETLoader",
+      "pos": [200, 1100],
+      "size": [400, 100],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        { "name": "unet_name", "type": "STRING", "link": 5, "widget": { "name": "unet_name" } }
+      ],
+      "outputs": [
+        { "name": "MODEL", "type": "MODEL", "links": [29], "slot_index": 0 }
+      ],
+      "properties": { "Node name for S&R": "UNETLoader" },
+      "widgets_values": ["ltx-2.3-22b-dev-fp8.safetensors", "default"]
+    },
+    {
+      "id": 14,
+      "type": "LoraLoaderModelOnly",
+      "pos": [700, 1100],
+      "size": [400, 100],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        { "name": "model", "type": "MODEL", "link": 29 },
+        { "name": "lora_name", "type": "STRING", "link": 6, "widget": { "name": "lora_name" } }
+      ],
+      "outputs": [
+        { "name": "MODEL", "type": "MODEL", "links": [32], "slot_index": 0 }
+      ],
+      "properties": { "Node name for S&R": "LoraLoaderModelOnly" },
+      "widgets_values": ["ltx-2.3-22b-distilled-lora-384.safetensors", 1.0]
+    },
+    {
+      "id": 15,
+      "type": "FW_LatentVideoInit",
+      "pos": [3300, 600],
+      "size": [350, 120],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        { "name": "width", "type": "INT", "link": 15 },
+        { "name": "height", "type": "INT", "link": 16 },
+        { "name": "frames", "type": "INT", "link": 17 },
+        { "name": "fps", "type": "INT", "link": 18 }
+      ],
+      "outputs": [
+        { "name": "latent", "type": "LATENT", "links": [33], "slot_index": 0 },
+        { "name": "width", "type": "INT", "links": [], "slot_index": 1 },
+        { "name": "height", "type": "INT", "links": [], "slot_index": 2 },
+        { "name": "frames", "type": "INT", "links": [], "slot_index": 3 }
+      ],
+      "properties": { "Node name for S&R": "FW_LatentVideoInit" },
+      "widgets_values": [],
+      "color": "#6d28d9",
+      "bgcolor": "#3b0764"
+    },
+    {
+      "id": 16,
+      "type": "FW_SceneSampler",
+      "pos": [3750, 200],
+      "size": [350, 200],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "outputs": [
+        { "name": "seed", "type": "INT", "links": [34], "slot_index": 0 },
+        { "name": "sampler_name", "type": "STRING", "links": [35], "slot_index": 1 },
+        { "name": "sigma_schedule", "type": "STRING", "links": [], "slot_index": 2 },
+        { "name": "cleanup_status", "type": "STRING", "links": [], "slot_index": 3 }
+      ],
+      "properties": { "Node name for S&R": "FW_SceneSampler" },
+      "widgets_values": [42, "euler_cfg_pp", "1.0, 0.99375, 0.9875, 0.98125, 0.975, 0.909375, 0.725, 0.421875, 0.0", false],
+      "color": "#6d28d9",
+      "bgcolor": "#3b0764"
+    },
+    {
+      "id": 17,
+      "type": "BasicGuider",
+      "pos": [3750, 500],
+      "size": [250, 100],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        { "name": "model", "type": "MODEL", "link": 32 },
+        { "name": "conditioning", "type": "CONDITIONING", "link": 27 }
+      ],
+      "outputs": [
+        { "name": "GUIDER", "type": "GUIDER", "links": [36], "slot_index": 0 }
+      ],
+      "properties": { "Node name for S&R": "BasicGuider" }
+    },
+    {
+      "id": 18,
+      "type": "RandomNoise",
+      "pos": [3750, 650],
+      "size": [250, 80],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        { "name": "noise_seed", "type": "INT", "link": 34, "widget": { "name": "noise_seed" } }
+      ],
+      "outputs": [
+        { "name": "NOISE", "type": "NOISE", "links": [37], "slot_index": 0 }
+      ],
+      "properties": { "Node name for S&R": "RandomNoise" },
+      "widgets_values": [42, "fixed"]
+    },
+    {
+      "id": 19,
+      "type": "KSamplerSelect",
+      "pos": [3750, 780],
+      "size": [250, 80],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        { "name": "sampler_name", "type": "STRING", "link": 35, "widget": { "name": "sampler_name" } }
+      ],
+      "outputs": [
+        { "name": "SAMPLER", "type": "SAMPLER", "links": [38], "slot_index": 0 }
+      ],
+      "properties": { "Node name for S&R": "KSamplerSelect" },
+      "widgets_values": ["euler_cfg_pp"]
+    },
+    {
+      "id": 20,
+      "type": "BasicScheduler",
+      "pos": [3750, 910],
+      "size": [250, 120],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        { "name": "model", "type": "MODEL", "link": null }
+      ],
+      "outputs": [
+        { "name": "SIGMAS", "type": "SIGMAS", "links": [39], "slot_index": 0 }
+      ],
+      "properties": { "Node name for S&R": "BasicScheduler" },
+      "widgets_values": ["simple", 4, 1.0]
+    },
+    {
+      "id": 21,
+      "type": "SamplerCustomAdvanced",
+      "pos": [4200, 400],
+      "size": [350, 200],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        { "name": "noise", "type": "NOISE", "link": 37 },
+        { "name": "guider", "type": "GUIDER", "link": 36 },
+        { "name": "sampler", "type": "SAMPLER", "link": 38 },
+        { "name": "sigmas", "type": "SIGMAS", "link": 39 },
+        { "name": "latent_image", "type": "LATENT", "link": 33 }
+      ],
+      "outputs": [
+        { "name": "output", "type": "LATENT", "links": [40], "slot_index": 0 },
+        { "name": "denoised_output", "type": "LATENT", "links": [], "slot_index": 1 }
+      ],
+      "properties": { "Node name for S&R": "SamplerCustomAdvanced" }
+    },
+    {
+      "id": 22,
+      "type": "FW_DecodeVideo",
+      "pos": [4650, 400],
+      "size": [350, 120],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        { "name": "latent", "type": "LATENT", "link": 40 }
+      ],
+      "outputs": [
+        { "name": "images", "type": "IMAGE", "links": [], "slot_index": 0 }
+      ],
+      "properties": { "Node name for S&R": "FW_DecodeVideo" },
+      "color": "#6d28d9",
+      "bgcolor": "#3b0764"
+    },
+    {
+      "id": 23,
+      "type": "FW_AutoQueue",
+      "pos": [1200, 1000],
+      "size": [400, 200],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        { "name": "audio_meta", "type": "FW_AUDIO_META", "link": 31 }
+      ],
+      "outputs": [
+        { "name": "chunk_index", "type": "INT", "links": [], "slot_index": 0 },
+        { "name": "total_chunks", "type": "INT", "links": [], "slot_index": 1 },
+        { "name": "instructions", "type": "STRING", "links": [], "slot_index": 2 },
+        { "name": "output_folder", "type": "STRING", "links": [], "slot_index": 3 }
+      ],
+      "properties": { "Node name for S&R": "FW_AutoQueue" },
+      "widgets_values": [true, "frameweaver_piped_output", -1],
+      "color": "#059669",
+      "bgcolor": "#064e3b"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 15, 0, "INT"],
+    [2, 1, 1, 15, 1, "INT"],
+    [3, 1, 2, 15, 2, "INT"],
+    [4, 1, 3, 15, 3, "INT"],
+    [5, 1, 5, 13, 0, "STRING"],
+    [6, 1, 6, 14, 1, "STRING"],
+    [7, 1, 7, 10, 0, "STRING"],
+    [8, 2, 0, 3, 0, "AUDIO"],
+    [9, 3, 2, 4, 0, "AUDIO"],
+    [10, 3, 3, 4, 1, "AUDIO"],
+    [11, 3, 4, 4, 2, "AUDIO"],
+    [12, 4, 0, 5, 0, "STRING"],
+    [13, 5, 0, 6, 0, "FW_PROMPT_LIST"],
+    [14, 6, 0, 8, 1, "STRING"],
+    [15, 1, 0, 15, 0, "INT"],
+    [16, 1, 1, 15, 1, "INT"],
+    [17, 1, 2, 15, 2, "INT"],
+    [18, 1, 3, 15, 3, "INT"],
+    [19, 6, 1, 12, 1, "STRING"],
+    [20, 7, 0, 8, 0, "FW_STYLE_ANCHOR"],
+    [21, 8, 0, 11, 1, "STRING"],
+    [22, 1, 3, 3, 3, "INT"],
+    [23, 2, 0, 3, 0, "AUDIO"],
+    [24, 6, 2, 8, 2, "STRING"],
+    [25, 10, 0, 11, 0, "CLIP"],
+    [26, 10, 0, 12, 0, "CLIP"],
+    [27, 11, 0, 17, 1, "CONDITIONING"],
+    [28, 12, 0, 21, 0, "CONDITIONING"],
+    [29, 13, 0, 14, 0, "MODEL"],
+    [30, 1, 3, 3, 3, "INT"],
+    [31, 3, 0, 23, 0, "FW_AUDIO_META"],
+    [32, 14, 0, 17, 0, "MODEL"],
+    [33, 15, 0, 21, 4, "LATENT"],
+    [34, 16, 0, 18, 0, "INT"],
+    [35, 16, 1, 19, 0, "STRING"],
+    [36, 17, 0, 21, 1, "GUIDER"],
+    [37, 18, 0, 21, 0, "NOISE"],
+    [38, 19, 0, 21, 2, "SAMPLER"],
+    [39, 20, 0, 21, 3, "SIGMAS"],
+    [40, 21, 0, 22, 0, "LATENT"]
+  ],
+  "groups": [
+    {
+      "title": "🎵 Audio Input & Splitting",
+      "bounding": [150, 540, 600, 310],
+      "color": "#d97706",
+      "font_size": 24
+    },
+    {
+      "title": "🧠 AI Transcription (Whisper)",
+      "bounding": [1150, 540, 550, 400],
+      "color": "#4f46e5",
+      "font_size": 24
+    },
+    {
+      "title": "📥 Prompt Pipeline (Pipe Mode)",
+      "bounding": [1700, 140, 600, 500],
+      "color": "#2563eb",
+      "font_size": 24
+    },
+    {
+      "title": "🔒 Style & Continuity",
+      "bounding": [2300, 140, 600, 520],
+      "color": "#7c3aed",
+      "font_size": 24
+    },
+    {
+      "title": "⚡ Generation",
+      "bounding": [3250, 140, 850, 920],
+      "color": "#6d28d9",
+      "font_size": 24
+    },
+    {
+      "title": "📤 Output & Auto-Queue",
+      "bounding": [1150, 940, 550, 310],
+      "color": "#059669",
+      "font_size": 24
+    },
+    {
+      "title": "⚙️ Model Loaders",
+      "bounding": [150, 840, 1000, 420],
+      "color": "#3f789e",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7,
+      "offset": [0, 0]
+    },
+    "info": {
+      "name": "FrameWeaver LTX 2.3 — Video Piped (Whisper → Auto Prompts)",
+      "description": "Fully automated audio-to-video pipeline: LoadAudio → AudioSplitter → WhisperTranscriber → ScenePromptEvolver (pipe mode) → ContinuityEncoder → LTX 2.3 Generation. Transcribes audio narration/lyrics into per-scene prompts automatically.",
+      "author": "FrameWeaver",
+      "version": "1.0"
+    }
+  },
+  "version": 0.4
+}
