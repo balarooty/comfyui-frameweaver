@@ -291,7 +291,7 @@ class FW_LUTCreate:
         return {
             "required": {
                 "images": ("IMAGE", {"tooltip": "Video frames to grade [N, H, W, C]."}),
-                "colors": ("STRING", {
+                "palette_hex": ("STRING", {
                     "default": "#1a1a2e, #16213e, #0f3460, #e94560",
                     "multiline": False,
                     "tooltip": "Comma-separated hex colors or named colors. Maps shadows→highlights.",
@@ -315,8 +315,8 @@ class FW_LUTCreate:
             },
         }
 
-    def create_and_apply(self, images, colors, lut_size, strength, batch_size, save_filename=""):
-        lut = _build_palette_lut(colors, lut_size)
+    def create_and_apply(self, images, palette_hex, lut_size, strength, batch_size, save_filename=""):
+        lut = _build_palette_lut(palette_hex, lut_size)
         device = _get_device()
 
         # Optionally save to disk

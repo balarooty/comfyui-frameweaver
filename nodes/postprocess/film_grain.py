@@ -30,7 +30,7 @@ class FW_FilmGrain:
         return {
             "required": {
                 "images": ("IMAGE", {"tooltip": "Video frames [N, H, W, C]."}),
-                "grain_intensity": ("FLOAT", {
+                "intensity": ("FLOAT", {
                     "default": 0.04, "min": 0.001, "max": 1.0, "step": 0.001,
                     "tooltip": "Overall grain strength. 0.02-0.06 is subtle cinematic, 0.1+ is heavy.",
                 }),
@@ -45,7 +45,7 @@ class FW_FilmGrain:
             },
         }
 
-    def apply_grain(self, images, grain_intensity, saturation_mix, batch_size):
+    def apply_grain(self, images, intensity, saturation_mix, batch_size):
         device = _get_device()
         images = images.to(device)
 
@@ -65,7 +65,7 @@ class FW_FilmGrain:
             gray_grain = grain[:, :, :, 1:2].expand_as(grain)
             grain = saturation_mix * grain + (1.0 - saturation_mix) * gray_grain
 
-            output = (batch + grain * grain_intensity).clamp(0.0, 1.0)
+            output = (batch + grain * intensity).clamp(0.0, 1.0)
             outputs.append(output)
 
         result = torch.cat(outputs, dim=0)

@@ -129,8 +129,8 @@ class FW_ColorMatch:
 
         with torch.no_grad():
             ref_lab = _to_lab(ref)
-            ref_mean = ref_lab.mean(dim=[2, 3], keepdim=True)
-            ref_std = ref_lab.std(dim=[2, 3], keepdim=True) + 1e-5
+            ref_mean = ref_lab.mean(dim=[0, 2, 3], keepdim=True)
+            ref_std = ref_lab.std(dim=[0, 2, 3], keepdim=True) + 1e-5
 
         images_nchw = images.permute(0, 3, 1, 2)  # stays on CPU
         outputs = []

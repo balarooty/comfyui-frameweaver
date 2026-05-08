@@ -37,6 +37,13 @@ temp/
 #plans
 plan.md
 phase_*
+phase6_plan.md
+PLAN_workflow_fix.md
+tutorial.md
+
+# Agent / tool artifacts
+.agent_history/
+.minimax/
 
 
 

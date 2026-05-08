@@ -34,6 +34,8 @@ try:
 except ImportError:
     from utils.validation import nearest_valid_frame_count
 
+_nearest_valid_frame_count = nearest_valid_frame_count
+
 
 class FW_AudioSplitter:
     """Split audio into per-scene chunks with duration-driven segmentation."""

@@ -86,16 +86,31 @@ class FW_LTX23Settings:
         self,
         width,
         height,
-        duration_mode,
-        frames,
-        duration_seconds,
-        fps,
-        checkpoint_name,
-        distilled_lora_name,
-        text_encoder_name,
-        upscale_model_name,
+        duration_mode="frames",
+        frames=97,
+        duration_seconds=4.0,
+        fps=24,
+        checkpoint_name="ltx-2.3-22b-dev-fp8.safetensors",
+        distilled_lora_name="ltx-2.3-22b-distilled-lora-384.safetensors",
+        text_encoder_name="gemma_3_12B_it_fp4_mixed.safetensors",
+        upscale_model_name="ltx-2.3-spatial-upscaler-x2-1.1.safetensors",
         override_frames=None,
     ):
+        if duration_mode not in ("frames", "seconds"):
+            old_frames = duration_mode
+            old_fps = frames
+            old_checkpoint_name = duration_seconds
+            old_distilled_lora_name = fps
+            old_text_encoder_name = checkpoint_name
+            old_upscale_model_name = distilled_lora_name
+            duration_mode = "frames"
+            frames = old_frames
+            fps = old_fps
+            checkpoint_name = old_checkpoint_name
+            distilled_lora_name = old_distilled_lora_name
+            text_encoder_name = old_text_encoder_name
+            upscale_model_name = old_upscale_model_name
+
         width, height = normalize_dimensions(width, height, 32)
         fps = max(1, int(fps))
 
