@@ -4182,6 +4182,115 @@
           "frame_idx": 0,
           "strength": 1
         }
+      },
+      "75": {
+        "_meta": {
+          "title": "SaveVideo"
+        },
+        "class_type": "SaveVideo",
+        "inputs": {
+          "video": [
+            "267",
+            0
+          ],
+          "filename_prefix": "video/LTX_2.3_i2v"
+        }
+      },
+      "269": {
+        "_meta": {
+          "title": "LoadImage"
+        },
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "egyptian_queen.png",
+          "upload": "image"
+        }
+      },
+      "270": {
+        "_meta": {
+          "title": "FW_LTX23Settings"
+        },
+        "class_type": "FW_LTX23Settings",
+        "inputs": {
+          "width": 1280,
+          "height": 720,
+          "frames": 97,
+          "fps": 24
+        }
+      },
+      "271": {
+        "_meta": {
+          "title": "FW_LoadStarterFrame"
+        },
+        "class_type": "FW_LoadStarterFrame",
+        "inputs": {
+          "image": [
+            "269",
+            0
+          ],
+          "target_width": 1280,
+          "target_height": 720
+        }
+      },
+      "272": {
+        "_meta": {
+          "title": "FW_ScenePromptEvolver"
+        },
+        "class_type": "FW_ScenePromptEvolver",
+        "inputs": {
+          "base_style": "cinematic, coherent identity, high quality motion",
+          "negative": "blurry, low quality, flicker, inconsistent identity",
+          "scene_1": "A character starts moving through the first scene with clear physical action.",
+          "evolution_mode": "cumulative"
+        }
+      },
+      "273": {
+        "_meta": {
+          "title": "FW_ScenePromptSelector"
+        },
+        "class_type": "FW_ScenePromptSelector",
+        "inputs": {
+          "prompt_list": [
+            "272",
+            0
+          ],
+          "scene_index": 1
+        }
+      },
+      "274": {
+        "_meta": {
+          "title": "FW_StyleAnchor"
+        },
+        "class_type": "FW_StyleAnchor",
+        "inputs": {
+          "reference_image": [
+            "271",
+            0
+          ],
+          "style_description": "Preserve subject identity, wardrobe, lighting, palette, and lens.",
+          "identity_description": "The same primary character remains recognizable across scenes."
+        }
+      },
+      "275": {
+        "_meta": {
+          "title": "FW_ContinuityEncoder"
+        },
+        "class_type": "FW_ContinuityEncoder",
+        "inputs": {
+          "style_anchor": [
+            "274",
+            0
+          ],
+          "scene_prompt": [
+            "273",
+            0
+          ],
+          "bridge_prompt": [
+            "273",
+            2
+          ],
+          "style_strength": 0.35
+        }
       }
     },
     "workflowRendererVersion": "Vue"
@@ -4302,38 +4411,6 @@
       267,
       5,
       "INT"
-    ],
-    [
-      623,
-      270,
-      5,
-      267,
-      6,
-      "COMBO"
-    ],
-    [
-      624,
-      270,
-      6,
-      267,
-      7,
-      "COMBO"
-    ],
-    [
-      625,
-      270,
-      7,
-      267,
-      8,
-      "COMBO"
-    ],
-    [
-      626,
-      270,
-      8,
-      267,
-      9,
-      "COMBO"
     ],
     [
       627,
@@ -4500,23 +4577,23 @@
         {
           "name": "ckpt_name",
           "type": "COMBO",
-          "link": 623
+          "link": null
         },
         {
           "name": "lora_name",
           "type": "COMBO",
-          "link": 624,
+          "link": null,
           "label": "distilled_lora"
         },
         {
           "name": "text_encoder",
           "type": "COMBO",
-          "link": 625
+          "link": null
         },
         {
           "name": "model_name",
           "type": "COMBO",
-          "link": 626,
+          "link": null,
           "label": "latent_upscale_model"
         },
         {
@@ -4673,30 +4750,22 @@
         {
           "name": "checkpoint_name",
           "type": "COMBO",
-          "links": [
-            623
-          ]
+          "links": []
         },
         {
           "name": "distilled_lora_name",
           "type": "COMBO",
-          "links": [
-            624
-          ]
+          "links": []
         },
         {
           "name": "text_encoder_name",
           "type": "COMBO",
-          "links": [
-            625
-          ]
+          "links": []
         },
         {
           "name": "upscale_model_name",
           "type": "COMBO",
-          "links": [
-            626
-          ]
+          "links": []
         }
       ],
       "properties": {

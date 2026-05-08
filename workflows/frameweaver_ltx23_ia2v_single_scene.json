@@ -4469,13 +4469,137 @@
           "frame_idx": 0,
           "strength": 1
         }
+      },
+      "269": {
+        "_meta": {
+          "title": "LoadImage"
+        },
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "cactus_man.png"
+        }
+      },
+      "339": {
+        "_meta": {
+          "title": "RecordAudio"
+        },
+        "class_type": "RecordAudio",
+        "inputs": {}
+      },
+      "341": {
+        "_meta": {
+          "title": "SaveVideo"
+        },
+        "class_type": "SaveVideo",
+        "inputs": {
+          "video": [
+            "340",
+            0
+          ],
+          "filename_prefix": "video/LTX_2.3_ia2v"
+        }
+      },
+      "276": {
+        "_meta": {
+          "title": "LoadAudio"
+        },
+        "class_type": "LoadAudio",
+        "inputs": {
+          "audio": "ltx_23_audio.mp3"
+        }
+      },
+      "342": {
+        "_meta": {
+          "title": "FW_LTX23Settings"
+        },
+        "class_type": "FW_LTX23Settings",
+        "inputs": {
+          "width": 1280,
+          "height": 720,
+          "frames": 217,
+          "fps": 24
+        }
+      },
+      "343": {
+        "_meta": {
+          "title": "FW_LoadStarterFrame"
+        },
+        "class_type": "FW_LoadStarterFrame",
+        "inputs": {
+          "image": [
+            "269",
+            0
+          ],
+          "target_width": 1280,
+          "target_height": 720
+        }
+      },
+      "344": {
+        "_meta": {
+          "title": "FW_ScenePromptEvolver"
+        },
+        "class_type": "FW_ScenePromptEvolver",
+        "inputs": {
+          "base_style": "cinematic, coherent identity, high quality audio-synced motion",
+          "negative": "blurry, low quality, flicker, inconsistent identity",
+          "scene_1": "A character performs a clear action that matches the audio.",
+          "evolution_mode": "cumulative"
+        }
+      },
+      "345": {
+        "_meta": {
+          "title": "FW_ScenePromptSelector"
+        },
+        "class_type": "FW_ScenePromptSelector",
+        "inputs": {
+          "prompt_list": [
+            "344",
+            0
+          ],
+          "scene_index": 1
+        }
+      },
+      "346": {
+        "_meta": {
+          "title": "FW_StyleAnchor"
+        },
+        "class_type": "FW_StyleAnchor",
+        "inputs": {
+          "reference_image": [
+            "343",
+            0
+          ],
+          "style_description": "Preserve subject identity, wardrobe, lighting, palette, and lens.",
+          "identity_description": "The same primary character remains recognizable across scenes."
+        }
+      },
+      "347": {
+        "_meta": {
+          "title": "FW_ContinuityEncoder"
+        },
+        "class_type": "FW_ContinuityEncoder",
+        "inputs": {
+          "style_anchor": [
+            "346",
+            0
+          ],
+          "scene_prompt": [
+            "345",
+            0
+          ],
+          "bridge_prompt": [
+            "345",
+            2
+          ],
+          "style_strength": 0.35
+        }
       }
     },
     "workflowRendererVersion": "Vue"
   },
   "groups": [],
   "id": "07824bbb-6672-4bb0-ac36-4313a519e35b",
-  "last_link_id": 755,
+  "last_link_id": 759,
   "last_node_id": 347,
   "links": [
     [
