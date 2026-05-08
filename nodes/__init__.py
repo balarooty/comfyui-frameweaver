@@ -1,111 +1,206 @@
 """FrameWeaver — Node Registry
 
-Bulletproof import system: each node is imported in its own try/except
-so a single broken node never prevents the other nodes from loading.
-Failed imports are logged to the ComfyUI console for easy debugging.
+Each node is imported in its own try/except so a single broken node
+never prevents the other nodes from loading. Uses relative imports
+to avoid collision with ComfyUI's own nodes.py module.
 """
 
 import os
 import sys
-import traceback
 
-# ------------------------------------------------------------------ #
-#  Ensure the package root is on sys.path so that bare fallback
-#  imports like "from utils.validation import ..." always resolve
-#  to THIS package's utils directory, not something else on the path.
-# ------------------------------------------------------------------ #
+# Ensure the package root is on sys.path for fallback bare imports
+# inside individual node files (e.g. "from utils.validation import ...").
 _PKG_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _PKG_ROOT not in sys.path:
     sys.path.insert(0, _PKG_ROOT)
 
-
-# ------------------------------------------------------------------ #
-#  Per-node imports with individual error handling
-# ------------------------------------------------------------------ #
-
 NODE_CLASS_MAPPINGS = {}
 NODE_DISPLAY_NAME_MAPPINGS = {}
-
 _IMPORT_ERRORS = []
 
 
-def _register(module_path, class_name, display_name):
-    """Import a single node class and register it."""
-    try:
-        # Use relative import from this package
-        parts = module_path.split(".")
-        mod = __import__(f"nodes.{module_path}", fromlist=[class_name])  # noqa: F841
-        cls = getattr(mod, class_name)
-        NODE_CLASS_MAPPINGS[class_name] = cls
-        NODE_DISPLAY_NAME_MAPPINGS[class_name] = display_name
-    except Exception as e:
-        _IMPORT_ERRORS.append((class_name, str(e)))
-        # Also try the relative import path
-        try:
-            from importlib import import_module
-            mod = import_module(f".{module_path}", package="nodes")
-            cls = getattr(mod, class_name)
-            NODE_CLASS_MAPPINGS[class_name] = cls
-            NODE_DISPLAY_NAME_MAPPINGS[class_name] = display_name
-            # Remove from errors since it succeeded on retry
-            _IMPORT_ERRORS.pop()
-        except Exception:
-            pass
+def _reg(class_name, display_name, cls):
+    """Register a successfully imported node class."""
+    NODE_CLASS_MAPPINGS[class_name] = cls
+    NODE_DISPLAY_NAME_MAPPINGS[class_name] = display_name
 
 
 # ---- Input nodes ---- #
-_register("inputs.scene_prompt_evolver", "FW_ScenePromptEvolver", "FrameWeaver Scene Prompt Evolver")
-_register("inputs.scene_prompt_evolver", "FW_ScenePromptSelector", "FrameWeaver Scene Prompt Selector")
-_register("inputs.scene_duration_list", "FW_SceneDurationList", "FrameWeaver Scene Duration List")
-_register("inputs.load_starter_frame", "FW_LoadStarterFrame", "FrameWeaver Starter Frame")
-_register("inputs.multi_image_loader", "FW_MultiImageLoader", "FrameWeaver Multi Image Loader")
-_register("inputs.speech_length_calc", "FW_SpeechLengthCalc", "FrameWeaver Speech Length Calculator")
-_register("inputs.audio_splitter", "FW_AudioSplitter", "FrameWeaver Audio Splitter")
+try:
+    from .inputs.scene_prompt_evolver import FW_ScenePromptEvolver, FW_ScenePromptSelector
+    _reg("FW_ScenePromptEvolver", "FrameWeaver Scene Prompt Evolver", FW_ScenePromptEvolver)
+    _reg("FW_ScenePromptSelector", "FrameWeaver Scene Prompt Selector", FW_ScenePromptSelector)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_ScenePromptEvolver/Selector", str(e)))
+
+try:
+    from .inputs.scene_duration_list import FW_SceneDurationList
+    _reg("FW_SceneDurationList", "FrameWeaver Scene Duration List", FW_SceneDurationList)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_SceneDurationList", str(e)))
+
+try:
+    from .inputs.load_starter_frame import FW_LoadStarterFrame
+    _reg("FW_LoadStarterFrame", "FrameWeaver Starter Frame", FW_LoadStarterFrame)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_LoadStarterFrame", str(e)))
+
+try:
+    from .inputs.multi_image_loader import FW_MultiImageLoader
+    _reg("FW_MultiImageLoader", "FrameWeaver Multi Image Loader", FW_MultiImageLoader)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_MultiImageLoader", str(e)))
+
+try:
+    from .inputs.speech_length_calc import FW_SpeechLengthCalc
+    _reg("FW_SpeechLengthCalc", "FrameWeaver Speech Length Calculator", FW_SpeechLengthCalc)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_SpeechLengthCalc", str(e)))
+
+try:
+    from .inputs.audio_splitter import FW_AudioSplitter
+    _reg("FW_AudioSplitter", "FrameWeaver Audio Splitter", FW_AudioSplitter)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_AudioSplitter", str(e)))
 
 # ---- Sequencing ---- #
-_register("sequencing.global_sequencer", "FW_GlobalSequencer", "FrameWeaver Global Sequencer")
+try:
+    from .sequencing.global_sequencer import FW_GlobalSequencer
+    _reg("FW_GlobalSequencer", "FrameWeaver Global Sequencer", FW_GlobalSequencer)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_GlobalSequencer", str(e)))
 
 # ---- Continuity ---- #
-_register("continuity.style_anchor", "FW_StyleAnchor", "FrameWeaver Style Anchor")
-_register("continuity.continuity_encoder", "FW_ContinuityEncoder", "FrameWeaver Continuity Encoder")
+try:
+    from .continuity.style_anchor import FW_StyleAnchor
+    _reg("FW_StyleAnchor", "FrameWeaver Style Anchor", FW_StyleAnchor)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_StyleAnchor", str(e)))
+
+try:
+    from .continuity.continuity_encoder import FW_ContinuityEncoder
+    _reg("FW_ContinuityEncoder", "FrameWeaver Continuity Encoder", FW_ContinuityEncoder)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_ContinuityEncoder", str(e)))
 
 # ---- Generation ---- #
-_register("generation.ltx23_settings", "FW_LTX23Settings", "FrameWeaver LTX 2.3 Settings")
-_register("generation.ltx_sequencer", "FW_LTXSequencer", "FrameWeaver LTX Sequencer")
-_register("generation.preroll_compensator", "FW_PrerollCompensator", "FrameWeaver Preroll Compensator")
-_register("generation.preroll_compensator", "FW_FrameTrimmer", "FrameWeaver Frame Trimmer")
-_register("generation.latent_video_init", "FW_LatentVideoInit", "FrameWeaver Latent Video Init")
-_register("generation.latent_guide_injector", "FW_LatentGuideInjector", "FrameWeaver Latent Guide Injector")
-_register("generation.scene_sampler", "FW_SceneSampler", "FrameWeaver Scene Sampler")
-_register("generation.decode_video", "FW_DecodeVideo", "FrameWeaver Decode Video")
+try:
+    from .generation.ltx23_settings import FW_LTX23Settings
+    _reg("FW_LTX23Settings", "FrameWeaver LTX 2.3 Settings", FW_LTX23Settings)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_LTX23Settings", str(e)))
+
+try:
+    from .generation.ltx_sequencer import FW_LTXSequencer
+    _reg("FW_LTXSequencer", "FrameWeaver LTX Sequencer", FW_LTXSequencer)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_LTXSequencer", str(e)))
+
+try:
+    from .generation.preroll_compensator import FW_PrerollCompensator, FW_FrameTrimmer
+    _reg("FW_PrerollCompensator", "FrameWeaver Preroll Compensator", FW_PrerollCompensator)
+    _reg("FW_FrameTrimmer", "FrameWeaver Frame Trimmer", FW_FrameTrimmer)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_PrerollCompensator/FrameTrimmer", str(e)))
+
+try:
+    from .generation.latent_video_init import FW_LatentVideoInit
+    _reg("FW_LatentVideoInit", "FrameWeaver Latent Video Init", FW_LatentVideoInit)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_LatentVideoInit", str(e)))
+
+try:
+    from .generation.latent_guide_injector import FW_LatentGuideInjector
+    _reg("FW_LatentGuideInjector", "FrameWeaver Latent Guide Injector", FW_LatentGuideInjector)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_LatentGuideInjector", str(e)))
+
+try:
+    from .generation.scene_sampler import FW_SceneSampler
+    _reg("FW_SceneSampler", "FrameWeaver Scene Sampler", FW_SceneSampler)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_SceneSampler", str(e)))
+
+try:
+    from .generation.decode_video import FW_DecodeVideo
+    _reg("FW_DecodeVideo", "FrameWeaver Decode Video", FW_DecodeVideo)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_DecodeVideo", str(e)))
 
 # ---- Bridge ---- #
-_register("bridge.last_frame_extractor", "FW_LastFrameExtractor", "FrameWeaver Last Frame Extractor")
-_register("bridge.frame_bridge", "FW_FrameBridge", "FrameWeaver Frame Bridge")
+try:
+    from .bridge.last_frame_extractor import FW_LastFrameExtractor
+    _reg("FW_LastFrameExtractor", "FrameWeaver Last Frame Extractor", FW_LastFrameExtractor)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_LastFrameExtractor", str(e)))
+
+try:
+    from .bridge.frame_bridge import FW_FrameBridge
+    _reg("FW_FrameBridge", "FrameWeaver Frame Bridge", FW_FrameBridge)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_FrameBridge", str(e)))
 
 # ---- Output ---- #
-_register("output.scene_collector", "FW_SceneCollector", "FrameWeaver Scene Collector")
-_register("output.smart_assembler", "FW_SmartAssembler", "FrameWeaver Smart Assembler")
-_register("output.auto_queue", "FW_AutoQueue", "FrameWeaver Auto Queue")
+try:
+    from .output.scene_collector import FW_SceneCollector
+    _reg("FW_SceneCollector", "FrameWeaver Scene Collector", FW_SceneCollector)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_SceneCollector", str(e)))
+
+try:
+    from .output.smart_assembler import FW_SmartAssembler
+    _reg("FW_SmartAssembler", "FrameWeaver Smart Assembler", FW_SmartAssembler)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_SmartAssembler", str(e)))
+
+try:
+    from .output.auto_queue import FW_AutoQueue
+    _reg("FW_AutoQueue", "FrameWeaver Auto Queue", FW_AutoQueue)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_AutoQueue", str(e)))
 
 # ---- PostProcess ---- #
-_register("postprocess.color_match", "FW_ColorMatch", "FrameWeaver Color Match")
-_register("postprocess.film_grain", "FW_FilmGrain", "FrameWeaver Film Grain")
-_register("postprocess.cinematic_polish", "FW_CinematicPolish", "FrameWeaver Cinematic Polish")
-_register("postprocess.lut_system", "FW_LUTApply", "FrameWeaver LUT Apply")
-_register("postprocess.lut_system", "FW_LUTCreate", "FrameWeaver LUT Create")
+try:
+    from .postprocess.color_match import FW_ColorMatch
+    _reg("FW_ColorMatch", "FrameWeaver Color Match", FW_ColorMatch)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_ColorMatch", str(e)))
+
+try:
+    from .postprocess.film_grain import FW_FilmGrain
+    _reg("FW_FilmGrain", "FrameWeaver Film Grain", FW_FilmGrain)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_FilmGrain", str(e)))
+
+try:
+    from .postprocess.cinematic_polish import FW_CinematicPolish
+    _reg("FW_CinematicPolish", "FrameWeaver Cinematic Polish", FW_CinematicPolish)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_CinematicPolish", str(e)))
+
+try:
+    from .postprocess.lut_system import FW_LUTApply, FW_LUTCreate
+    _reg("FW_LUTApply", "FrameWeaver LUT Apply", FW_LUTApply)
+    _reg("FW_LUTCreate", "FrameWeaver LUT Create", FW_LUTCreate)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_LUTApply/Create", str(e)))
 
 # ---- AI ---- #
-_register("ai.whisper_transcriber", "FW_WhisperTranscriber", "FrameWeaver Whisper Transcriber")
+try:
+    from .ai.whisper_transcriber import FW_WhisperTranscriber
+    _reg("FW_WhisperTranscriber", "FrameWeaver Whisper Transcriber", FW_WhisperTranscriber)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_WhisperTranscriber", str(e)))
 
 # ---- UX ---- #
-_register("ux.quick_pipeline", "FW_QuickPipeline", "FrameWeaver Quick Pipeline")
+try:
+    from .ux.quick_pipeline import FW_QuickPipeline
+    _reg("FW_QuickPipeline", "FrameWeaver Quick Pipeline", FW_QuickPipeline)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_QuickPipeline", str(e)))
 
 
-# ------------------------------------------------------------------ #
-#  Report results
-# ------------------------------------------------------------------ #
-
+# ---- Report ---- #
 _TOTAL = 30
 _LOADED = len(NODE_CLASS_MAPPINGS)
 
