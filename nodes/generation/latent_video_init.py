@@ -27,7 +27,7 @@ class FW_LatentVideoInit:
         try:
             import torch
 
-            samples = torch.zeros((int(batch_size), frames, 4, height // 8, width // 8))
+            samples = torch.zeros((int(batch_size), 4, frames, height // 8, width // 8))
         except Exception:
             samples = None
         return ({"samples": samples, "frameweaver_shape": [batch_size, frames, 4, height // 8, width // 8]}, width, height, frames)

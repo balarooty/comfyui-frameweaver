@@ -97,19 +97,9 @@ class FW_LTX23Settings:
         override_frames=None,
     ):
         if duration_mode not in ("frames", "seconds"):
-            old_frames = duration_mode
-            old_fps = frames
-            old_checkpoint_name = duration_seconds
-            old_distilled_lora_name = fps
-            old_text_encoder_name = checkpoint_name
-            old_upscale_model_name = distilled_lora_name
-            duration_mode = "frames"
-            frames = old_frames
-            fps = old_fps
-            checkpoint_name = old_checkpoint_name
-            distilled_lora_name = old_distilled_lora_name
-            text_encoder_name = old_text_encoder_name
-            upscale_model_name = old_upscale_model_name
+            raise ValueError(
+                f"FW_LTX23Settings: duration_mode must be 'frames' or 'seconds', got '{duration_mode}'."
+            )
 
         width, height = normalize_dimensions(width, height, 32)
         fps = max(1, int(fps))

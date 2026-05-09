@@ -6,7 +6,10 @@ and a saturation mix control for monochromatic vs. chromatic grain.
 Ported from VRGameDevGirl's ``FastFilmGrain`` with FrameWeaver conventions.
 """
 
-import torch
+try:
+    import torch
+except ImportError:
+    torch = None
 
 try:
     import comfy.model_management
@@ -46,6 +49,8 @@ class FW_FilmGrain:
         }
 
     def apply_grain(self, images, intensity, saturation_mix, batch_size):
+        if torch is None:
+            raise RuntimeError("FW_FilmGrain requires PyTorch (running inside ComfyUI).")
         device = _get_device()
         images = images.to(device)
 

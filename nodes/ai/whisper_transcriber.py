@@ -138,6 +138,11 @@ class FW_WhisperTranscriber:
         return True
 
     @classmethod
+    def IS_CHANGED(cls, scene_count, model_name, language,
+                   enable_transcription, overlap_seconds, fallback_words, **kwargs):
+        return f"{model_name}:{language}:{enable_transcription}"
+
+    @classmethod
     def get_output_types(cls, **kwargs):
         count = max(1, min(50, int(kwargs.get("scene_count", 1))))
         return ("STRING",) + tuple(["STRING"] * count)
@@ -206,11 +211,18 @@ class FW_WhisperTranscriber:
                      overlap_seconds, fb_words):
         """Load Whisper model, transcribe all segments, unload."""
         device = _get_device()
+        cache_key = f"{model_name}:{language}"
 
-        print(f"[FW_WhisperTranscriber] Loading {model_name} on {device}")
-        processor = WhisperProcessor.from_pretrained(model_name)
-        model = WhisperForConditionalGeneration.from_pretrained(model_name)
-        model = model.to(device).eval()
+        if cache_key in _whisper_cache:
+            print(f"[FW_WhisperTranscriber] Using cached {model_name}")
+            processor, model = _whisper_cache[cache_key]
+            model = model.to(device).eval()
+        else:
+            print(f"[FW_WhisperTranscriber] Loading {model_name} on {device}")
+            processor = WhisperProcessor.from_pretrained(model_name)
+            model = WhisperForConditionalGeneration.from_pretrained(model_name)
+            model = model.to(device).eval()
+            _whisper_cache[cache_key] = (processor, model)
 
         results = []
 

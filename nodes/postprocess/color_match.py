@@ -10,8 +10,12 @@ Ported from VRGameDevGirl's ``ColorMatchToReference`` with improvements:
 - Optional ``match_luminance`` toggle to preserve or transfer brightness
 """
 
-import torch
-import torch.nn.functional as F
+try:
+    import torch
+    import torch.nn.functional as F
+except ImportError:
+    torch = None
+    F = None
 
 try:
     import comfy.model_management
@@ -122,6 +126,8 @@ class FW_ColorMatch:
         }
 
     def match_color(self, images, reference_image, match_strength, match_luminance, batch_size):
+        if torch is None:
+            raise RuntimeError("FW_ColorMatch requires PyTorch (running inside ComfyUI).")
         device = _get_device()
 
         # NHWC → NCHW for color conversion

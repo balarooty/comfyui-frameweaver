@@ -446,13 +446,14 @@ function setupSpeechLengthCalc(node) {
     const origTitle = node.title;
 
     const updateTitle = () => {
-        const wpm = findWidget(node, "words_per_minute")?.value || 150;
         const fps = findWidget(node, "fps")?.value || 24;
-        node.title = `${origTitle} [${wpm} WPM @ ${fps}fps]`;
+        const wc = findWidget(node, "text")?.value || "";
+        const wordCount = wc.split(/\s+/).filter(Boolean).length;
+        node.title = `${origTitle} [~${wordCount} words @ ${fps}fps]`;
         node.setDirtyCanvas(true, false);
     };
 
-    for (const wName of ["words_per_minute", "fps"]) {
+    for (const wName of ["text", "fps"]) {
         const w = findWidget(node, wName);
         if (!w) continue;
         const origCb = w.callback;
@@ -495,6 +496,186 @@ function setupQuickPipeline(node) {
 }
 
 // ------------------------------------------------------------------ //
+//  FW_SceneDurationList — Live total frames + duration
+// ------------------------------------------------------------------ //
+
+function setupSceneDurationList(node) {
+    const origTitle = node.title;
+    const updateTitle = () => {
+        const s1 = findWidget(node, "scene_1_frames")?.value || 97;
+        const count = findWidget(node, "scene_count")?.value || 1;
+        const total = s1 * count; // approximate
+        node.title = `${origTitle} [${count} scenes · ~${total}f]`;
+        node.setDirtyCanvas(true, false);
+    };
+    for (const wName of ["scene_1_frames", "scene_count"]) {
+        const w = findWidget(node, wName);
+        if (!w) continue;
+        const origCb = w.callback;
+        w.callback = function (value) {
+            if (typeof origCb === "function") origCb.call(this, value);
+            updateTitle();
+        };
+    }
+    setTimeout(updateTitle, 100);
+}
+
+// ------------------------------------------------------------------ //
+//  FW_WhisperTranscriber — Model + language in title
+// ------------------------------------------------------------------ //
+
+function setupWhisperTranscriber(node) {
+    const origTitle = node.title;
+    const updateTitle = () => {
+        const model = findWidget(node, "model_name")?.value || "whisper";
+        const lang = findWidget(node, "language")?.value || "auto";
+        const shortModel = model.split("/").pop();
+        node.title = `${origTitle} [${shortModel} · ${lang}]`;
+        node.setDirtyCanvas(true, false);
+    };
+    for (const wName of ["model_name", "language"]) {
+        const w = findWidget(node, wName);
+        if (!w) continue;
+        const origCb = w.callback;
+        w.callback = function (value) {
+            if (typeof origCb === "function") origCb.call(this, value);
+            updateTitle();
+        };
+    }
+    setTimeout(updateTitle, 100);
+}
+
+// ------------------------------------------------------------------ //
+//  FW_ContinuityEncoder — Style strength in title
+// ------------------------------------------------------------------ //
+
+function setupContinuityEncoder(node) {
+    const origTitle = node.title;
+    const updateTitle = () => {
+        const strength = findWidget(node, "style_strength")?.value || 0.35;
+        node.title = `${origTitle} [strength ${strength.toFixed(2)}]`;
+        node.setDirtyCanvas(true, false);
+    };
+    const w = findWidget(node, "style_strength");
+    if (w) {
+        const origCb = w.callback;
+        w.callback = function (value) {
+            if (typeof origCb === "function") origCb.call(this, value);
+            updateTitle();
+        };
+    }
+    setTimeout(updateTitle, 100);
+}
+
+// ------------------------------------------------------------------ //
+//  FW_LoadStarterFrame — Target resolution in title
+// ------------------------------------------------------------------ //
+
+function setupLoadStarterFrame(node) {
+    const origTitle = node.title;
+    const updateTitle = () => {
+        const tw = findWidget(node, "target_width")?.value || 1280;
+        const th = findWidget(node, "target_height")?.value || 720;
+        node.title = `${origTitle} [${tw}×${th}]`;
+        node.setDirtyCanvas(true, false);
+    };
+    for (const wName of ["target_width", "target_height"]) {
+        const w = findWidget(node, wName);
+        if (!w) continue;
+        const origCb = w.callback;
+        w.callback = function (value) {
+            if (typeof origCb === "function") origCb.call(this, value);
+            updateTitle();
+        };
+    }
+    setTimeout(updateTitle, 100);
+}
+
+// ------------------------------------------------------------------ //
+//  FW_SceneSampler — Sampler name in title
+// ------------------------------------------------------------------ //
+
+function setupSceneSampler(node) {
+    const origTitle = node.title;
+    const updateTitle = () => {
+        const sampler = findWidget(node, "sampler_name")?.value || "euler";
+        node.title = `${origTitle} [${sampler}]`;
+        node.setDirtyCanvas(true, false);
+    };
+    const w = findWidget(node, "sampler_name");
+    if (w) {
+        const origCb = w.callback;
+        w.callback = function (value) {
+            if (typeof origCb === "function") origCb.call(this, value);
+            updateTitle();
+        };
+    }
+    setTimeout(updateTitle, 100);
+}
+
+// ------------------------------------------------------------------ //
+//  FW_DecodeVideo — Tiling on/off in title
+// ------------------------------------------------------------------ //
+
+function setupDecodeVideo(node) {
+    const origTitle = node.title;
+    const updateTitle = () => {
+        const tiling = findWidget(node, "use_tiling")?.value ? "tiling" : "full";
+        node.title = `${origTitle} [${tiling}]`;
+        node.setDirtyCanvas(true, false);
+    };
+    const w = findWidget(node, "use_tiling");
+    if (w) {
+        const origCb = w.callback;
+        w.callback = function (value) {
+            if (typeof origCb === "function") origCb.call(this, value);
+            updateTitle();
+        };
+    }
+    setTimeout(updateTitle, 100);
+}
+
+// ------------------------------------------------------------------ //
+//  FW_LastFrameExtractor — Frame count in title
+// ------------------------------------------------------------------ //
+
+function setupLastFrameExtractor(node) {
+    const origTitle = node.title;
+    const updateTitle = () => {
+        node.title = `${origTitle} [extract last]`;
+        node.setDirtyCanvas(true, false);
+    };
+    setTimeout(updateTitle, 100);
+}
+
+// ------------------------------------------------------------------ //
+//  FW_StyleAnchor — Identity snippet in title
+// ------------------------------------------------------------------ //
+
+function setupStyleAnchor(node) {
+    const origTitle = node.title;
+    const updateTitle = () => {
+        const identity = findWidget(node, "identity_description")?.value || "";
+        const snippet = identity.length > 20 ? identity.slice(0, 20) + "…" : identity;
+        if (snippet) {
+            node.title = `${origTitle} [${snippet}]`;
+        } else {
+            node.title = origTitle;
+        }
+        node.setDirtyCanvas(true, false);
+    };
+    const w = findWidget(node, "identity_description");
+    if (w) {
+        const origCb = w.callback;
+        w.callback = function (value) {
+            if (typeof origCb === "function") origCb.call(this, value);
+            updateTitle();
+        };
+    }
+    setTimeout(updateTitle, 100);
+}
+
+// ------------------------------------------------------------------ //
 //  Registration
 // ------------------------------------------------------------------ //
 
@@ -511,6 +692,14 @@ const NODE_SETUP_MAP = {
     "FW_LUTCreate":           setupLUTCreate,
     "FW_SpeechLengthCalc":    setupSpeechLengthCalc,
     "FW_QuickPipeline":       setupQuickPipeline,
+    "FW_SceneDurationList":   setupSceneDurationList,
+    "FW_WhisperTranscriber":  setupWhisperTranscriber,
+    "FW_ContinuityEncoder":   setupContinuityEncoder,
+    "FW_LoadStarterFrame":    setupLoadStarterFrame,
+    "FW_SceneSampler":        setupSceneSampler,
+    "FW_DecodeVideo":         setupDecodeVideo,
+    "FW_LastFrameExtractor":  setupLastFrameExtractor,
+    "FW_StyleAnchor":         setupStyleAnchor,
 };
 
 app.registerExtension({

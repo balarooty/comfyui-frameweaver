@@ -1,7 +1,17 @@
 import os
-import torch
-import torch.nn.functional as F
-import numpy as np
+
+try:
+    import torch
+    import torch.nn.functional as F
+except ImportError:
+    torch = None
+    F = None
+
+try:
+    import numpy as np
+except ImportError:
+    np = None
+
 from PIL import Image, ImageOps
 
 try:
@@ -168,6 +178,10 @@ class FW_MultiImageLoader:
     # ------------------------------------------------------------------ #
 
     def load_images(self, image_paths, width, height, interpolation, resize_method, multiple_of, img_compression):
+        if torch is None:
+            raise RuntimeError("FW_MultiImageLoader requires PyTorch (running inside ComfyUI).")
+        if np is None:
+            raise RuntimeError("FW_MultiImageLoader requires NumPy.")
         results = []
         valid_paths = [p.strip() for p in image_paths.split("\n") if p.strip()]
 

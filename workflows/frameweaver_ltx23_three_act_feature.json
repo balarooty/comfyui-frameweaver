@@ -9,10 +9,10 @@
   "groups": [
     {
       "bounding": [
-        -700,
-        50,
-        350,
-        400
+        -1100,
+        -100,
+        1400,
+        500
       ],
       "color": "#3f789e",
       "flags": {},
@@ -22,10 +22,10 @@
     },
     {
       "bounding": [
-        -700,
-        500,
-        350,
-        400
+        -1100,
+        450,
+        1400,
+        350
       ],
       "color": "#5e9e7e",
       "flags": {},
@@ -35,36 +35,62 @@
     },
     {
       "bounding": [
-        -700,
-        950,
-        350,
-        400
+        -1100,
+        850,
+        1400,
+        300
       ],
       "color": "#9e7e5e",
       "flags": {},
       "font_size": 18,
       "id": 3,
-      "title": "Continuity"
+      "title": "Continuity Encoding"
     },
     {
       "bounding": [
-        0,
-        650,
-        200,
-        700
+        -1100,
+        1200,
+        2900,
+        1200
       ],
       "color": "#7e5e9e",
       "flags": {},
       "font_size": 18,
       "id": 4,
-      "title": "Scene Gen"
+      "title": "Scene Generation (5 Parallel Pipelines)"
     },
     {
       "bounding": [
-        1200,
-        350,
-        1100,
+        -1100,
+        2450,
+        1400,
+        500
+      ],
+      "color": "#9e5e7e",
+      "flags": {},
+      "font_size": 18,
+      "id": 6,
+      "title": "Trim & Extract"
+    },
+    {
+      "bounding": [
+        -1100,
+        3000,
+        1400,
         400
+      ],
+      "color": "#5e7e9e",
+      "flags": {},
+      "font_size": 18,
+      "id": 7,
+      "title": "Scene Collection"
+    },
+    {
+      "bounding": [
+        600,
+        1200,
+        600,
+        600
       ],
       "color": "#7e9e5e",
       "flags": {},
@@ -75,11 +101,11 @@
   ],
   "nodes": [
     {
-      "id": 1,
+      "id": 0,
       "type": "MarkdownNote",
       "pos": [
         -900,
-        100
+        -50
       ],
       "size": [
         600,
@@ -88,16 +114,16 @@
       "flags": {},
       "order": 0,
       "properties": {
-        "text": "# Three-Act Feature\n8n+1 narrative film \u00b7 5 scenes\nDrag images to LoadImage nodes before running."
+        "text": "# Three-Act Feature\n5 parallel scene pipelines \u00b7 8n+1 frame math\nProvide starter images for all 5 scenes + character reference."
       },
       "widgets": []
     },
     {
-      "id": 10,
+      "id": 1,
       "type": "LoadImage",
       "pos": [
-        -600,
-        300
+        -900,
+        200
       ],
       "size": [
         300,
@@ -112,20 +138,20 @@
         {
           "name": "image",
           "config": {},
-          "value": ""
+          "value": "character_reference.png"
         }
       ]
     },
     {
-      "id": 20,
+      "id": 2,
       "type": "LoadImage",
       "pos": [
-        -600,
-        600
+        -550,
+        200
       ],
       "size": [
-        300,
-        200
+        200,
+        150
       ],
       "flags": {},
       "order": 2,
@@ -136,7 +162,103 @@
         {
           "name": "image",
           "config": {},
-          "value": ""
+          "value": "starter_scene_1.png"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": [
+        -300,
+        200
+      ],
+      "size": [
+        200,
+        150
+      ],
+      "flags": {},
+      "order": 3,
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets": [
+        {
+          "name": "image",
+          "config": {},
+          "value": "starter_scene_2.png"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "type": "LoadImage",
+      "pos": [
+        -50,
+        200
+      ],
+      "size": [
+        200,
+        150
+      ],
+      "flags": {},
+      "order": 4,
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets": [
+        {
+          "name": "image",
+          "config": {},
+          "value": "starter_scene_3.png"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "LoadImage",
+      "pos": [
+        200,
+        200
+      ],
+      "size": [
+        200,
+        150
+      ],
+      "flags": {},
+      "order": 5,
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets": [
+        {
+          "name": "image",
+          "config": {},
+          "value": "starter_scene_4.png"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "type": "LoadImage",
+      "pos": [
+        450,
+        200
+      ],
+      "size": [
+        200,
+        150
+      ],
+      "flags": {},
+      "order": 6,
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets": [
+        {
+          "name": "image",
+          "config": {},
+          "value": "starter_scene_5.png"
         }
       ]
     },
@@ -144,15 +266,15 @@
       "id": 30,
       "type": "FW_GlobalSequencer",
       "pos": [
-        -600,
-        900
+        -900,
+        450
       ],
       "size": [
         300,
-        400
+        200
       ],
       "flags": {},
-      "order": 3,
+      "order": 7,
       "properties": {
         "Node name for S&R": "FW_GlobalSequencer"
       },
@@ -205,15 +327,15 @@
       "id": 11,
       "type": "FW_SceneDurationList",
       "pos": [
-        -600,
-        1400
+        -550,
+        450
       ],
       "size": [
         300,
-        400
+        200
       ],
       "flags": {},
-      "order": 4,
+      "order": 8,
       "properties": {
         "Node name for S&R": "FW_SceneDurationList"
       },
@@ -266,15 +388,15 @@
       "id": 12,
       "type": "FW_LTX23Settings",
       "pos": [
-        -600,
-        1850
+        -200,
+        450
       ],
       "size": [
         300,
-        400
+        200
       ],
       "flags": {},
-      "order": 5,
+      "order": 9,
       "properties": {
         "Node name for S&R": "FW_LTX23Settings"
       },
@@ -323,6 +445,16 @@
           "name": "distilled_lora_name",
           "config": {},
           "value": "ltx-2.3-22b-distilled-lora-384.safetensors"
+        },
+        {
+          "name": "text_encoder_name",
+          "config": {},
+          "value": "gemma_3_12B_it_fp4_mixed.safetensors"
+        },
+        {
+          "name": "upscale_model_name",
+          "config": {},
+          "value": "ltx-2.3-spatial-upscaler-x2-1.1.safetensors"
         }
       ]
     },
@@ -330,15 +462,15 @@
       "id": 110,
       "type": "FW_ScenePromptEvolver",
       "pos": [
-        -300,
-        100
+        -900,
+        700
       ],
       "size": [
-        300,
-        200
+        350,
+        250
       ],
       "flags": {},
-      "order": 6,
+      "order": 10,
       "properties": {
         "Node name for S&R": "FW_ScenePromptEvolver"
       },
@@ -348,80 +480,8 @@
       "id": 120,
       "type": "FW_StyleAnchor",
       "pos": [
-        -300,
-        400
-      ],
-      "size": [
-        300,
-        200
-      ],
-      "flags": {},
-      "order": 7,
-      "properties": {
-        "Node name for S&R": "FW_StyleAnchor"
-      },
-      "widgets": []
-    },
-    {
-      "id": 60,
-      "type": "FW_LoadStarterFrame",
-      "pos": [
-        0,
+        -500,
         700
-      ],
-      "size": [
-        200,
-        200
-      ],
-      "flags": {},
-      "order": 8,
-      "properties": {
-        "Node name for S&R": "FW_LoadStarterFrame"
-      },
-      "widgets": []
-    },
-    {
-      "id": 200,
-      "type": "FW_ContinuityEncoder",
-      "pos": [
-        0,
-        1000
-      ],
-      "size": [
-        200,
-        200
-      ],
-      "flags": {},
-      "order": 9,
-      "properties": {
-        "Node name for S&R": "FW_ContinuityEncoder"
-      },
-      "widgets": []
-    },
-    {
-      "id": 257,
-      "type": "FW_PrerollCompensator",
-      "pos": [
-        0,
-        1300
-      ],
-      "size": [
-        200,
-        200
-      ],
-      "flags": {},
-      "order": 10,
-      "properties": {
-        "Node name for S&R": "FW_PrerollCompensator"
-      },
-      "widgets": []
-    },
-    {
-      "id": 600,
-      "type": "FW_SmartAssembler",
-      "pos": [
-        1200,
-        400
       ],
       "size": [
         300,
@@ -429,6 +489,1685 @@
       ],
       "flags": {},
       "order": 11,
+      "properties": {
+        "Node name for S&R": "FW_StyleAnchor"
+      },
+      "widgets": []
+    },
+    {
+      "id": 130,
+      "type": "FW_ScenePromptSelector",
+      "pos": [
+        -900,
+        1000
+      ],
+      "size": [
+        250,
+        100
+      ],
+      "flags": {},
+      "order": 12,
+      "properties": {
+        "Node name for S&R": "FW_ScenePromptSelector"
+      },
+      "widgets": []
+    },
+    {
+      "id": 131,
+      "type": "FW_ScenePromptSelector",
+      "pos": [
+        -600,
+        1000
+      ],
+      "size": [
+        250,
+        100
+      ],
+      "flags": {},
+      "order": 13,
+      "properties": {
+        "Node name for S&R": "FW_ScenePromptSelector"
+      },
+      "widgets": []
+    },
+    {
+      "id": 132,
+      "type": "FW_ScenePromptSelector",
+      "pos": [
+        -300,
+        1000
+      ],
+      "size": [
+        250,
+        100
+      ],
+      "flags": {},
+      "order": 14,
+      "properties": {
+        "Node name for S&R": "FW_ScenePromptSelector"
+      },
+      "widgets": []
+    },
+    {
+      "id": 133,
+      "type": "FW_ScenePromptSelector",
+      "pos": [
+        0,
+        1000
+      ],
+      "size": [
+        250,
+        100
+      ],
+      "flags": {},
+      "order": 15,
+      "properties": {
+        "Node name for S&R": "FW_ScenePromptSelector"
+      },
+      "widgets": []
+    },
+    {
+      "id": 134,
+      "type": "FW_ScenePromptSelector",
+      "pos": [
+        300,
+        1000
+      ],
+      "size": [
+        250,
+        100
+      ],
+      "flags": {},
+      "order": 16,
+      "properties": {
+        "Node name for S&R": "FW_ScenePromptSelector"
+      },
+      "widgets": []
+    },
+    {
+      "id": 200,
+      "type": "FW_ContinuityEncoder",
+      "pos": [
+        -900,
+        1150
+      ],
+      "size": [
+        250,
+        150
+      ],
+      "flags": {},
+      "order": 17,
+      "properties": {
+        "Node name for S&R": "FW_ContinuityEncoder"
+      },
+      "widgets": []
+    },
+    {
+      "id": 210,
+      "type": "FW_ContinuityEncoder",
+      "pos": [
+        -600,
+        1150
+      ],
+      "size": [
+        250,
+        150
+      ],
+      "flags": {},
+      "order": 18,
+      "properties": {
+        "Node name for S&R": "FW_ContinuityEncoder"
+      },
+      "widgets": []
+    },
+    {
+      "id": 220,
+      "type": "FW_ContinuityEncoder",
+      "pos": [
+        -300,
+        1150
+      ],
+      "size": [
+        250,
+        150
+      ],
+      "flags": {},
+      "order": 19,
+      "properties": {
+        "Node name for S&R": "FW_ContinuityEncoder"
+      },
+      "widgets": []
+    },
+    {
+      "id": 230,
+      "type": "FW_ContinuityEncoder",
+      "pos": [
+        0,
+        1150
+      ],
+      "size": [
+        250,
+        150
+      ],
+      "flags": {},
+      "order": 20,
+      "properties": {
+        "Node name for S&R": "FW_ContinuityEncoder"
+      },
+      "widgets": []
+    },
+    {
+      "id": 240,
+      "type": "FW_ContinuityEncoder",
+      "pos": [
+        300,
+        1150
+      ],
+      "size": [
+        250,
+        150
+      ],
+      "flags": {},
+      "order": 21,
+      "properties": {
+        "Node name for S&R": "FW_ContinuityEncoder"
+      },
+      "widgets": []
+    },
+    {
+      "id": 60,
+      "type": "FW_LoadStarterFrame",
+      "pos": [
+        -900,
+        1400
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 22,
+      "properties": {
+        "Node name for S&R": "FW_LoadStarterFrame"
+      },
+      "widgets": []
+    },
+    {
+      "id": 61,
+      "type": "FW_LoadStarterFrame",
+      "pos": [
+        -650,
+        1400
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 23,
+      "properties": {
+        "Node name for S&R": "FW_LoadStarterFrame"
+      },
+      "widgets": []
+    },
+    {
+      "id": 62,
+      "type": "FW_LoadStarterFrame",
+      "pos": [
+        -400,
+        1400
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 24,
+      "properties": {
+        "Node name for S&R": "FW_LoadStarterFrame"
+      },
+      "widgets": []
+    },
+    {
+      "id": 63,
+      "type": "FW_LoadStarterFrame",
+      "pos": [
+        -150,
+        1400
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 25,
+      "properties": {
+        "Node name for S&R": "FW_LoadStarterFrame"
+      },
+      "widgets": []
+    },
+    {
+      "id": 64,
+      "type": "FW_LoadStarterFrame",
+      "pos": [
+        100,
+        1400
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 26,
+      "properties": {
+        "Node name for S&R": "FW_LoadStarterFrame"
+      },
+      "widgets": []
+    },
+    {
+      "id": 257,
+      "type": "FW_PrerollCompensator",
+      "pos": [
+        -900,
+        1600
+      ],
+      "size": [
+        200,
+        150
+      ],
+      "flags": {},
+      "order": 27,
+      "properties": {
+        "Node name for S&R": "FW_PrerollCompensator"
+      },
+      "widgets": []
+    },
+    {
+      "id": 258,
+      "type": "FW_PrerollCompensator",
+      "pos": [
+        -650,
+        1600
+      ],
+      "size": [
+        200,
+        150
+      ],
+      "flags": {},
+      "order": 28,
+      "properties": {
+        "Node name for S&R": "FW_PrerollCompensator"
+      },
+      "widgets": []
+    },
+    {
+      "id": 259,
+      "type": "FW_PrerollCompensator",
+      "pos": [
+        -400,
+        1600
+      ],
+      "size": [
+        200,
+        150
+      ],
+      "flags": {},
+      "order": 29,
+      "properties": {
+        "Node name for S&R": "FW_PrerollCompensator"
+      },
+      "widgets": []
+    },
+    {
+      "id": 260,
+      "type": "FW_PrerollCompensator",
+      "pos": [
+        -150,
+        1600
+      ],
+      "size": [
+        200,
+        150
+      ],
+      "flags": {},
+      "order": 30,
+      "properties": {
+        "Node name for S&R": "FW_PrerollCompensator"
+      },
+      "widgets": []
+    },
+    {
+      "id": 261,
+      "type": "FW_PrerollCompensator",
+      "pos": [
+        100,
+        1600
+      ],
+      "size": [
+        200,
+        150
+      ],
+      "flags": {},
+      "order": 31,
+      "properties": {
+        "Node name for S&R": "FW_PrerollCompensator"
+      },
+      "widgets": []
+    },
+    {
+      "id": 250,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        -900,
+        1850
+      ],
+      "size": [
+        310,
+        100
+      ],
+      "flags": {},
+      "order": 32,
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets": [
+        {
+          "name": "ckpt_name",
+          "config": {},
+          "value": "ltx-2.3-22b-dev-fp8.safetensors"
+        }
+      ]
+    },
+    {
+      "id": 251,
+      "type": "LTXVGemmaCLIPModelLoader",
+      "pos": [
+        -550,
+        1850
+      ],
+      "size": [
+        310,
+        100
+      ],
+      "flags": {},
+      "order": 33,
+      "properties": {
+        "Node name for S&R": "LTXVGemmaCLIPModelLoader"
+      },
+      "widgets": [
+        {
+          "name": "gemma_path",
+          "config": {},
+          "value": "gemma-3-12b-it-qat-q4_0-unquantized_readout_proj/model/model.safetensors"
+        },
+        {
+          "name": "ltxv_path",
+          "config": {},
+          "value": "ltx-av-step-1751000_vocoder_24K.safetensors"
+        },
+        {
+          "name": "max_length",
+          "config": {},
+          "value": 1024
+        }
+      ]
+    },
+    {
+      "id": 252,
+      "type": "CLIPTextEncode",
+      "pos": [
+        -200,
+        1850
+      ],
+      "size": [
+        310,
+        100
+      ],
+      "flags": {},
+      "order": 34,
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets": [
+        {
+          "name": "text",
+          "config": {},
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": 253,
+      "type": "CLIPTextEncode",
+      "pos": [
+        150,
+        1850
+      ],
+      "size": [
+        310,
+        100
+      ],
+      "flags": {},
+      "order": 35,
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets": [
+        {
+          "name": "text",
+          "config": {},
+          "value": "blurry, low quality, still frame, flicker, inconsistent character, watermark, overlay"
+        }
+      ]
+    },
+    {
+      "id": 254,
+      "type": "LTXVScheduler",
+      "pos": [
+        -900,
+        2000
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 36,
+      "properties": {
+        "Node name for S&R": "LTXVScheduler"
+      },
+      "widgets": [
+        {
+          "name": "base_shift",
+          "config": {},
+          "value": 0.95
+        },
+        {
+          "name": "max_shift",
+          "config": {},
+          "value": 2.05
+        },
+        {
+          "name": "steps",
+          "config": {},
+          "value": 20
+        },
+        {
+          "name": "stretch",
+          "config": {},
+          "value": true
+        },
+        {
+          "name": "terminal",
+          "config": {},
+          "value": 0.1
+        }
+      ]
+    },
+    {
+      "id": 256,
+      "type": "RandomNoise",
+      "pos": [
+        -650,
+        2000
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 37,
+      "properties": {
+        "Node name for S&R": "RandomNoise"
+      },
+      "widgets": [
+        {
+          "name": "noise_seed",
+          "config": {},
+          "value": 42
+        }
+      ]
+    },
+    {
+      "id": 280,
+      "type": "LTXVSequenceParallelMultiGPUPatcher",
+      "pos": [
+        -400,
+        2000
+      ],
+      "size": [
+        250,
+        100
+      ],
+      "flags": {},
+      "order": 38,
+      "properties": {
+        "Node name for S&R": "LTXVSequenceParallelMultiGPUPatcher"
+      },
+      "widgets": [
+        {
+          "name": "disable_backup",
+          "config": {},
+          "value": false
+        },
+        {
+          "name": "torch_compile",
+          "config": {},
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": 270,
+      "type": "EmptyLTXVLatentVideo",
+      "pos": [
+        -900,
+        2200
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 39,
+      "properties": {
+        "Node name for S&R": "EmptyLTXVLatentVideo"
+      },
+      "widgets": [
+        {
+          "name": "width",
+          "config": {},
+          "value": 1280
+        },
+        {
+          "name": "height",
+          "config": {},
+          "value": 720
+        },
+        {
+          "name": "length",
+          "config": {},
+          "value": 105
+        },
+        {
+          "name": "batch_size",
+          "config": {},
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": 271,
+      "type": "EmptyLTXVLatentVideo",
+      "pos": [
+        -650,
+        2200
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 40,
+      "properties": {
+        "Node name for S&R": "EmptyLTXVLatentVideo"
+      },
+      "widgets": [
+        {
+          "name": "width",
+          "config": {},
+          "value": 1280
+        },
+        {
+          "name": "height",
+          "config": {},
+          "value": 720
+        },
+        {
+          "name": "length",
+          "config": {},
+          "value": 209
+        },
+        {
+          "name": "batch_size",
+          "config": {},
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": 272,
+      "type": "EmptyLTXVLatentVideo",
+      "pos": [
+        -400,
+        2200
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 41,
+      "properties": {
+        "Node name for S&R": "EmptyLTXVLatentVideo"
+      },
+      "widgets": [
+        {
+          "name": "width",
+          "config": {},
+          "value": 1280
+        },
+        {
+          "name": "height",
+          "config": {},
+          "value": 720
+        },
+        {
+          "name": "length",
+          "config": {},
+          "value": 209
+        },
+        {
+          "name": "batch_size",
+          "config": {},
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": 273,
+      "type": "EmptyLTXVLatentVideo",
+      "pos": [
+        -150,
+        2200
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 42,
+      "properties": {
+        "Node name for S&R": "EmptyLTXVLatentVideo"
+      },
+      "widgets": [
+        {
+          "name": "width",
+          "config": {},
+          "value": 1280
+        },
+        {
+          "name": "height",
+          "config": {},
+          "value": 720
+        },
+        {
+          "name": "length",
+          "config": {},
+          "value": 305
+        },
+        {
+          "name": "batch_size",
+          "config": {},
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": 274,
+      "type": "EmptyLTXVLatentVideo",
+      "pos": [
+        100,
+        2200
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 43,
+      "properties": {
+        "Node name for S&R": "EmptyLTXVLatentVideo"
+      },
+      "widgets": [
+        {
+          "name": "width",
+          "config": {},
+          "value": 1280
+        },
+        {
+          "name": "height",
+          "config": {},
+          "value": 720
+        },
+        {
+          "name": "length",
+          "config": {},
+          "value": 305
+        },
+        {
+          "name": "batch_size",
+          "config": {},
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": 340,
+      "type": "LTXVAddGuide",
+      "pos": [
+        -900,
+        2400
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 44,
+      "properties": {
+        "Node name for S&R": "LTXVAddGuide"
+      },
+      "widgets": [
+        {
+          "name": "frame_idx",
+          "config": {},
+          "value": 0
+        },
+        {
+          "name": "strength",
+          "config": {},
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": 341,
+      "type": "LTXVAddGuide",
+      "pos": [
+        -650,
+        2400
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 45,
+      "properties": {
+        "Node name for S&R": "LTXVAddGuide"
+      },
+      "widgets": [
+        {
+          "name": "frame_idx",
+          "config": {},
+          "value": 0
+        },
+        {
+          "name": "strength",
+          "config": {},
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": 342,
+      "type": "LTXVAddGuide",
+      "pos": [
+        -400,
+        2400
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 46,
+      "properties": {
+        "Node name for S&R": "LTXVAddGuide"
+      },
+      "widgets": [
+        {
+          "name": "frame_idx",
+          "config": {},
+          "value": 0
+        },
+        {
+          "name": "strength",
+          "config": {},
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": 343,
+      "type": "LTXVAddGuide",
+      "pos": [
+        -150,
+        2400
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 47,
+      "properties": {
+        "Node name for S&R": "LTXVAddGuide"
+      },
+      "widgets": [
+        {
+          "name": "frame_idx",
+          "config": {},
+          "value": 0
+        },
+        {
+          "name": "strength",
+          "config": {},
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": 344,
+      "type": "LTXVAddGuide",
+      "pos": [
+        100,
+        2400
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 48,
+      "properties": {
+        "Node name for S&R": "LTXVAddGuide"
+      },
+      "widgets": [
+        {
+          "name": "frame_idx",
+          "config": {},
+          "value": 0
+        },
+        {
+          "name": "strength",
+          "config": {},
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "id": 312,
+      "type": "MultimodalGuider",
+      "pos": [
+        -900,
+        2600
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 49,
+      "properties": {
+        "Node name for S&R": "MultimodalGuider"
+      },
+      "widgets": [
+        {
+          "name": "skip_blocks",
+          "config": {},
+          "value": 29
+        }
+      ]
+    },
+    {
+      "id": 313,
+      "type": "MultimodalGuider",
+      "pos": [
+        -650,
+        2600
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 50,
+      "properties": {
+        "Node name for S&R": "MultimodalGuider"
+      },
+      "widgets": [
+        {
+          "name": "skip_blocks",
+          "config": {},
+          "value": 29
+        }
+      ]
+    },
+    {
+      "id": 314,
+      "type": "MultimodalGuider",
+      "pos": [
+        -400,
+        2600
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 51,
+      "properties": {
+        "Node name for S&R": "MultimodalGuider"
+      },
+      "widgets": [
+        {
+          "name": "skip_blocks",
+          "config": {},
+          "value": 29
+        }
+      ]
+    },
+    {
+      "id": 315,
+      "type": "MultimodalGuider",
+      "pos": [
+        -150,
+        2600
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 52,
+      "properties": {
+        "Node name for S&R": "MultimodalGuider"
+      },
+      "widgets": [
+        {
+          "name": "skip_blocks",
+          "config": {},
+          "value": 29
+        }
+      ]
+    },
+    {
+      "id": 316,
+      "type": "MultimodalGuider",
+      "pos": [
+        100,
+        2600
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 53,
+      "properties": {
+        "Node name for S&R": "MultimodalGuider"
+      },
+      "widgets": [
+        {
+          "name": "skip_blocks",
+          "config": {},
+          "value": 29
+        }
+      ]
+    },
+    {
+      "id": 317,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        -900,
+        2800
+      ],
+      "size": [
+        250,
+        150
+      ],
+      "flags": {},
+      "order": 54,
+      "properties": {
+        "Node name for S&R": "SamplerCustomAdvanced"
+      },
+      "widgets": []
+    },
+    {
+      "id": 318,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        -600,
+        2800
+      ],
+      "size": [
+        250,
+        150
+      ],
+      "flags": {},
+      "order": 55,
+      "properties": {
+        "Node name for S&R": "SamplerCustomAdvanced"
+      },
+      "widgets": []
+    },
+    {
+      "id": 319,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        -300,
+        2800
+      ],
+      "size": [
+        250,
+        150
+      ],
+      "flags": {},
+      "order": 56,
+      "properties": {
+        "Node name for S&R": "SamplerCustomAdvanced"
+      },
+      "widgets": []
+    },
+    {
+      "id": 321,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        0,
+        2800
+      ],
+      "size": [
+        250,
+        150
+      ],
+      "flags": {},
+      "order": 57,
+      "properties": {
+        "Node name for S&R": "SamplerCustomAdvanced"
+      },
+      "widgets": []
+    },
+    {
+      "id": 322,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        300,
+        2800
+      ],
+      "size": [
+        250,
+        150
+      ],
+      "flags": {},
+      "order": 58,
+      "properties": {
+        "Node name for S&R": "SamplerCustomAdvanced"
+      },
+      "widgets": []
+    },
+    {
+      "id": 323,
+      "type": "VAEDecode",
+      "pos": [
+        -900,
+        3050
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 59,
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets": []
+    },
+    {
+      "id": 324,
+      "type": "VAEDecode",
+      "pos": [
+        -600,
+        3050
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 60,
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets": []
+    },
+    {
+      "id": 325,
+      "type": "VAEDecode",
+      "pos": [
+        -300,
+        3050
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 61,
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets": []
+    },
+    {
+      "id": 326,
+      "type": "VAEDecode",
+      "pos": [
+        0,
+        3050
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 62,
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets": []
+    },
+    {
+      "id": 327,
+      "type": "VAEDecode",
+      "pos": [
+        300,
+        3050
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 63,
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets": []
+    },
+    {
+      "id": 331,
+      "type": "LTXVSeparateAVLatent",
+      "pos": [
+        -900,
+        3200
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 64,
+      "properties": {
+        "Node name for S&R": "LTXVSeparateAVLatent"
+      },
+      "widgets": []
+    },
+    {
+      "id": 332,
+      "type": "LTXVSeparateAVLatent",
+      "pos": [
+        -600,
+        3200
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 65,
+      "properties": {
+        "Node name for S&R": "LTXVSeparateAVLatent"
+      },
+      "widgets": []
+    },
+    {
+      "id": 333,
+      "type": "LTXVSeparateAVLatent",
+      "pos": [
+        -300,
+        3200
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 66,
+      "properties": {
+        "Node name for S&R": "LTXVSeparateAVLatent"
+      },
+      "widgets": []
+    },
+    {
+      "id": 334,
+      "type": "LTXVSeparateAVLatent",
+      "pos": [
+        0,
+        3200
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 67,
+      "properties": {
+        "Node name for S&R": "LTXVSeparateAVLatent"
+      },
+      "widgets": []
+    },
+    {
+      "id": 335,
+      "type": "LTXVSeparateAVLatent",
+      "pos": [
+        300,
+        3200
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 68,
+      "properties": {
+        "Node name for S&R": "LTXVSeparateAVLatent"
+      },
+      "widgets": []
+    },
+    {
+      "id": 400,
+      "type": "FW_FrameTrimmer",
+      "pos": [
+        -900,
+        3400
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 69,
+      "properties": {
+        "Node name for S&R": "FW_FrameTrimmer"
+      },
+      "widgets": []
+    },
+    {
+      "id": 401,
+      "type": "FW_FrameTrimmer",
+      "pos": [
+        -600,
+        3400
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 70,
+      "properties": {
+        "Node name for S&R": "FW_FrameTrimmer"
+      },
+      "widgets": []
+    },
+    {
+      "id": 402,
+      "type": "FW_FrameTrimmer",
+      "pos": [
+        -300,
+        3400
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 71,
+      "properties": {
+        "Node name for S&R": "FW_FrameTrimmer"
+      },
+      "widgets": []
+    },
+    {
+      "id": 403,
+      "type": "FW_FrameTrimmer",
+      "pos": [
+        0,
+        3400
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 72,
+      "properties": {
+        "Node name for S&R": "FW_FrameTrimmer"
+      },
+      "widgets": []
+    },
+    {
+      "id": 404,
+      "type": "FW_FrameTrimmer",
+      "pos": [
+        300,
+        3400
+      ],
+      "size": [
+        200,
+        100
+      ],
+      "flags": {},
+      "order": 73,
+      "properties": {
+        "Node name for S&R": "FW_FrameTrimmer"
+      },
+      "widgets": []
+    },
+    {
+      "id": 410,
+      "type": "FW_LastFrameExtractor",
+      "pos": [
+        -900,
+        3600
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 74,
+      "properties": {
+        "Node name for S&R": "FW_LastFrameExtractor"
+      },
+      "widgets": []
+    },
+    {
+      "id": 411,
+      "type": "FW_LastFrameExtractor",
+      "pos": [
+        -600,
+        3600
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 75,
+      "properties": {
+        "Node name for S&R": "FW_LastFrameExtractor"
+      },
+      "widgets": []
+    },
+    {
+      "id": 412,
+      "type": "FW_LastFrameExtractor",
+      "pos": [
+        -300,
+        3600
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 76,
+      "properties": {
+        "Node name for S&R": "FW_LastFrameExtractor"
+      },
+      "widgets": []
+    },
+    {
+      "id": 413,
+      "type": "FW_LastFrameExtractor",
+      "pos": [
+        0,
+        3600
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "flags": {},
+      "order": 77,
+      "properties": {
+        "Node name for S&R": "FW_LastFrameExtractor"
+      },
+      "widgets": []
+    },
+    {
+      "id": 420,
+      "type": "FW_FrameBridge",
+      "pos": [
+        -900,
+        3750
+      ],
+      "size": [
+        250,
+        150
+      ],
+      "flags": {},
+      "order": 78,
+      "properties": {
+        "Node name for S&R": "FW_FrameBridge"
+      },
+      "widgets": [
+        {
+          "name": "keep",
+          "config": {},
+          "value": "Keep the same character identity, clothing, face, lighting direction, and camera continuity."
+        },
+        {
+          "name": "change",
+          "config": {},
+          "value": "Change only the environment and action needed for scene 2."
+        }
+      ]
+    },
+    {
+      "id": 421,
+      "type": "FW_FrameBridge",
+      "pos": [
+        -600,
+        3750
+      ],
+      "size": [
+        250,
+        150
+      ],
+      "flags": {},
+      "order": 79,
+      "properties": {
+        "Node name for S&R": "FW_FrameBridge"
+      },
+      "widgets": [
+        {
+          "name": "keep",
+          "config": {},
+          "value": "Keep the same character identity, clothing, face, lighting direction, and camera continuity."
+        },
+        {
+          "name": "change",
+          "config": {},
+          "value": "Change only the environment and action needed for scene 3."
+        }
+      ]
+    },
+    {
+      "id": 422,
+      "type": "FW_FrameBridge",
+      "pos": [
+        -300,
+        3750
+      ],
+      "size": [
+        250,
+        150
+      ],
+      "flags": {},
+      "order": 80,
+      "properties": {
+        "Node name for S&R": "FW_FrameBridge"
+      },
+      "widgets": [
+        {
+          "name": "keep",
+          "config": {},
+          "value": "Keep the same character identity, clothing, face, lighting direction, and camera continuity."
+        },
+        {
+          "name": "change",
+          "config": {},
+          "value": "Change only the environment and action needed for scene 4."
+        }
+      ]
+    },
+    {
+      "id": 423,
+      "type": "FW_FrameBridge",
+      "pos": [
+        0,
+        3750
+      ],
+      "size": [
+        250,
+        150
+      ],
+      "flags": {},
+      "order": 81,
+      "properties": {
+        "Node name for S&R": "FW_FrameBridge"
+      },
+      "widgets": [
+        {
+          "name": "keep",
+          "config": {},
+          "value": "Keep the same character identity, clothing, face, lighting direction, and camera continuity."
+        },
+        {
+          "name": "change",
+          "config": {},
+          "value": "Change only the environment and action needed for scene 5."
+        }
+      ]
+    },
+    {
+      "id": 500,
+      "type": "FW_SceneCollector",
+      "pos": [
+        -900,
+        4000
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 82,
+      "properties": {
+        "Node name for S&R": "FW_SceneCollector"
+      },
+      "widgets": []
+    },
+    {
+      "id": 501,
+      "type": "FW_SceneCollector",
+      "pos": [
+        -600,
+        4000
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 83,
+      "properties": {
+        "Node name for S&R": "FW_SceneCollector"
+      },
+      "widgets": []
+    },
+    {
+      "id": 502,
+      "type": "FW_SceneCollector",
+      "pos": [
+        -300,
+        4000
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 84,
+      "properties": {
+        "Node name for S&R": "FW_SceneCollector"
+      },
+      "widgets": []
+    },
+    {
+      "id": 503,
+      "type": "FW_SceneCollector",
+      "pos": [
+        0,
+        4000
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 85,
+      "properties": {
+        "Node name for S&R": "FW_SceneCollector"
+      },
+      "widgets": []
+    },
+    {
+      "id": 504,
+      "type": "FW_SceneCollector",
+      "pos": [
+        300,
+        4000
+      ],
+      "size": [
+        200,
+        120
+      ],
+      "flags": {},
+      "order": 86,
+      "properties": {
+        "Node name for S&R": "FW_SceneCollector"
+      },
+      "widgets": []
+    },
+    {
+      "id": 600,
+      "type": "FW_SmartAssembler",
+      "pos": [
+        700,
+        1300
+      ],
+      "size": [
+        300,
+        200
+      ],
+      "flags": {},
+      "order": 87,
       "properties": {
         "Node name for S&R": "FW_SmartAssembler"
       },
@@ -438,15 +2177,15 @@
       "id": 700,
       "type": "FW_CinematicPolish",
       "pos": [
-        1550,
-        400
+        700,
+        1600
       ],
       "size": [
         200,
-        200
+        150
       ],
       "flags": {},
-      "order": 12,
+      "order": 88,
       "properties": {
         "Node name for S&R": "FW_CinematicPolish"
       },
@@ -456,15 +2195,15 @@
       "id": 710,
       "type": "FW_FilmGrain",
       "pos": [
-        1800,
-        400
+        700,
+        1800
       ],
       "size": [
         200,
-        200
+        150
       ],
       "flags": {},
-      "order": 13,
+      "order": 89,
       "properties": {
         "Node name for S&R": "FW_FilmGrain"
       },
@@ -474,15 +2213,15 @@
       "id": 610,
       "type": "VHS_VideoCombine",
       "pos": [
-        2100,
-        400
+        700,
+        2000
       ],
       "size": [
         200,
         200
       ],
       "flags": {},
-      "order": 14,
+      "order": 90,
       "properties": {
         "Node name for S&R": "VHS_VideoCombine"
       },
@@ -492,7 +2231,7 @@
   "links": [
     [
       1,
-      1,
+      2,
       0,
       60,
       0,
@@ -500,7 +2239,7 @@
     ],
     [
       2,
-      2,
+      3,
       0,
       61,
       0,
@@ -508,7 +2247,7 @@
     ],
     [
       3,
-      3,
+      4,
       0,
       62,
       0,
@@ -516,7 +2255,7 @@
     ],
     [
       4,
-      4,
+      5,
       0,
       63,
       0,
@@ -524,7 +2263,7 @@
     ],
     [
       5,
-      5,
+      6,
       0,
       64,
       0,
@@ -532,7 +2271,7 @@
     ],
     [
       6,
-      10,
+      1,
       0,
       120,
       0,
@@ -540,54 +2279,6 @@
     ],
     [
       7,
-      20,
-      0,
-      120,
-      1,
-      "IMAGE"
-    ],
-    [
-      8,
-      60,
-      0,
-      200,
-      0,
-      "IMAGE"
-    ],
-    [
-      9,
-      61,
-      0,
-      210,
-      0,
-      "IMAGE"
-    ],
-    [
-      10,
-      62,
-      0,
-      220,
-      0,
-      "IMAGE"
-    ],
-    [
-      11,
-      63,
-      0,
-      230,
-      0,
-      "IMAGE"
-    ],
-    [
-      12,
-      64,
-      0,
-      240,
-      0,
-      "IMAGE"
-    ],
-    [
-      13,
       110,
       0,
       130,
@@ -595,55 +2286,119 @@
       "FW_PROMPT_LIST"
     ],
     [
-      14,
-      129,
+      8,
+      110,
+      0,
+      131,
+      0,
+      "FW_PROMPT_LIST"
+    ],
+    [
+      9,
+      110,
+      0,
+      132,
+      0,
+      "FW_PROMPT_LIST"
+    ],
+    [
+      10,
+      110,
+      0,
+      133,
+      0,
+      "FW_PROMPT_LIST"
+    ],
+    [
+      11,
+      110,
+      0,
+      134,
+      0,
+      "FW_PROMPT_LIST"
+    ],
+    [
+      12,
+      120,
       0,
       200,
-      1,
-      "FW_PROMPT_LIST"
+      0,
+      "FW_STYLE_ANCHOR"
+    ],
+    [
+      13,
+      120,
+      0,
+      210,
+      0,
+      "FW_STYLE_ANCHOR"
+    ],
+    [
+      14,
+      120,
+      0,
+      220,
+      0,
+      "FW_STYLE_ANCHOR"
     ],
     [
       15,
-      130,
+      120,
       0,
-      210,
-      1,
-      "FW_PROMPT_LIST"
+      230,
+      0,
+      "FW_STYLE_ANCHOR"
     ],
     [
       16,
-      131,
+      120,
       0,
-      220,
-      1,
-      "FW_PROMPT_LIST"
+      240,
+      0,
+      "FW_STYLE_ANCHOR"
     ],
     [
       17,
-      132,
-      0,
-      230,
-      1,
-      "FW_PROMPT_LIST"
-    ],
-    [
-      18,
-      133,
-      0,
-      240,
-      1,
-      "FW_PROMPT_LIST"
-    ],
-    [
-      19,
       130,
       0,
       200,
+      1,
+      "STRING"
+    ],
+    [
+      18,
+      131,
+      0,
+      210,
+      1,
+      "STRING"
+    ],
+    [
+      19,
+      132,
+      0,
+      220,
       1,
       "STRING"
     ],
     [
       20,
+      133,
+      0,
+      230,
+      1,
+      "STRING"
+    ],
+    [
+      21,
+      134,
+      0,
+      240,
+      1,
+      "STRING"
+    ],
+    [
+      22,
       130,
       2,
       200,
@@ -651,27 +2406,11 @@
       "STRING"
     ],
     [
-      21,
-      131,
-      0,
-      210,
-      1,
-      "STRING"
-    ],
-    [
-      22,
+      23,
       131,
       2,
       210,
       3,
-      "STRING"
-    ],
-    [
-      23,
-      132,
-      0,
-      220,
-      1,
       "STRING"
     ],
     [
@@ -685,189 +2424,701 @@
     [
       25,
       133,
-      0,
+      2,
       230,
-      1,
+      3,
       "STRING"
     ],
     [
       26,
-      133,
+      134,
       2,
-      230,
+      240,
       3,
       "STRING"
     ],
     [
       27,
-      134,
-      0,
-      240,
-      1,
-      "STRING"
-    ],
-    [
-      28,
-      134,
-      2,
-      240,
-      3,
-      "STRING"
-    ],
-    [
-      29,
-      120,
-      0,
-      200,
-      0,
-      "FW_STYLE_ANCHOR"
-    ],
-    [
-      30,
-      120,
-      0,
-      210,
-      0,
-      "FW_STYLE_ANCHOR"
-    ],
-    [
-      31,
-      120,
-      0,
-      220,
-      0,
-      "FW_STYLE_ANCHOR"
-    ],
-    [
-      32,
-      120,
-      0,
-      230,
-      0,
-      "FW_STYLE_ANCHOR"
-    ],
-    [
-      33,
-      120,
-      0,
-      240,
-      0,
-      "FW_STYLE_ANCHOR"
-    ],
-    [
-      34,
-      257,
-      0,
-      270,
-      3,
-      "INT"
-    ],
-    [
-      35,
-      258,
-      0,
-      271,
-      3,
-      "INT"
-    ],
-    [
-      36,
-      259,
-      0,
-      272,
-      3,
-      "INT"
-    ],
-    [
-      37,
-      260,
-      0,
-      273,
-      3,
-      "INT"
-    ],
-    [
-      38,
-      261,
-      0,
-      274,
-      3,
-      "INT"
-    ],
-    [
-      39,
-      270,
-      0,
-      280,
-      0,
-      "LATENT"
-    ],
-    [
-      40,
       250,
       0,
       280,
-      1,
+      0,
       "MODEL"
     ],
     [
-      41,
-      340,
+      28,
+      251,
       0,
+      252,
+      0,
+      "CLIP"
+    ],
+    [
+      29,
+      251,
+      0,
+      253,
+      0,
+      "CLIP"
+    ],
+    [
+      30,
       280,
+      0,
+      312,
+      0,
+      "MODEL"
+    ],
+    [
+      31,
+      280,
+      0,
+      313,
+      0,
+      "MODEL"
+    ],
+    [
+      32,
+      280,
+      0,
+      314,
+      0,
+      "MODEL"
+    ],
+    [
+      33,
+      280,
+      0,
+      315,
+      0,
+      "MODEL"
+    ],
+    [
+      34,
+      280,
+      0,
+      316,
+      0,
+      "MODEL"
+    ],
+    [
+      35,
+      252,
+      0,
+      312,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      36,
+      252,
+      0,
+      313,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      37,
+      252,
+      0,
+      314,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      38,
+      252,
+      0,
+      315,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      39,
+      252,
+      0,
+      316,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      40,
+      253,
+      0,
+      312,
       2,
-      "LATENT"
+      "CONDITIONING"
+    ],
+    [
+      41,
+      253,
+      0,
+      313,
+      2,
+      "CONDITIONING"
     ],
     [
       42,
-      256,
+      253,
       0,
-      311,
-      0,
-      "NOISE"
+      314,
+      2,
+      "CONDITIONING"
     ],
     [
       43,
-      310,
+      253,
       0,
-      311,
-      1,
-      "GUIDER"
+      315,
+      2,
+      "CONDITIONING"
     ],
     [
       44,
-      254,
+      253,
       0,
-      311,
-      4,
-      "SIGMAS"
+      316,
+      2,
+      "CONDITIONING"
     ],
     [
       45,
-      311,
+      270,
       0,
-      320,
+      340,
       0,
       "LATENT"
     ],
     [
       46,
-      250,
-      2,
-      320,
-      1,
-      "VAE"
+      271,
+      0,
+      341,
+      0,
+      "LATENT"
     ],
     [
       47,
-      320,
+      272,
       0,
-      330,
+      342,
       0,
       "LATENT"
     ],
     [
       48,
+      273,
+      0,
+      343,
+      0,
+      "LATENT"
+    ],
+    [
+      49,
+      274,
+      0,
+      344,
+      0,
+      "LATENT"
+    ],
+    [
+      50,
+      60,
+      0,
+      340,
+      1,
+      "IMAGE"
+    ],
+    [
+      51,
+      61,
+      0,
+      341,
+      1,
+      "IMAGE"
+    ],
+    [
+      52,
+      62,
+      0,
+      342,
+      1,
+      "IMAGE"
+    ],
+    [
+      53,
+      63,
+      0,
+      343,
+      1,
+      "IMAGE"
+    ],
+    [
+      54,
+      64,
+      0,
+      344,
+      1,
+      "IMAGE"
+    ],
+    [
+      55,
+      256,
+      0,
+      317,
+      0,
+      "NOISE"
+    ],
+    [
+      56,
+      256,
+      0,
+      318,
+      0,
+      "NOISE"
+    ],
+    [
+      57,
+      256,
+      0,
+      319,
+      0,
+      "NOISE"
+    ],
+    [
+      58,
+      256,
+      0,
+      321,
+      0,
+      "NOISE"
+    ],
+    [
+      59,
+      256,
+      0,
+      322,
+      0,
+      "NOISE"
+    ],
+    [
+      60,
+      312,
+      0,
+      317,
+      1,
+      "GUIDER"
+    ],
+    [
+      61,
+      313,
+      0,
+      318,
+      1,
+      "GUIDER"
+    ],
+    [
+      62,
+      314,
+      0,
+      319,
+      1,
+      "GUIDER"
+    ],
+    [
+      63,
+      315,
+      0,
+      321,
+      1,
+      "GUIDER"
+    ],
+    [
+      64,
+      316,
+      0,
+      322,
+      1,
+      "GUIDER"
+    ],
+    [
+      65,
+      280,
+      0,
+      317,
+      2,
+      "MODEL"
+    ],
+    [
+      66,
+      280,
+      0,
+      318,
+      2,
+      "MODEL"
+    ],
+    [
+      67,
+      280,
+      0,
+      319,
+      2,
+      "MODEL"
+    ],
+    [
+      68,
+      280,
+      0,
+      321,
+      2,
+      "MODEL"
+    ],
+    [
+      69,
+      280,
+      0,
+      322,
+      2,
+      "MODEL"
+    ],
+    [
+      70,
+      340,
+      0,
+      317,
+      3,
+      "LATENT"
+    ],
+    [
+      71,
+      341,
+      0,
+      318,
+      3,
+      "LATENT"
+    ],
+    [
+      72,
+      342,
+      0,
+      319,
+      3,
+      "LATENT"
+    ],
+    [
+      73,
+      343,
+      0,
+      321,
+      3,
+      "LATENT"
+    ],
+    [
+      74,
+      344,
+      0,
+      322,
+      3,
+      "LATENT"
+    ],
+    [
+      75,
+      254,
+      0,
+      317,
+      4,
+      "SIGMAS"
+    ],
+    [
+      76,
+      254,
+      0,
+      318,
+      4,
+      "SIGMAS"
+    ],
+    [
+      77,
+      254,
+      0,
+      319,
+      4,
+      "SIGMAS"
+    ],
+    [
+      78,
+      254,
+      0,
+      321,
+      4,
+      "SIGMAS"
+    ],
+    [
+      79,
+      254,
+      0,
+      322,
+      4,
+      "SIGMAS"
+    ],
+    [
+      80,
+      317,
+      0,
+      323,
+      0,
+      "LATENT"
+    ],
+    [
+      81,
+      318,
+      0,
+      324,
+      0,
+      "LATENT"
+    ],
+    [
+      82,
+      319,
+      0,
+      325,
+      0,
+      "LATENT"
+    ],
+    [
+      83,
+      321,
+      0,
+      326,
+      0,
+      "LATENT"
+    ],
+    [
+      84,
+      322,
+      0,
+      327,
+      0,
+      "LATENT"
+    ],
+    [
+      85,
+      250,
+      2,
+      323,
+      1,
+      "VAE"
+    ],
+    [
+      86,
+      250,
+      2,
+      324,
+      1,
+      "VAE"
+    ],
+    [
+      87,
+      250,
+      2,
+      325,
+      1,
+      "VAE"
+    ],
+    [
+      88,
+      250,
+      2,
+      326,
+      1,
+      "VAE"
+    ],
+    [
+      89,
+      250,
+      2,
+      327,
+      1,
+      "VAE"
+    ],
+    [
+      90,
+      323,
+      0,
+      331,
+      0,
+      "LATENT"
+    ],
+    [
+      91,
+      324,
+      0,
+      332,
+      0,
+      "LATENT"
+    ],
+    [
+      92,
+      325,
+      0,
+      333,
+      0,
+      "LATENT"
+    ],
+    [
+      93,
+      326,
+      0,
+      334,
+      0,
+      "LATENT"
+    ],
+    [
+      94,
+      327,
+      0,
+      335,
+      0,
+      "LATENT"
+    ],
+    [
+      95,
+      331,
+      0,
+      400,
+      0,
+      "IMAGE"
+    ],
+    [
+      96,
+      332,
+      0,
+      401,
+      0,
+      "IMAGE"
+    ],
+    [
+      97,
+      333,
+      0,
+      402,
+      0,
+      "IMAGE"
+    ],
+    [
+      98,
+      334,
+      0,
+      403,
+      0,
+      "IMAGE"
+    ],
+    [
+      99,
+      335,
+      0,
+      404,
+      0,
+      "IMAGE"
+    ],
+    [
+      100,
+      400,
+      0,
+      410,
+      0,
+      "IMAGE"
+    ],
+    [
+      101,
+      401,
+      0,
+      411,
+      0,
+      "IMAGE"
+    ],
+    [
+      102,
+      402,
+      0,
+      412,
+      0,
+      "IMAGE"
+    ],
+    [
+      103,
+      403,
+      0,
+      413,
+      0,
+      "IMAGE"
+    ],
+    [
+      104,
+      410,
+      0,
+      420,
+      0,
+      "IMAGE"
+    ],
+    [
+      105,
+      411,
+      0,
+      421,
+      0,
+      "IMAGE"
+    ],
+    [
+      106,
+      412,
+      0,
+      422,
+      0,
+      "IMAGE"
+    ],
+    [
+      107,
+      413,
+      0,
+      423,
+      0,
+      "IMAGE"
+    ],
+    [
+      108,
+      131,
+      0,
+      420,
+      1,
+      "STRING"
+    ],
+    [
+      109,
+      132,
+      0,
+      421,
+      1,
+      "STRING"
+    ],
+    [
+      110,
+      133,
+      0,
+      422,
+      1,
+      "STRING"
+    ],
+    [
+      111,
+      134,
+      0,
+      423,
+      1,
+      "STRING"
+    ],
+    [
+      112,
       400,
       0,
       500,
@@ -875,7 +3126,7 @@
       "IMAGE"
     ],
     [
-      49,
+      113,
       401,
       0,
       501,
@@ -883,7 +3134,7 @@
       "IMAGE"
     ],
     [
-      50,
+      114,
       402,
       0,
       502,
@@ -891,7 +3142,7 @@
       "IMAGE"
     ],
     [
-      51,
+      115,
       403,
       0,
       503,
@@ -899,7 +3150,7 @@
       "IMAGE"
     ],
     [
-      52,
+      116,
       404,
       0,
       504,
@@ -907,23 +3158,7 @@
       "IMAGE"
     ],
     [
-      53,
-      500,
-      0,
-      600,
-      0,
-      "FW_SCENE_COLLECTION"
-    ],
-    [
-      54,
-      501,
-      0,
-      600,
-      0,
-      "FW_SCENE_COLLECTION"
-    ],
-    [
-      55,
+      117,
       500,
       0,
       501,
@@ -931,7 +3166,7 @@
       "FW_SCENE_COLLECTION"
     ],
     [
-      56,
+      118,
       501,
       0,
       502,
@@ -939,7 +3174,7 @@
       "FW_SCENE_COLLECTION"
     ],
     [
-      57,
+      119,
       502,
       0,
       503,
@@ -947,7 +3182,7 @@
       "FW_SCENE_COLLECTION"
     ],
     [
-      58,
+      120,
       503,
       0,
       504,
@@ -955,7 +3190,7 @@
       "FW_SCENE_COLLECTION"
     ],
     [
-      59,
+      121,
       504,
       0,
       600,
@@ -963,7 +3198,7 @@
       "FW_SCENE_COLLECTION"
     ],
     [
-      60,
+      122,
       600,
       0,
       700,
@@ -971,7 +3206,7 @@
       "IMAGE"
     ],
     [
-      61,
+      123,
       700,
       0,
       710,
@@ -979,7 +3214,7 @@
       "IMAGE"
     ],
     [
-      62,
+      124,
       710,
       0,
       610,
@@ -987,62 +3222,17 @@
       "IMAGE"
     ]
   ],
-  "last_link_id": 62,
+  "last_link_id": 124,
   "last_node_id": 900,
   "extra": {
     "info": {
       "name": "FrameWeaver Three-Act Feature",
       "author": "FrameWeaver",
-      "version": "1.0.0",
-      "description": "5-scene variable-duration narrative film with dramatic arc structure."
+      "version": "2.0.0",
+      "description": "5-scene parallel narrative film with dramatic arc structure. All 5 scenes generate in a single execution."
     },
     "prompt": {
       "1": {
-        "_meta": {
-          "title": "LoadImage (starter scene 1)"
-        },
-        "class_type": "LoadImage",
-        "inputs": {
-          "image": "starter_scene_1.png"
-        }
-      },
-      "2": {
-        "_meta": {
-          "title": "LoadImage (starter scene 2)"
-        },
-        "class_type": "LoadImage",
-        "inputs": {
-          "image": "starter_scene_2.png"
-        }
-      },
-      "3": {
-        "_meta": {
-          "title": "LoadImage (starter scene 3)"
-        },
-        "class_type": "LoadImage",
-        "inputs": {
-          "image": "starter_scene_3.png"
-        }
-      },
-      "4": {
-        "_meta": {
-          "title": "LoadImage (starter scene 4)"
-        },
-        "class_type": "LoadImage",
-        "inputs": {
-          "image": "starter_scene_4.png"
-        }
-      },
-      "5": {
-        "_meta": {
-          "title": "LoadImage (starter scene 5)"
-        },
-        "class_type": "LoadImage",
-        "inputs": {
-          "image": "starter_scene_5.png"
-        }
-      },
-      "10": {
         "_meta": {
           "title": "LoadImage (character reference)"
         },
@@ -1051,13 +3241,49 @@
           "image": "character_reference.png"
         }
       },
-      "20": {
+      "2": {
         "_meta": {
-          "title": "LoadImage (style reference)"
+          "title": "LoadImage (starter scene 1)"
         },
         "class_type": "LoadImage",
         "inputs": {
-          "image": "style_reference.png"
+          "image": "starter_scene_1.png"
+        }
+      },
+      "3": {
+        "_meta": {
+          "title": "LoadImage (starter scene 2)"
+        },
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "starter_scene_2.png"
+        }
+      },
+      "4": {
+        "_meta": {
+          "title": "LoadImage (starter scene 3)"
+        },
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "starter_scene_3.png"
+        }
+      },
+      "5": {
+        "_meta": {
+          "title": "LoadImage (starter scene 4)"
+        },
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "starter_scene_4.png"
+        }
+      },
+      "6": {
+        "_meta": {
+          "title": "LoadImage (starter scene 5)"
+        },
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "starter_scene_5.png"
         }
       },
       "11": {
@@ -1105,36 +3331,6 @@
           "upscale_model_name": "ltx-2.3-spatial-upscaler-x2-1.1.safetensors"
         }
       },
-      "250": {
-        "_meta": {
-          "title": "CheckpointLoaderSimple"
-        },
-        "class_type": "CheckpointLoaderSimple",
-        "inputs": {
-          "ckpt_name": "ltx-2.3-22b-dev-fp8.safetensors"
-        }
-      },
-      "251": {
-        "_meta": {
-          "title": "LTXVGemmaCLIPModelLoader"
-        },
-        "class_type": "LTXVGemmaCLIPModelLoader",
-        "inputs": {
-          "gemma_path": "gemma-3-12b-it-qat-q4_0-unquantized_readout_proj/model/model.safetensors",
-          "ltxv_path": "ltx-av-step-1751000_vocoder_24K.safetensors",
-          "max_length": 1024
-        }
-      },
-      "120": {
-        "_meta": {
-          "title": "FW_StyleAnchor"
-        },
-        "class_type": "FW_StyleAnchor",
-        "inputs": {
-          "style_description": "cinematic film look, high contrast, desaturated warm tones, anamorphic flares, film grain",
-          "identity_description": "Same character across all scenes: consistent face, clothing, body proportions, movement patterns."
-        }
-      },
       "110": {
         "_meta": {
           "title": "FW_ScenePromptEvolver"
@@ -1147,12 +3343,30 @@
           "inheritance_mode": "cumulative"
         }
       },
+      "120": {
+        "_meta": {
+          "title": "FW_StyleAnchor"
+        },
+        "class_type": "FW_StyleAnchor",
+        "inputs": {
+          "reference_image": [
+            "1",
+            0
+          ],
+          "style_description": "cinematic film look, high contrast, desaturated warm tones, anamorphic flares, film grain",
+          "identity_description": "Same character across all scenes: consistent face, clothing, body proportions, movement patterns."
+        }
+      },
       "130": {
         "_meta": {
           "title": "FW_ScenePromptSelector (scene 1)"
         },
         "class_type": "FW_ScenePromptSelector",
         "inputs": {
+          "prompt_list": [
+            "110",
+            0
+          ],
           "scene_index": 1
         }
       },
@@ -1162,6 +3376,10 @@
         },
         "class_type": "FW_ScenePromptSelector",
         "inputs": {
+          "prompt_list": [
+            "110",
+            0
+          ],
           "scene_index": 2
         }
       },
@@ -1171,6 +3389,10 @@
         },
         "class_type": "FW_ScenePromptSelector",
         "inputs": {
+          "prompt_list": [
+            "110",
+            0
+          ],
           "scene_index": 3
         }
       },
@@ -1180,6 +3402,10 @@
         },
         "class_type": "FW_ScenePromptSelector",
         "inputs": {
+          "prompt_list": [
+            "110",
+            0
+          ],
           "scene_index": 4
         }
       },
@@ -1189,6 +3415,10 @@
         },
         "class_type": "FW_ScenePromptSelector",
         "inputs": {
+          "prompt_list": [
+            "110",
+            0
+          ],
           "scene_index": 5
         }
       },
@@ -1198,6 +3428,14 @@
         },
         "class_type": "FW_ContinuityEncoder",
         "inputs": {
+          "style_anchor": [
+            "120",
+            0
+          ],
+          "scene_prompt": [
+            "130",
+            0
+          ],
           "style_strength": 0.35,
           "bridge_prompt": ""
         }
@@ -1208,6 +3446,14 @@
         },
         "class_type": "FW_ContinuityEncoder",
         "inputs": {
+          "style_anchor": [
+            "120",
+            0
+          ],
+          "scene_prompt": [
+            "131",
+            0
+          ],
           "style_strength": 0.35,
           "bridge_prompt": ""
         }
@@ -1218,6 +3464,14 @@
         },
         "class_type": "FW_ContinuityEncoder",
         "inputs": {
+          "style_anchor": [
+            "120",
+            0
+          ],
+          "scene_prompt": [
+            "132",
+            0
+          ],
           "style_strength": 0.4,
           "bridge_prompt": ""
         }
@@ -1228,6 +3482,14 @@
         },
         "class_type": "FW_ContinuityEncoder",
         "inputs": {
+          "style_anchor": [
+            "120",
+            0
+          ],
+          "scene_prompt": [
+            "133",
+            0
+          ],
           "style_strength": 0.45,
           "bridge_prompt": ""
         }
@@ -1238,6 +3500,14 @@
         },
         "class_type": "FW_ContinuityEncoder",
         "inputs": {
+          "style_anchor": [
+            "120",
+            0
+          ],
+          "scene_prompt": [
+            "134",
+            0
+          ],
           "style_strength": 0.45,
           "bridge_prompt": ""
         }
@@ -1248,6 +3518,10 @@
         },
         "class_type": "FW_LoadStarterFrame",
         "inputs": {
+          "image": [
+            "2",
+            0
+          ],
           "target_width": 1280,
           "target_height": 720
         }
@@ -1258,6 +3532,10 @@
         },
         "class_type": "FW_LoadStarterFrame",
         "inputs": {
+          "image": [
+            "3",
+            0
+          ],
           "target_width": 1280,
           "target_height": 720
         }
@@ -1268,6 +3546,10 @@
         },
         "class_type": "FW_LoadStarterFrame",
         "inputs": {
+          "image": [
+            "4",
+            0
+          ],
           "target_width": 1280,
           "target_height": 720
         }
@@ -1278,6 +3560,10 @@
         },
         "class_type": "FW_LoadStarterFrame",
         "inputs": {
+          "image": [
+            "5",
+            0
+          ],
           "target_width": 1280,
           "target_height": 720
         }
@@ -1288,6 +3574,10 @@
         },
         "class_type": "FW_LoadStarterFrame",
         "inputs": {
+          "image": [
+            "6",
+            0
+          ],
           "target_width": 1280,
           "target_height": 720
         }
@@ -1352,6 +3642,88 @@
           "tail_loss_frames": 8
         }
       },
+      "250": {
+        "_meta": {
+          "title": "CheckpointLoaderSimple"
+        },
+        "class_type": "CheckpointLoaderSimple",
+        "inputs": {
+          "ckpt_name": "ltx-2.3-22b-dev-fp8.safetensors"
+        }
+      },
+      "251": {
+        "_meta": {
+          "title": "LTXVGemmaCLIPModelLoader"
+        },
+        "class_type": "LTXVGemmaCLIPModelLoader",
+        "inputs": {
+          "gemma_path": "gemma-3-12b-it-qat-q4_0-unquantized_readout_proj/model/model.safetensors",
+          "ltxv_path": "ltx-av-step-1751000_vocoder_24K.safetensors",
+          "max_length": 1024
+        }
+      },
+      "252": {
+        "_meta": {
+          "title": "CLIPTextEncode (positive)"
+        },
+        "class_type": "CLIPTextEncode",
+        "inputs": {
+          "clip": [
+            "251",
+            0
+          ],
+          "text": ""
+        }
+      },
+      "253": {
+        "_meta": {
+          "title": "CLIPTextEncode (negative)"
+        },
+        "class_type": "CLIPTextEncode",
+        "inputs": {
+          "clip": [
+            "251",
+            0
+          ],
+          "text": "blurry, low quality, still frame, flicker, inconsistent character, watermark, overlay"
+        }
+      },
+      "254": {
+        "_meta": {
+          "title": "LTXVScheduler"
+        },
+        "class_type": "LTXVScheduler",
+        "inputs": {
+          "base_shift": 0.95,
+          "max_shift": 2.05,
+          "steps": 20,
+          "stretch": true,
+          "terminal": 0.1
+        }
+      },
+      "256": {
+        "_meta": {
+          "title": "RandomNoise"
+        },
+        "class_type": "RandomNoise",
+        "inputs": {
+          "noise_seed": 42
+        }
+      },
+      "280": {
+        "_meta": {
+          "title": "LTXVSequenceParallelMultiGPUPatcher"
+        },
+        "class_type": "LTXVSequenceParallelMultiGPUPatcher",
+        "inputs": {
+          "model": [
+            "250",
+            0
+          ],
+          "disable_backup": false,
+          "torch_compile": true
+        }
+      },
       "270": {
         "_meta": {
           "title": "EmptyLTXVLatentVideo (scene 1)"
@@ -1412,164 +3784,480 @@
           "batch_size": 1
         }
       },
-      "280": {
-        "_meta": {
-          "title": "LTXVSequenceParallelMultiGPUPatcher"
-        },
-        "class_type": "LTXVSequenceParallelMultiGPUPatcher",
-        "inputs": {
-          "disable_backup": false,
-          "torch_compile": true
-        }
-      },
-      "282": {
-        "_meta": {
-          "title": "LTXVEmptyLatentAudio"
-        },
-        "class_type": "LTXVEmptyLatentAudio",
-        "inputs": {
-          "batch_size": 1
-        }
-      },
-      "285": {
-        "_meta": {
-          "title": "INTConstant"
-        },
-        "class_type": "INTConstant",
-        "inputs": {
-          "value": 105
-        }
-      },
-      "284": {
-        "_meta": {
-          "title": "FloatConstant"
-        },
-        "class_type": "FloatConstant",
-        "inputs": {
-          "value": 25.0
-        }
-      },
-      "283": {
-        "_meta": {
-          "title": "CM_FloatToInt"
-        },
-        "class_type": "CM_FloatToInt",
-        "inputs": {}
-      },
-      "256": {
-        "_meta": {
-          "title": "RandomNoise"
-        },
-        "class_type": "RandomNoise",
-        "inputs": {
-          "noise_seed": 42
-        }
-      },
-      "255": {
-        "_meta": {
-          "title": "KSamplerSelect"
-        },
-        "class_type": "KSamplerSelect",
-        "inputs": {
-          "sampler_name": "euler"
-        }
-      },
-      "254": {
-        "_meta": {
-          "title": "LTXVScheduler"
-        },
-        "class_type": "LTXVScheduler",
-        "inputs": {
-          "base_shift": 0.95,
-          "max_shift": 2.05,
-          "steps": 20,
-          "stretch": true,
-          "terminal": 0.1
-        }
-      },
-      "253": {
-        "_meta": {
-          "title": "CLIPTextEncode (negative)"
-        },
-        "class_type": "CLIPTextEncode",
-        "inputs": {
-          "text": "blurry, low quality, still frame, flicker, inconsistent character, watermark, overlay"
-        }
-      },
-      "252": {
-        "_meta": {
-          "title": "CLIPTextEncode (positive)"
-        },
-        "class_type": "CLIPTextEncode",
-        "inputs": {
-          "text": ""
-        }
-      },
-      "300": {
-        "_meta": {
-          "title": "GuiderParameters"
-        },
-        "class_type": "GuiderParameters",
-        "inputs": {
-          "cfg": 3,
-          "modality": "VIDEO",
-          "modality_scale": 3,
-          "rescale": 0,
-          "stg": 0
-        }
-      },
-      "301": {
-        "_meta": {
-          "title": "GuiderParameters (negative)"
-        },
-        "class_type": "GuiderParameters",
-        "inputs": {
-          "cfg": 3,
-          "modality": "VIDEO",
-          "modality_scale": 3,
-          "rescale": 0,
-          "stg": 0
-        }
-      },
-      "310": {
-        "_meta": {
-          "title": "MultimodalGuider"
-        },
-        "class_type": "MultimodalGuider",
-        "inputs": {
-          "skip_blocks": 29
-        }
-      },
-      "311": {
-        "_meta": {
-          "title": "SamplerCustomAdvanced"
-        },
-        "class_type": "SamplerCustomAdvanced",
-        "inputs": {}
-      },
       "340": {
         "_meta": {
-          "title": "LTXVAddGuide (keyframe)"
+          "title": "LTXVAddGuide (scene 1)"
         },
         "class_type": "LTXVAddGuide",
         "inputs": {
+          "samples": [
+            "270",
+            0
+          ],
+          "image": [
+            "60",
+            0
+          ],
           "frame_idx": 0,
           "strength": 1.0
         }
       },
-      "320": {
+      "341": {
         "_meta": {
-          "title": "VAEDecode"
+          "title": "LTXVAddGuide (scene 2)"
+        },
+        "class_type": "LTXVAddGuide",
+        "inputs": {
+          "samples": [
+            "271",
+            0
+          ],
+          "image": [
+            "61",
+            0
+          ],
+          "frame_idx": 0,
+          "strength": 1.0
+        }
+      },
+      "342": {
+        "_meta": {
+          "title": "LTXVAddGuide (scene 3)"
+        },
+        "class_type": "LTXVAddGuide",
+        "inputs": {
+          "samples": [
+            "272",
+            0
+          ],
+          "image": [
+            "62",
+            0
+          ],
+          "frame_idx": 0,
+          "strength": 1.0
+        }
+      },
+      "343": {
+        "_meta": {
+          "title": "LTXVAddGuide (scene 4)"
+        },
+        "class_type": "LTXVAddGuide",
+        "inputs": {
+          "samples": [
+            "273",
+            0
+          ],
+          "image": [
+            "63",
+            0
+          ],
+          "frame_idx": 0,
+          "strength": 1.0
+        }
+      },
+      "344": {
+        "_meta": {
+          "title": "LTXVAddGuide (scene 5)"
+        },
+        "class_type": "LTXVAddGuide",
+        "inputs": {
+          "samples": [
+            "274",
+            0
+          ],
+          "image": [
+            "64",
+            0
+          ],
+          "frame_idx": 0,
+          "strength": 1.0
+        }
+      },
+      "312": {
+        "_meta": {
+          "title": "MultimodalGuider (scene 1)"
+        },
+        "class_type": "MultimodalGuider",
+        "inputs": {
+          "model": [
+            "280",
+            0
+          ],
+          "positive": [
+            "252",
+            0
+          ],
+          "negative": [
+            "253",
+            0
+          ],
+          "skip_blocks": 29
+        }
+      },
+      "313": {
+        "_meta": {
+          "title": "MultimodalGuider (scene 2)"
+        },
+        "class_type": "MultimodalGuider",
+        "inputs": {
+          "model": [
+            "280",
+            0
+          ],
+          "positive": [
+            "252",
+            0
+          ],
+          "negative": [
+            "253",
+            0
+          ],
+          "skip_blocks": 29
+        }
+      },
+      "314": {
+        "_meta": {
+          "title": "MultimodalGuider (scene 3)"
+        },
+        "class_type": "MultimodalGuider",
+        "inputs": {
+          "model": [
+            "280",
+            0
+          ],
+          "positive": [
+            "252",
+            0
+          ],
+          "negative": [
+            "253",
+            0
+          ],
+          "skip_blocks": 29
+        }
+      },
+      "315": {
+        "_meta": {
+          "title": "MultimodalGuider (scene 4)"
+        },
+        "class_type": "MultimodalGuider",
+        "inputs": {
+          "model": [
+            "280",
+            0
+          ],
+          "positive": [
+            "252",
+            0
+          ],
+          "negative": [
+            "253",
+            0
+          ],
+          "skip_blocks": 29
+        }
+      },
+      "316": {
+        "_meta": {
+          "title": "MultimodalGuider (scene 5)"
+        },
+        "class_type": "MultimodalGuider",
+        "inputs": {
+          "model": [
+            "280",
+            0
+          ],
+          "positive": [
+            "252",
+            0
+          ],
+          "negative": [
+            "253",
+            0
+          ],
+          "skip_blocks": 29
+        }
+      },
+      "317": {
+        "_meta": {
+          "title": "SamplerCustomAdvanced (scene 1)"
+        },
+        "class_type": "SamplerCustomAdvanced",
+        "inputs": {
+          "noise": [
+            "256",
+            0
+          ],
+          "guider": [
+            "312",
+            0
+          ],
+          "model": [
+            "280",
+            0
+          ],
+          "latent_image": [
+            "340",
+            0
+          ],
+          "sigmas": [
+            "254",
+            0
+          ]
+        }
+      },
+      "318": {
+        "_meta": {
+          "title": "SamplerCustomAdvanced (scene 2)"
+        },
+        "class_type": "SamplerCustomAdvanced",
+        "inputs": {
+          "noise": [
+            "256",
+            0
+          ],
+          "guider": [
+            "313",
+            0
+          ],
+          "model": [
+            "280",
+            0
+          ],
+          "latent_image": [
+            "341",
+            0
+          ],
+          "sigmas": [
+            "254",
+            0
+          ]
+        }
+      },
+      "319": {
+        "_meta": {
+          "title": "SamplerCustomAdvanced (scene 3)"
+        },
+        "class_type": "SamplerCustomAdvanced",
+        "inputs": {
+          "noise": [
+            "256",
+            0
+          ],
+          "guider": [
+            "314",
+            0
+          ],
+          "model": [
+            "280",
+            0
+          ],
+          "latent_image": [
+            "342",
+            0
+          ],
+          "sigmas": [
+            "254",
+            0
+          ]
+        }
+      },
+      "321": {
+        "_meta": {
+          "title": "SamplerCustomAdvanced (scene 4)"
+        },
+        "class_type": "SamplerCustomAdvanced",
+        "inputs": {
+          "noise": [
+            "256",
+            0
+          ],
+          "guider": [
+            "315",
+            0
+          ],
+          "model": [
+            "280",
+            0
+          ],
+          "latent_image": [
+            "343",
+            0
+          ],
+          "sigmas": [
+            "254",
+            0
+          ]
+        }
+      },
+      "322": {
+        "_meta": {
+          "title": "SamplerCustomAdvanced (scene 5)"
+        },
+        "class_type": "SamplerCustomAdvanced",
+        "inputs": {
+          "noise": [
+            "256",
+            0
+          ],
+          "guider": [
+            "316",
+            0
+          ],
+          "model": [
+            "280",
+            0
+          ],
+          "latent_image": [
+            "344",
+            0
+          ],
+          "sigmas": [
+            "254",
+            0
+          ]
+        }
+      },
+      "323": {
+        "_meta": {
+          "title": "VAEDecode (scene 1)"
         },
         "class_type": "VAEDecode",
-        "inputs": {}
+        "inputs": {
+          "samples": [
+            "317",
+            0
+          ],
+          "vae": [
+            "250",
+            2
+          ]
+        }
       },
-      "330": {
+      "324": {
         "_meta": {
-          "title": "LTXVSeparateAVLatent"
+          "title": "VAEDecode (scene 2)"
+        },
+        "class_type": "VAEDecode",
+        "inputs": {
+          "samples": [
+            "318",
+            0
+          ],
+          "vae": [
+            "250",
+            2
+          ]
+        }
+      },
+      "325": {
+        "_meta": {
+          "title": "VAEDecode (scene 3)"
+        },
+        "class_type": "VAEDecode",
+        "inputs": {
+          "samples": [
+            "319",
+            0
+          ],
+          "vae": [
+            "250",
+            2
+          ]
+        }
+      },
+      "326": {
+        "_meta": {
+          "title": "VAEDecode (scene 4)"
+        },
+        "class_type": "VAEDecode",
+        "inputs": {
+          "samples": [
+            "321",
+            0
+          ],
+          "vae": [
+            "250",
+            2
+          ]
+        }
+      },
+      "327": {
+        "_meta": {
+          "title": "VAEDecode (scene 5)"
+        },
+        "class_type": "VAEDecode",
+        "inputs": {
+          "samples": [
+            "322",
+            0
+          ],
+          "vae": [
+            "250",
+            2
+          ]
+        }
+      },
+      "331": {
+        "_meta": {
+          "title": "LTXVSeparateAVLatent (scene 1)"
         },
         "class_type": "LTXVSeparateAVLatent",
-        "inputs": {}
+        "inputs": {
+          "samples": [
+            "323",
+            0
+          ]
+        }
+      },
+      "332": {
+        "_meta": {
+          "title": "LTXVSeparateAVLatent (scene 2)"
+        },
+        "class_type": "LTXVSeparateAVLatent",
+        "inputs": {
+          "samples": [
+            "324",
+            0
+          ]
+        }
+      },
+      "333": {
+        "_meta": {
+          "title": "LTXVSeparateAVLatent (scene 3)"
+        },
+        "class_type": "LTXVSeparateAVLatent",
+        "inputs": {
+          "samples": [
+            "325",
+            0
+          ]
+        }
+      },
+      "334": {
+        "_meta": {
+          "title": "LTXVSeparateAVLatent (scene 4)"
+        },
+        "class_type": "LTXVSeparateAVLatent",
+        "inputs": {
+          "samples": [
+            "326",
+            0
+          ]
+        }
+      },
+      "335": {
+        "_meta": {
+          "title": "LTXVSeparateAVLatent (scene 5)"
+        },
+        "class_type": "LTXVSeparateAVLatent",
+        "inputs": {
+          "samples": [
+            "327",
+            0
+          ]
+        }
       },
       "400": {
         "_meta": {
@@ -1577,6 +4265,10 @@
         },
         "class_type": "FW_FrameTrimmer",
         "inputs": {
+          "images": [
+            "331",
+            0
+          ],
           "trim_start": 0,
           "target_frames": 97
         }
@@ -1587,6 +4279,10 @@
         },
         "class_type": "FW_FrameTrimmer",
         "inputs": {
+          "images": [
+            "332",
+            0
+          ],
           "trim_start": 6,
           "target_frames": 193
         }
@@ -1597,6 +4293,10 @@
         },
         "class_type": "FW_FrameTrimmer",
         "inputs": {
+          "images": [
+            "333",
+            0
+          ],
           "trim_start": 6,
           "target_frames": 193
         }
@@ -1607,6 +4307,10 @@
         },
         "class_type": "FW_FrameTrimmer",
         "inputs": {
+          "images": [
+            "334",
+            0
+          ],
           "trim_start": 6,
           "target_frames": 289
         }
@@ -1617,74 +4321,130 @@
         },
         "class_type": "FW_FrameTrimmer",
         "inputs": {
+          "images": [
+            "335",
+            0
+          ],
           "trim_start": 6,
           "target_frames": 289
         }
       },
       "410": {
         "_meta": {
-          "title": "FW_LastFrameExtractor (scene 1\u21922)"
+          "title": "FW_LastFrameExtractor (scene 1 to 2)"
         },
         "class_type": "FW_LastFrameExtractor",
-        "inputs": {}
+        "inputs": {
+          "image": [
+            "400",
+            0
+          ]
+        }
       },
       "411": {
         "_meta": {
-          "title": "FW_LastFrameExtractor (scene 2\u21923)"
+          "title": "FW_LastFrameExtractor (scene 2 to 3)"
         },
         "class_type": "FW_LastFrameExtractor",
-        "inputs": {}
+        "inputs": {
+          "image": [
+            "401",
+            0
+          ]
+        }
       },
       "412": {
         "_meta": {
-          "title": "FW_LastFrameExtractor (scene 3\u21924)"
+          "title": "FW_LastFrameExtractor (scene 3 to 4)"
         },
         "class_type": "FW_LastFrameExtractor",
-        "inputs": {}
+        "inputs": {
+          "image": [
+            "402",
+            0
+          ]
+        }
       },
       "413": {
         "_meta": {
-          "title": "FW_LastFrameExtractor (scene 4\u21925)"
+          "title": "FW_LastFrameExtractor (scene 4 to 5)"
         },
         "class_type": "FW_LastFrameExtractor",
-        "inputs": {}
+        "inputs": {
+          "image": [
+            "403",
+            0
+          ]
+        }
       },
       "420": {
         "_meta": {
-          "title": "FW_FrameBridge (scene 1\u21922)"
+          "title": "FW_FrameBridge (scene 1 to 2)"
         },
         "class_type": "FW_FrameBridge",
         "inputs": {
+          "last_frame": [
+            "410",
+            0
+          ],
+          "next_scene_prompt": [
+            "131",
+            0
+          ],
           "keep": "Keep the same character identity, clothing, face, lighting direction, and camera continuity.",
           "change": "Change only the environment and action needed for scene 2."
         }
       },
       "421": {
         "_meta": {
-          "title": "FW_FrameBridge (scene 2\u21923)"
+          "title": "FW_FrameBridge (scene 2 to 3)"
         },
         "class_type": "FW_FrameBridge",
         "inputs": {
+          "last_frame": [
+            "411",
+            0
+          ],
+          "next_scene_prompt": [
+            "132",
+            0
+          ],
           "keep": "Keep the same character identity, clothing, face, lighting direction, and camera continuity.",
           "change": "Change only the environment and action needed for scene 3."
         }
       },
       "422": {
         "_meta": {
-          "title": "FW_FrameBridge (scene 3\u21924)"
+          "title": "FW_FrameBridge (scene 3 to 4)"
         },
         "class_type": "FW_FrameBridge",
         "inputs": {
+          "last_frame": [
+            "412",
+            0
+          ],
+          "next_scene_prompt": [
+            "133",
+            0
+          ],
           "keep": "Keep the same character identity, clothing, face, lighting direction, and camera continuity.",
           "change": "Change only the environment and action needed for scene 4."
         }
       },
       "423": {
         "_meta": {
-          "title": "FW_FrameBridge (scene 4\u21925)"
+          "title": "FW_FrameBridge (scene 4 to 5)"
         },
         "class_type": "FW_FrameBridge",
         "inputs": {
+          "last_frame": [
+            "413",
+            0
+          ],
+          "next_scene_prompt": [
+            "134",
+            0
+          ],
           "keep": "Keep the same character identity, clothing, face, lighting direction, and camera continuity.",
           "change": "Change only the environment and action needed for scene 5."
         }
@@ -1695,6 +4455,10 @@
         },
         "class_type": "FW_SceneCollector",
         "inputs": {
+          "scene_video": [
+            "400",
+            0
+          ],
           "scene_index": 1,
           "prompt_used": "",
           "seed_used": 42
@@ -1706,6 +4470,14 @@
         },
         "class_type": "FW_SceneCollector",
         "inputs": {
+          "scene_video": [
+            "401",
+            0
+          ],
+          "existing_collection": [
+            "500",
+            0
+          ],
           "scene_index": 2,
           "prompt_used": "",
           "seed_used": 43
@@ -1717,6 +4489,14 @@
         },
         "class_type": "FW_SceneCollector",
         "inputs": {
+          "scene_video": [
+            "402",
+            0
+          ],
+          "existing_collection": [
+            "501",
+            0
+          ],
           "scene_index": 3,
           "prompt_used": "",
           "seed_used": 44
@@ -1728,6 +4508,14 @@
         },
         "class_type": "FW_SceneCollector",
         "inputs": {
+          "scene_video": [
+            "403",
+            0
+          ],
+          "existing_collection": [
+            "502",
+            0
+          ],
           "scene_index": 4,
           "prompt_used": "",
           "seed_used": 45
@@ -1739,6 +4527,14 @@
         },
         "class_type": "FW_SceneCollector",
         "inputs": {
+          "scene_video": [
+            "404",
+            0
+          ],
+          "existing_collection": [
+            "503",
+            0
+          ],
           "scene_index": 5,
           "prompt_used": "",
           "seed_used": 46
@@ -1750,6 +4546,10 @@
         },
         "class_type": "FW_SmartAssembler",
         "inputs": {
+          "scene_collection": [
+            "504",
+            0
+          ],
           "blend_mode": "crossfade",
           "blend_frames": 8,
           "fps": 24.0
@@ -1761,6 +4561,10 @@
         },
         "class_type": "FW_CinematicPolish",
         "inputs": {
+          "images": [
+            "600",
+            0
+          ],
           "mode": "unsharp",
           "strength": 0.5,
           "use_gpu": true
@@ -1772,6 +4576,10 @@
         },
         "class_type": "FW_FilmGrain",
         "inputs": {
+          "images": [
+            "700",
+            0
+          ],
           "intensity": 0.04,
           "saturation_mix": 0.5,
           "batch_size": 8
@@ -1783,6 +4591,10 @@
         },
         "class_type": "VHS_VideoCombine",
         "inputs": {
+          "images": [
+            "710",
+            0
+          ],
           "crf": 19,
           "filename_prefix": "three_act_feature",
           "format": "video/h264-mp4",

@@ -7,9 +7,17 @@ Ported from VRGameDevGirl's ``FastUnsharpSharpen``, ``FastLaplacianSharpen``,
 and ``FastSobelSharpen`` — consolidated into one node for cleaner workflows.
 """
 
-import torch
-import torch.nn.functional as F
-import numpy as np
+try:
+    import torch
+    import torch.nn.functional as F
+except ImportError:
+    torch = None
+    F = None
+
+try:
+    import numpy as np
+except ImportError:
+    np = None
 
 try:
     import comfy.model_management
@@ -49,6 +57,8 @@ class FW_CinematicPolish:
         }
 
     def sharpen(self, images, mode, strength, use_gpu):
+        if torch is None or np is None:
+            raise RuntimeError("FW_CinematicPolish requires PyTorch and NumPy (running inside ComfyUI).")
         if mode == "unsharp":
             return self._unsharp(images, strength, use_gpu)
         elif mode == "laplacian":

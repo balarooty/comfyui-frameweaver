@@ -10,8 +10,16 @@ Ported from VRGameDevGirl's LUT system with FrameWeaver conventions:
 """
 
 import os
-import torch
-import numpy as np
+
+try:
+    import torch
+except ImportError:
+    torch = None
+
+try:
+    import numpy as np
+except ImportError:
+    np = None
 
 try:
     import comfy.model_management
@@ -254,6 +262,8 @@ class FW_LUTApply:
         }
 
     def apply_lut(self, images, lut_file, strength, batch_size):
+        if torch is None or np is None:
+            raise RuntimeError("FW_LUTApply requires PyTorch and NumPy (running inside ComfyUI).")
         if lut_file == "No LUT files found":
             print("[FW_LUTApply] No LUT file selected. Passing through.")
             return (images,)
@@ -316,6 +326,8 @@ class FW_LUTCreate:
         }
 
     def create_and_apply(self, images, palette_hex, lut_size, strength, batch_size, save_filename=""):
+        if torch is None or np is None:
+            raise RuntimeError("FW_LUTCreate requires PyTorch and NumPy (running inside ComfyUI).")
         lut = _build_palette_lut(palette_hex, lut_size)
         device = _get_device()
 

@@ -30,10 +30,27 @@ const FW_DOWNSTREAM_WIDGETS = new Set([
 function broadcastWidgetChange(sourceNode, widgetName, value) {
     if (!app.graph || !app.graph._nodes) return;
 
+    // Collect IDs of nodes directly or indirectly connected from sourceNode
+    const connectedIds = new Set();
+    const queue = [sourceNode.id];
+    const visited = new Set(queue);
+
+    while (queue.length > 0) {
+        const currentId = queue.shift();
+        for (const link of Object.values(app.graph.links)) {
+            if (!link) continue;
+            if (link.origin_id === currentId && !visited.has(link.target_id)) {
+                visited.add(link.target_id);
+                queue.push(link.target_id);
+                connectedIds.add(link.target_id);
+            }
+        }
+    }
+
     for (const node of app.graph._nodes) {
         if (node.id === sourceNode.id) continue;
 
-        // Sync between sequencer instances
+        // Sync between sequencer instances (always)
         if (node.type === FW_SEQUENCER_TYPE) {
             const widget = node.widgets?.find((w) => w.name === widgetName);
             if (widget && widget.value !== value) {
@@ -43,8 +60,12 @@ function broadcastWidgetChange(sourceNode, widgetName, value) {
             continue;
         }
 
-        // Sync to downstream FrameWeaver nodes
-        if (node.type?.startsWith("FW_") && FW_DOWNSTREAM_WIDGETS.has(widgetName)) {
+        // Only sync to connected downstream FrameWeaver nodes
+        if (
+            node.type?.startsWith("FW_") &&
+            FW_DOWNSTREAM_WIDGETS.has(widgetName) &&
+            connectedIds.has(node.id)
+        ) {
             const widget = node.widgets?.find((w) => w.name === widgetName);
             if (widget && widget.value !== value) {
                 widget.value = value;

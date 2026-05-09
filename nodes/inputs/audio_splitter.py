@@ -108,10 +108,17 @@ class FW_AudioSplitter:
         target_sr = 44100
         if sample_rate != target_sr:
             print(f"[FW_AudioSplitter] Resampling {sample_rate} → {target_sr}")
-            waveform = F.interpolate(
-                waveform, scale_factor=target_sr / sample_rate,
-                mode="linear", align_corners=False,
-            )
+            if _HAS_TORCHAUDIO:
+                # Use torchaudio for high-quality resampling
+                waveform = torchaudio.functional.resample(
+                    waveform, orig_freq=sample_rate, new_freq=target_sr
+                )
+            else:
+                # Fallback to linear interpolation
+                waveform = F.interpolate(
+                    waveform, scale_factor=target_sr / sample_rate,
+                    mode="linear", align_corners=False,
+                )
             sample_rate = target_sr
 
         total_samples = waveform.shape[-1]

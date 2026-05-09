@@ -120,8 +120,13 @@ const FW_OUTPUT_TOOLTIPS = {
         "pipe_text": "All scenes pipe-delimited (scene1 | scene2 | ...)",
     },
     "FW_SpeechLengthCalc": {
-        "frames_needed": "Computed frame count (8n+1 enforced)",
-        "duration_seconds": "Computed speech duration in seconds",
+        "slow_frames": "Frame count at 100 WPM (slow speech)",
+        "avg_frames": "Frame count at 130 WPM (average speech)",
+        "fast_frames": "Frame count at 160 WPM (fast speech)",
+        "slow_seconds": "Duration at 100 WPM",
+        "avg_seconds": "Duration at 130 WPM",
+        "fast_seconds": "Duration at 160 WPM",
+        "word_count": "Total words detected in quoted text",
     },
     "FW_LTXSequencer": {
         "latent": "Video latent with keyframe images injected",

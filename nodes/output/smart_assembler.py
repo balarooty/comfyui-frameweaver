@@ -186,6 +186,8 @@ class FW_SmartAssembler:
 
     def _save_video(self, frames, audio, fps, filename):
         """Save assembled frames as .mp4, optionally muxing in audio via FFmpeg."""
+        if np is None:
+            raise RuntimeError("FW_SmartAssembler requires NumPy to save video.")
         ffmpeg = _find_ffmpeg()
         if ffmpeg is None:
             print("[FW_SmartAssembler] FFmpeg not found — cannot save video")
