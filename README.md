@@ -5,7 +5,7 @@
 ![ComfyUI](https://img.shields.io/badge/ComfyUI-Custom_Node-blue)
 ![LTX Video](https://img.shields.io/badge/LTX_Video-2.3-green)
 ![Nodes](https://img.shields.io/badge/Nodes-30-purple)
-![Status](https://img.shields.io/badge/Status-v3.0-brightgreen)
+![Status](https://img.shields.io/badge/Status-v3.0.1-brightgreen)
 
 ---
 
