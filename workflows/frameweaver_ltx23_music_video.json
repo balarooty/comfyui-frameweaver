@@ -4290,22 +4290,30 @@
         {
           "name": "checkpoint_name",
           "type": "COMBO",
-          "links": []
+          "links": [
+            24
+          ]
         },
         {
           "name": "distilled_lora_name",
           "type": "COMBO",
-          "links": []
+          "links": [
+            25
+          ]
         },
         {
           "name": "text_encoder_name",
           "type": "COMBO",
-          "links": []
+          "links": [
+            26
+          ]
         },
         {
           "name": "upscale_model_name",
           "type": "COMBO",
-          "links": []
+          "links": [
+            27
+          ]
         }
       ],
       "properties": {
@@ -4467,23 +4475,23 @@
         {
           "name": "ckpt_name",
           "type": "COMBO",
-          "link": null
+          "link": 24
         },
         {
           "name": "lora_name",
           "type": "COMBO",
-          "link": null,
+          "link": 25,
           "label": "distilled_lora"
         },
         {
           "name": "text_encoder",
           "type": "COMBO",
-          "link": null
+          "link": 26
         },
         {
           "name": "model_name",
           "type": "COMBO",
-          "link": null,
+          "link": 27,
           "label": "latent_upscale_model"
         },
         {
@@ -4869,6 +4877,38 @@
       53,
       1,
       "AUDIO"
+    ],
+    [
+      24,
+      15,
+      5,
+      50,
+      6,
+      "*"
+    ],
+    [
+      25,
+      15,
+      6,
+      50,
+      7,
+      "*"
+    ],
+    [
+      26,
+      15,
+      7,
+      50,
+      8,
+      "*"
+    ],
+    [
+      27,
+      15,
+      8,
+      50,
+      9,
+      "*"
     ]
   ],
   "last_node_id": 54,

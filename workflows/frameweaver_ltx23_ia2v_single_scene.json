@@ -4729,6 +4729,38 @@
       340,
       7,
       "FLOAT"
+    ],
+    [
+      756,
+      342,
+      5,
+      340,
+      8,
+      "*"
+    ],
+    [
+      757,
+      342,
+      6,
+      340,
+      9,
+      "*"
+    ],
+    [
+      758,
+      342,
+      7,
+      340,
+      10,
+      "*"
+    ],
+    [
+      759,
+      342,
+      8,
+      340,
+      11,
+      "*"
     ]
   ],
   "nodes": [
@@ -4977,23 +5009,23 @@
         {
           "name": "ckpt_name",
           "type": "COMBO",
-          "link": null
+          "link": 756
         },
         {
           "name": "lora_name",
           "type": "COMBO",
-          "link": null,
+          "link": 757,
           "label": "distilled_lora"
         },
         {
           "name": "text_encoder",
           "type": "COMBO",
-          "link": null
+          "link": 758
         },
         {
           "name": "model_name",
           "type": "COMBO",
-          "link": null,
+          "link": 759,
           "label": "upscale_model"
         }
       ],
@@ -5134,22 +5166,30 @@
         {
           "name": "checkpoint_name",
           "type": "STRING",
-          "links": []
+          "links": [
+            756
+          ]
         },
         {
           "name": "distilled_lora_name",
           "type": "STRING",
-          "links": []
+          "links": [
+            757
+          ]
         },
         {
           "name": "text_encoder_name",
           "type": "STRING",
-          "links": []
+          "links": [
+            758
+          ]
         },
         {
           "name": "upscale_model_name",
           "type": "STRING",
-          "links": []
+          "links": [
+            759
+          ]
         }
       ],
       "properties": {
