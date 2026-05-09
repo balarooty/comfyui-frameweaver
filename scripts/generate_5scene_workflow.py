@@ -106,8 +106,16 @@ def main():
                             make_slot("text_encoder_name", "STRING"), make_slot("upscale_model_name", "STRING")]
 
     empty_latent = add(make_node(nid, "EmptyLTXVLatentVideo", [-600, 80],
-        [1280, 720, 241, 1], [300, 120]))
+        [1], [300, 120]))
+    nodes[-1]["inputs"] = [
+        make_input_slot("width", "INT"),
+        make_input_slot("height", "INT"),
+        make_input_slot("length", "INT"),
+    ]
     nodes[-1]["outputs"] = [make_slot("LATENT", "LATENT")]
+    connect(ltx_settings, 0, empty_latent, 0)  # width
+    connect(ltx_settings, 1, empty_latent, 1)  # height
+    connect(ltx_settings, 2, empty_latent, 2)  # frames -> length
 
     # ------------------------------------------------------------------ #
     #  MODEL LOADING
@@ -258,8 +266,16 @@ def main():
         connect(dual_clip, 0, clip_neg, 0)
 
         empty_latent_s = add(make_node(nid, "EmptyLTXVLatentVideo", [sx + 380, sy_off + 260],
-            [1280, 720, 241, 1], [300, 120]))
+            [1], [300, 120]))
+        nodes[-1]["inputs"] = [
+            make_input_slot("width", "INT"),
+            make_input_slot("height", "INT"),
+            make_input_slot("length", "INT"),
+        ]
         nodes[-1]["outputs"] = [make_slot("LATENT", "LATENT")]
+        connect(ltx_settings, 0, empty_latent_s, 0)  # width
+        connect(ltx_settings, 1, empty_latent_s, 1)  # height
+        connect(ltx_settings, 2, empty_latent_s, 2)  # frames -> length
 
         guide = add(make_node(nid, "LTXVAddGuide", [sx + 380, sy_off + 400],
             [0, 1.0, 35, 0, "lanczos", "disabled"], [320, 200]))

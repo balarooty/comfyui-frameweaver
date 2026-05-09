@@ -1,6 +1,6 @@
 {
   "last_node_id": 66,
-  "last_link_id": 118,
+  "last_link_id": 133,
   "nodes": [
     {
       "id": 1,
@@ -23,7 +23,7 @@
           "type": "IMAGE",
           "links": [
             1,
-            18
+            21
           ]
         }
       ],
@@ -58,11 +58,11 @@
           "name": "style_anchor",
           "type": "FW_STYLE_ANCHOR",
           "links": [
-            10,
-            27,
-            50,
-            73,
-            96
+            13,
+            30,
+            56,
+            82,
+            108
           ]
         },
         {
@@ -97,11 +97,11 @@
           "name": "prompt_list",
           "type": "FW_PROMPT_LIST",
           "links": [
-            9,
-            26,
-            49,
-            72,
-            95
+            12,
+            29,
+            55,
+            81,
+            107
           ]
         },
         {
@@ -157,17 +157,35 @@
         {
           "name": "width",
           "type": "INT",
-          "links": []
+          "links": [
+            2,
+            34,
+            60,
+            86,
+            112
+          ]
         },
         {
           "name": "height",
           "type": "INT",
-          "links": []
+          "links": [
+            3,
+            35,
+            61,
+            87,
+            113
+          ]
         },
         {
           "name": "frames",
           "type": "INT",
-          "links": []
+          "links": [
+            4,
+            36,
+            62,
+            88,
+            114
+          ]
         },
         {
           "name": "fps",
@@ -228,21 +246,34 @@
       "flags": {},
       "order": 5,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 2
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 3
+        },
+        {
+          "name": "length",
+          "type": "INT",
+          "link": 4
+        }
+      ],
       "outputs": [
         {
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            17
+            20
           ]
         }
       ],
       "properties": {},
       "widgets_values": [
-        1280,
-        720,
-        241,
         1
       ]
     },
@@ -266,34 +297,34 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            4,
-            36,
-            59,
-            82,
-            105
+            7,
+            42,
+            68,
+            94,
+            120
           ]
         },
         {
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            2
+            5
           ]
         },
         {
           "name": "VAE",
           "type": "VAE",
           "links": [
-            16,
-            22,
-            33,
-            44,
-            56,
-            67,
-            79,
-            90,
+            19,
+            25,
+            39,
+            50,
+            65,
+            76,
+            91,
             102,
-            113
+            117,
+            128
           ]
         }
       ],
@@ -322,7 +353,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            3
+            6
           ]
         }
       ],
@@ -349,12 +380,12 @@
         {
           "name": "clip_name1",
           "type": "CLIP",
-          "link": 2
+          "link": 5
         },
         {
           "name": "clip_name2",
           "type": "CLIP",
-          "link": 3
+          "link": 6
         }
       ],
       "outputs": [
@@ -362,16 +393,16 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            12,
-            13,
-            29,
-            30,
-            52,
-            53,
-            75,
-            76,
-            98,
-            99
+            15,
+            16,
+            32,
+            33,
+            58,
+            59,
+            84,
+            85,
+            110,
+            111
           ]
         }
       ],
@@ -401,11 +432,11 @@
           "name": "SIGMAS",
           "type": "SIGMAS",
           "links": [
-            8,
-            41,
-            64,
-            87,
-            110
+            11,
+            47,
+            73,
+            99,
+            125
           ]
         }
       ],
@@ -437,11 +468,11 @@
           "name": "NOISE",
           "type": "NOISE",
           "links": [
-            5,
-            38,
-            61,
-            84,
-            107
+            8,
+            44,
+            70,
+            96,
+            122
           ]
         }
       ],
@@ -471,11 +502,11 @@
           "name": "SAMPLER",
           "type": "SAMPLER",
           "links": [
-            7,
-            40,
-            63,
-            86,
-            109
+            10,
+            46,
+            72,
+            98,
+            124
           ]
         }
       ],
@@ -502,12 +533,12 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 4
+          "link": 7
         },
         {
           "name": "conditioning",
           "type": "CONDITIONING",
-          "link": 19
+          "link": 22
         }
       ],
       "outputs": [
@@ -515,7 +546,7 @@
           "name": "GUIDER",
           "type": "GUIDER",
           "links": [
-            6
+            9
           ]
         }
       ],
@@ -540,27 +571,27 @@
         {
           "name": "noise",
           "type": "NOISE",
-          "link": 5
+          "link": 8
         },
         {
           "name": "guider",
           "type": "GUIDER",
-          "link": 6
+          "link": 9
         },
         {
           "name": "sampler",
           "type": "SAMPLER",
-          "link": 7
+          "link": 10
         },
         {
           "name": "sigmas",
           "type": "SIGMAS",
-          "link": 8
+          "link": 11
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 20
+          "link": 23
         }
       ],
       "outputs": [
@@ -568,7 +599,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            21
+            24
           ]
         },
         {
@@ -598,7 +629,7 @@
         {
           "name": "prompt_list",
           "type": "FW_PROMPT_LIST",
-          "link": 9
+          "link": 12
         }
       ],
       "outputs": [
@@ -606,8 +637,8 @@
           "name": "positive",
           "type": "STRING",
           "links": [
-            11,
-            25
+            14,
+            28
           ]
         },
         {
@@ -649,12 +680,12 @@
         {
           "name": "style_anchor",
           "type": "FW_STYLE_ANCHOR",
-          "link": 10
+          "link": 13
         },
         {
           "name": "scene_prompt",
           "type": "STRING",
-          "link": 11
+          "link": 14
         }
       ],
       "outputs": [
@@ -692,7 +723,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 12
+          "link": 15
         }
       ],
       "outputs": [
@@ -700,7 +731,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            14
+            17
           ]
         }
       ],
@@ -727,7 +758,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 13
+          "link": 16
         }
       ],
       "outputs": [
@@ -735,7 +766,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            15
+            18
           ]
         }
       ],
@@ -762,27 +793,27 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 14
+          "link": 17
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 15
+          "link": 18
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 16
+          "link": 19
         },
         {
           "name": "latent",
           "type": "LATENT",
-          "link": 17
+          "link": 20
         },
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 18
+          "link": 21
         }
       ],
       "outputs": [
@@ -790,7 +821,7 @@
           "name": "positive",
           "type": "CONDITIONING",
           "links": [
-            19
+            22
           ]
         },
         {
@@ -802,7 +833,7 @@
           "name": "latent",
           "type": "LATENT",
           "links": [
-            20
+            23
           ]
         }
       ],
@@ -834,12 +865,12 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 21
+          "link": 24
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 22
+          "link": 25
         }
       ],
       "outputs": [
@@ -847,8 +878,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            23,
-            24
+            26,
+            27
           ]
         }
       ],
@@ -873,7 +904,7 @@
         {
           "name": "scene_video",
           "type": "IMAGE",
-          "link": 23
+          "link": 26
         }
       ],
       "outputs": [
@@ -881,7 +912,7 @@
           "name": "last_frame",
           "type": "IMAGE",
           "links": [
-            35
+            41
           ]
         },
         {
@@ -911,12 +942,12 @@
         {
           "name": "scene_video",
           "type": "IMAGE",
-          "link": 24
+          "link": 27
         },
         {
           "name": "prompt_used",
           "type": "STRING",
-          "link": 25
+          "link": 28
         }
       ],
       "outputs": [
@@ -924,7 +955,7 @@
           "name": "scene_collection",
           "type": "FW_SCENE_COLLECTION",
           "links": [
-            48
+            54
           ]
         },
         {
@@ -957,7 +988,7 @@
         {
           "name": "prompt_list",
           "type": "FW_PROMPT_LIST",
-          "link": 26
+          "link": 29
         }
       ],
       "outputs": [
@@ -965,8 +996,8 @@
           "name": "positive",
           "type": "STRING",
           "links": [
-            28,
-            47
+            31,
+            53
           ]
         },
         {
@@ -1008,12 +1039,12 @@
         {
           "name": "style_anchor",
           "type": "FW_STYLE_ANCHOR",
-          "link": 27
+          "link": 30
         },
         {
           "name": "scene_prompt",
           "type": "STRING",
-          "link": 28
+          "link": 31
         }
       ],
       "outputs": [
@@ -1051,7 +1082,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 29
+          "link": 32
         }
       ],
       "outputs": [
@@ -1059,7 +1090,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            31
+            37
           ]
         }
       ],
@@ -1086,7 +1117,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 30
+          "link": 33
         }
       ],
       "outputs": [
@@ -1094,7 +1125,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            32
+            38
           ]
         }
       ],
@@ -1117,21 +1148,34 @@
       "flags": {},
       "order": 26,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 34
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 35
+        },
+        {
+          "name": "length",
+          "type": "INT",
+          "link": 36
+        }
+      ],
       "outputs": [
         {
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            34
+            40
           ]
         }
       ],
       "properties": {},
       "widgets_values": [
-        1280,
-        720,
-        241,
         1
       ]
     },
@@ -1153,27 +1197,27 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 31
+          "link": 37
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 32
+          "link": 38
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 33
+          "link": 39
         },
         {
           "name": "latent",
           "type": "LATENT",
-          "link": 34
+          "link": 40
         },
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 35
+          "link": 41
         }
       ],
       "outputs": [
@@ -1181,7 +1225,7 @@
           "name": "positive",
           "type": "CONDITIONING",
           "links": [
-            37
+            43
           ]
         },
         {
@@ -1193,7 +1237,7 @@
           "name": "latent",
           "type": "LATENT",
           "links": [
-            42
+            48
           ]
         }
       ],
@@ -1225,12 +1269,12 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 36
+          "link": 42
         },
         {
           "name": "conditioning",
           "type": "CONDITIONING",
-          "link": 37
+          "link": 43
         }
       ],
       "outputs": [
@@ -1238,7 +1282,7 @@
           "name": "GUIDER",
           "type": "GUIDER",
           "links": [
-            39
+            45
           ]
         }
       ],
@@ -1263,27 +1307,27 @@
         {
           "name": "noise",
           "type": "NOISE",
-          "link": 38
+          "link": 44
         },
         {
           "name": "guider",
           "type": "GUIDER",
-          "link": 39
+          "link": 45
         },
         {
           "name": "sampler",
           "type": "SAMPLER",
-          "link": 40
+          "link": 46
         },
         {
           "name": "sigmas",
           "type": "SIGMAS",
-          "link": 41
+          "link": 47
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 42
+          "link": 48
         }
       ],
       "outputs": [
@@ -1291,7 +1335,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            43
+            49
           ]
         },
         {
@@ -1321,12 +1365,12 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 43
+          "link": 49
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 44
+          "link": 50
         }
       ],
       "outputs": [
@@ -1334,8 +1378,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            45,
-            46
+            51,
+            52
           ]
         }
       ],
@@ -1360,7 +1404,7 @@
         {
           "name": "scene_video",
           "type": "IMAGE",
-          "link": 45
+          "link": 51
         }
       ],
       "outputs": [
@@ -1368,7 +1412,7 @@
           "name": "last_frame",
           "type": "IMAGE",
           "links": [
-            58
+            67
           ]
         },
         {
@@ -1398,17 +1442,17 @@
         {
           "name": "scene_video",
           "type": "IMAGE",
-          "link": 46
+          "link": 52
         },
         {
           "name": "prompt_used",
           "type": "STRING",
-          "link": 47
+          "link": 53
         },
         {
           "name": "existing_collection",
           "type": "FW_SCENE_COLLECTION",
-          "link": 48
+          "link": 54
         }
       ],
       "outputs": [
@@ -1416,7 +1460,7 @@
           "name": "scene_collection",
           "type": "FW_SCENE_COLLECTION",
           "links": [
-            71
+            80
           ]
         },
         {
@@ -1449,7 +1493,7 @@
         {
           "name": "prompt_list",
           "type": "FW_PROMPT_LIST",
-          "link": 49
+          "link": 55
         }
       ],
       "outputs": [
@@ -1457,8 +1501,8 @@
           "name": "positive",
           "type": "STRING",
           "links": [
-            51,
-            70
+            57,
+            79
           ]
         },
         {
@@ -1500,12 +1544,12 @@
         {
           "name": "style_anchor",
           "type": "FW_STYLE_ANCHOR",
-          "link": 50
+          "link": 56
         },
         {
           "name": "scene_prompt",
           "type": "STRING",
-          "link": 51
+          "link": 57
         }
       ],
       "outputs": [
@@ -1543,7 +1587,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 52
+          "link": 58
         }
       ],
       "outputs": [
@@ -1551,7 +1595,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            54
+            63
           ]
         }
       ],
@@ -1578,7 +1622,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 53
+          "link": 59
         }
       ],
       "outputs": [
@@ -1586,7 +1630,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            55
+            64
           ]
         }
       ],
@@ -1609,21 +1653,34 @@
       "flags": {},
       "order": 37,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 60
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 61
+        },
+        {
+          "name": "length",
+          "type": "INT",
+          "link": 62
+        }
+      ],
       "outputs": [
         {
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            57
+            66
           ]
         }
       ],
       "properties": {},
       "widgets_values": [
-        1280,
-        720,
-        241,
         1
       ]
     },
@@ -1645,27 +1702,27 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 54
+          "link": 63
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 55
+          "link": 64
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 56
+          "link": 65
         },
         {
           "name": "latent",
           "type": "LATENT",
-          "link": 57
+          "link": 66
         },
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 58
+          "link": 67
         }
       ],
       "outputs": [
@@ -1673,7 +1730,7 @@
           "name": "positive",
           "type": "CONDITIONING",
           "links": [
-            60
+            69
           ]
         },
         {
@@ -1685,7 +1742,7 @@
           "name": "latent",
           "type": "LATENT",
           "links": [
-            65
+            74
           ]
         }
       ],
@@ -1717,12 +1774,12 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 59
+          "link": 68
         },
         {
           "name": "conditioning",
           "type": "CONDITIONING",
-          "link": 60
+          "link": 69
         }
       ],
       "outputs": [
@@ -1730,7 +1787,7 @@
           "name": "GUIDER",
           "type": "GUIDER",
           "links": [
-            62
+            71
           ]
         }
       ],
@@ -1755,27 +1812,27 @@
         {
           "name": "noise",
           "type": "NOISE",
-          "link": 61
+          "link": 70
         },
         {
           "name": "guider",
           "type": "GUIDER",
-          "link": 62
+          "link": 71
         },
         {
           "name": "sampler",
           "type": "SAMPLER",
-          "link": 63
+          "link": 72
         },
         {
           "name": "sigmas",
           "type": "SIGMAS",
-          "link": 64
+          "link": 73
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 65
+          "link": 74
         }
       ],
       "outputs": [
@@ -1783,7 +1840,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            66
+            75
           ]
         },
         {
@@ -1813,12 +1870,12 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 66
+          "link": 75
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 67
+          "link": 76
         }
       ],
       "outputs": [
@@ -1826,8 +1883,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            68,
-            69
+            77,
+            78
           ]
         }
       ],
@@ -1852,7 +1909,7 @@
         {
           "name": "scene_video",
           "type": "IMAGE",
-          "link": 68
+          "link": 77
         }
       ],
       "outputs": [
@@ -1860,7 +1917,7 @@
           "name": "last_frame",
           "type": "IMAGE",
           "links": [
-            81
+            93
           ]
         },
         {
@@ -1890,17 +1947,17 @@
         {
           "name": "scene_video",
           "type": "IMAGE",
-          "link": 69
+          "link": 78
         },
         {
           "name": "prompt_used",
           "type": "STRING",
-          "link": 70
+          "link": 79
         },
         {
           "name": "existing_collection",
           "type": "FW_SCENE_COLLECTION",
-          "link": 71
+          "link": 80
         }
       ],
       "outputs": [
@@ -1908,7 +1965,7 @@
           "name": "scene_collection",
           "type": "FW_SCENE_COLLECTION",
           "links": [
-            94
+            106
           ]
         },
         {
@@ -1941,7 +1998,7 @@
         {
           "name": "prompt_list",
           "type": "FW_PROMPT_LIST",
-          "link": 72
+          "link": 81
         }
       ],
       "outputs": [
@@ -1949,8 +2006,8 @@
           "name": "positive",
           "type": "STRING",
           "links": [
-            74,
-            93
+            83,
+            105
           ]
         },
         {
@@ -1992,12 +2049,12 @@
         {
           "name": "style_anchor",
           "type": "FW_STYLE_ANCHOR",
-          "link": 73
+          "link": 82
         },
         {
           "name": "scene_prompt",
           "type": "STRING",
-          "link": 74
+          "link": 83
         }
       ],
       "outputs": [
@@ -2035,7 +2092,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 75
+          "link": 84
         }
       ],
       "outputs": [
@@ -2043,7 +2100,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            77
+            89
           ]
         }
       ],
@@ -2070,7 +2127,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 76
+          "link": 85
         }
       ],
       "outputs": [
@@ -2078,7 +2135,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            78
+            90
           ]
         }
       ],
@@ -2101,21 +2158,34 @@
       "flags": {},
       "order": 48,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 86
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 87
+        },
+        {
+          "name": "length",
+          "type": "INT",
+          "link": 88
+        }
+      ],
       "outputs": [
         {
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            80
+            92
           ]
         }
       ],
       "properties": {},
       "widgets_values": [
-        1280,
-        720,
-        241,
         1
       ]
     },
@@ -2137,27 +2207,27 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 77
+          "link": 89
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 78
+          "link": 90
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 79
+          "link": 91
         },
         {
           "name": "latent",
           "type": "LATENT",
-          "link": 80
+          "link": 92
         },
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 81
+          "link": 93
         }
       ],
       "outputs": [
@@ -2165,7 +2235,7 @@
           "name": "positive",
           "type": "CONDITIONING",
           "links": [
-            83
+            95
           ]
         },
         {
@@ -2177,7 +2247,7 @@
           "name": "latent",
           "type": "LATENT",
           "links": [
-            88
+            100
           ]
         }
       ],
@@ -2209,12 +2279,12 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 82
+          "link": 94
         },
         {
           "name": "conditioning",
           "type": "CONDITIONING",
-          "link": 83
+          "link": 95
         }
       ],
       "outputs": [
@@ -2222,7 +2292,7 @@
           "name": "GUIDER",
           "type": "GUIDER",
           "links": [
-            85
+            97
           ]
         }
       ],
@@ -2247,27 +2317,27 @@
         {
           "name": "noise",
           "type": "NOISE",
-          "link": 84
+          "link": 96
         },
         {
           "name": "guider",
           "type": "GUIDER",
-          "link": 85
+          "link": 97
         },
         {
           "name": "sampler",
           "type": "SAMPLER",
-          "link": 86
+          "link": 98
         },
         {
           "name": "sigmas",
           "type": "SIGMAS",
-          "link": 87
+          "link": 99
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 88
+          "link": 100
         }
       ],
       "outputs": [
@@ -2275,7 +2345,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            89
+            101
           ]
         },
         {
@@ -2305,12 +2375,12 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 89
+          "link": 101
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 90
+          "link": 102
         }
       ],
       "outputs": [
@@ -2318,8 +2388,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            91,
-            92
+            103,
+            104
           ]
         }
       ],
@@ -2344,7 +2414,7 @@
         {
           "name": "scene_video",
           "type": "IMAGE",
-          "link": 91
+          "link": 103
         }
       ],
       "outputs": [
@@ -2352,7 +2422,7 @@
           "name": "last_frame",
           "type": "IMAGE",
           "links": [
-            104
+            119
           ]
         },
         {
@@ -2382,17 +2452,17 @@
         {
           "name": "scene_video",
           "type": "IMAGE",
-          "link": 92
+          "link": 104
         },
         {
           "name": "prompt_used",
           "type": "STRING",
-          "link": 93
+          "link": 105
         },
         {
           "name": "existing_collection",
           "type": "FW_SCENE_COLLECTION",
-          "link": 94
+          "link": 106
         }
       ],
       "outputs": [
@@ -2400,7 +2470,7 @@
           "name": "scene_collection",
           "type": "FW_SCENE_COLLECTION",
           "links": [
-            117
+            132
           ]
         },
         {
@@ -2433,7 +2503,7 @@
         {
           "name": "prompt_list",
           "type": "FW_PROMPT_LIST",
-          "link": 95
+          "link": 107
         }
       ],
       "outputs": [
@@ -2441,8 +2511,8 @@
           "name": "positive",
           "type": "STRING",
           "links": [
-            97,
-            116
+            109,
+            131
           ]
         },
         {
@@ -2484,12 +2554,12 @@
         {
           "name": "style_anchor",
           "type": "FW_STYLE_ANCHOR",
-          "link": 96
+          "link": 108
         },
         {
           "name": "scene_prompt",
           "type": "STRING",
-          "link": 97
+          "link": 109
         }
       ],
       "outputs": [
@@ -2527,7 +2597,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 98
+          "link": 110
         }
       ],
       "outputs": [
@@ -2535,7 +2605,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            100
+            115
           ]
         }
       ],
@@ -2562,7 +2632,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 99
+          "link": 111
         }
       ],
       "outputs": [
@@ -2570,7 +2640,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            101
+            116
           ]
         }
       ],
@@ -2593,21 +2663,34 @@
       "flags": {},
       "order": 59,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 112
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 113
+        },
+        {
+          "name": "length",
+          "type": "INT",
+          "link": 114
+        }
+      ],
       "outputs": [
         {
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            103
+            118
           ]
         }
       ],
       "properties": {},
       "widgets_values": [
-        1280,
-        720,
-        241,
         1
       ]
     },
@@ -2629,27 +2712,27 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 100
+          "link": 115
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 101
+          "link": 116
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 102
+          "link": 117
         },
         {
           "name": "latent",
           "type": "LATENT",
-          "link": 103
+          "link": 118
         },
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 104
+          "link": 119
         }
       ],
       "outputs": [
@@ -2657,7 +2740,7 @@
           "name": "positive",
           "type": "CONDITIONING",
           "links": [
-            106
+            121
           ]
         },
         {
@@ -2669,7 +2752,7 @@
           "name": "latent",
           "type": "LATENT",
           "links": [
-            111
+            126
           ]
         }
       ],
@@ -2701,12 +2784,12 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 105
+          "link": 120
         },
         {
           "name": "conditioning",
           "type": "CONDITIONING",
-          "link": 106
+          "link": 121
         }
       ],
       "outputs": [
@@ -2714,7 +2797,7 @@
           "name": "GUIDER",
           "type": "GUIDER",
           "links": [
-            108
+            123
           ]
         }
       ],
@@ -2739,27 +2822,27 @@
         {
           "name": "noise",
           "type": "NOISE",
-          "link": 107
+          "link": 122
         },
         {
           "name": "guider",
           "type": "GUIDER",
-          "link": 108
+          "link": 123
         },
         {
           "name": "sampler",
           "type": "SAMPLER",
-          "link": 109
+          "link": 124
         },
         {
           "name": "sigmas",
           "type": "SIGMAS",
-          "link": 110
+          "link": 125
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 111
+          "link": 126
         }
       ],
       "outputs": [
@@ -2767,7 +2850,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            112
+            127
           ]
         },
         {
@@ -2797,12 +2880,12 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 112
+          "link": 127
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 113
+          "link": 128
         }
       ],
       "outputs": [
@@ -2810,8 +2893,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            114,
-            115
+            129,
+            130
           ]
         }
       ],
@@ -2836,7 +2919,7 @@
         {
           "name": "scene_video",
           "type": "IMAGE",
-          "link": 114
+          "link": 129
         }
       ],
       "outputs": [
@@ -2872,17 +2955,17 @@
         {
           "name": "scene_video",
           "type": "IMAGE",
-          "link": 115
+          "link": 130
         },
         {
           "name": "prompt_used",
           "type": "STRING",
-          "link": 116
+          "link": 131
         },
         {
           "name": "existing_collection",
           "type": "FW_SCENE_COLLECTION",
-          "link": 117
+          "link": 132
         }
       ],
       "outputs": [
@@ -2890,7 +2973,7 @@
           "name": "scene_collection",
           "type": "FW_SCENE_COLLECTION",
           "links": [
-            118
+            133
           ]
         },
         {
@@ -2923,7 +3006,7 @@
         {
           "name": "scene_collection",
           "type": "FW_SCENE_COLLECTION",
-          "link": 118
+          "link": 133
         }
       ],
       "outputs": [
@@ -2956,6 +3039,30 @@
     ],
     [
       2,
+      4,
+      0,
+      5,
+      0,
+      "*"
+    ],
+    [
+      3,
+      4,
+      1,
+      5,
+      1,
+      "*"
+    ],
+    [
+      4,
+      4,
+      2,
+      5,
+      2,
+      "*"
+    ],
+    [
+      5,
       6,
       1,
       8,
@@ -2963,7 +3070,7 @@
       "*"
     ],
     [
-      3,
+      6,
       7,
       0,
       8,
@@ -2971,79 +3078,79 @@
       "*"
     ],
     [
-      4,
-      6,
-      0,
-      12,
-      0,
-      "*"
-    ],
-    [
-      5,
-      10,
-      0,
-      13,
-      0,
-      "*"
-    ],
-    [
-      6,
-      12,
-      0,
-      13,
-      1,
-      "*"
-    ],
-    [
       7,
-      11,
+      6,
       0,
-      13,
-      2,
+      12,
+      0,
       "*"
     ],
     [
       8,
-      9,
+      10,
       0,
       13,
-      3,
+      0,
       "*"
     ],
     [
       9,
-      3,
+      12,
       0,
-      14,
-      0,
+      13,
+      1,
       "*"
     ],
     [
       10,
+      11,
+      0,
+      13,
       2,
-      0,
-      15,
-      0,
       "*"
     ],
     [
       11,
-      14,
+      9,
       0,
-      15,
-      1,
+      13,
+      3,
       "*"
     ],
     [
       12,
-      8,
+      3,
       0,
-      16,
+      14,
       0,
       "*"
     ],
     [
       13,
+      2,
+      0,
+      15,
+      0,
+      "*"
+    ],
+    [
+      14,
+      14,
+      0,
+      15,
+      1,
+      "*"
+    ],
+    [
+      15,
+      8,
+      0,
+      16,
+      0,
+      "*"
+    ],
+    [
+      16,
       8,
       0,
       17,
@@ -3051,7 +3158,7 @@
       "*"
     ],
     [
-      14,
+      17,
       16,
       0,
       18,
@@ -3059,95 +3166,95 @@
       "*"
     ],
     [
-      15,
+      18,
       17,
       0,
       18,
       1,
-      "*"
-    ],
-    [
-      16,
-      6,
-      2,
-      18,
-      2,
-      "*"
-    ],
-    [
-      17,
-      5,
-      0,
-      18,
-      3,
-      "*"
-    ],
-    [
-      18,
-      1,
-      0,
-      18,
-      4,
       "*"
     ],
     [
       19,
+      6,
+      2,
       18,
-      0,
-      12,
-      1,
+      2,
       "*"
     ],
     [
       20,
+      5,
+      0,
       18,
-      2,
-      13,
-      4,
+      3,
       "*"
     ],
     [
       21,
-      13,
+      1,
       0,
-      19,
-      0,
+      18,
+      4,
       "*"
     ],
     [
       22,
-      6,
-      2,
-      19,
+      18,
+      0,
+      12,
       1,
       "*"
     ],
     [
       23,
-      19,
-      0,
-      20,
-      0,
+      18,
+      2,
+      13,
+      4,
       "*"
     ],
     [
       24,
-      19,
+      13,
       0,
-      21,
+      19,
       0,
       "*"
     ],
     [
       25,
-      14,
-      0,
-      21,
+      6,
+      2,
+      19,
       1,
       "*"
     ],
     [
       26,
+      19,
+      0,
+      20,
+      0,
+      "*"
+    ],
+    [
+      27,
+      19,
+      0,
+      21,
+      0,
+      "*"
+    ],
+    [
+      28,
+      14,
+      0,
+      21,
+      1,
+      "*"
+    ],
+    [
+      29,
       3,
       0,
       22,
@@ -3155,7 +3262,7 @@
       "*"
     ],
     [
-      27,
+      30,
       2,
       0,
       23,
@@ -3163,7 +3270,7 @@
       "*"
     ],
     [
-      28,
+      31,
       22,
       0,
       23,
@@ -3171,47 +3278,71 @@
       "*"
     ],
     [
-      29,
-      8,
-      0,
-      24,
-      0,
-      "*"
-    ],
-    [
-      30,
-      8,
-      0,
-      25,
-      0,
-      "*"
-    ],
-    [
-      31,
-      24,
-      0,
-      27,
-      0,
-      "*"
-    ],
-    [
       32,
-      25,
+      8,
       0,
-      27,
-      1,
+      24,
+      0,
       "*"
     ],
     [
       33,
-      6,
-      2,
-      27,
-      2,
+      8,
+      0,
+      25,
+      0,
       "*"
     ],
     [
       34,
+      4,
+      0,
+      26,
+      0,
+      "*"
+    ],
+    [
+      35,
+      4,
+      1,
+      26,
+      1,
+      "*"
+    ],
+    [
+      36,
+      4,
+      2,
+      26,
+      2,
+      "*"
+    ],
+    [
+      37,
+      24,
+      0,
+      27,
+      0,
+      "*"
+    ],
+    [
+      38,
+      25,
+      0,
+      27,
+      1,
+      "*"
+    ],
+    [
+      39,
+      6,
+      2,
+      27,
+      2,
+      "*"
+    ],
+    [
+      40,
       26,
       0,
       27,
@@ -3219,7 +3350,7 @@
       "*"
     ],
     [
-      35,
+      41,
       20,
       0,
       27,
@@ -3227,7 +3358,7 @@
       "*"
     ],
     [
-      36,
+      42,
       6,
       0,
       28,
@@ -3235,7 +3366,7 @@
       "*"
     ],
     [
-      37,
+      43,
       27,
       0,
       28,
@@ -3243,7 +3374,7 @@
       "*"
     ],
     [
-      38,
+      44,
       10,
       0,
       29,
@@ -3251,7 +3382,7 @@
       "*"
     ],
     [
-      39,
+      45,
       28,
       0,
       29,
@@ -3259,7 +3390,7 @@
       "*"
     ],
     [
-      40,
+      46,
       11,
       0,
       29,
@@ -3267,7 +3398,7 @@
       "*"
     ],
     [
-      41,
+      47,
       9,
       0,
       29,
@@ -3275,7 +3406,7 @@
       "*"
     ],
     [
-      42,
+      48,
       27,
       2,
       29,
@@ -3283,63 +3414,63 @@
       "*"
     ],
     [
-      43,
+      49,
       29,
       0,
       30,
-      0,
-      "*"
-    ],
-    [
-      44,
-      6,
-      2,
-      30,
-      1,
-      "*"
-    ],
-    [
-      45,
-      30,
-      0,
-      31,
-      0,
-      "*"
-    ],
-    [
-      46,
-      30,
-      0,
-      32,
-      0,
-      "*"
-    ],
-    [
-      47,
-      22,
-      0,
-      32,
-      1,
-      "*"
-    ],
-    [
-      48,
-      21,
-      0,
-      32,
-      2,
-      "*"
-    ],
-    [
-      49,
-      3,
-      0,
-      33,
       0,
       "*"
     ],
     [
       50,
+      6,
+      2,
+      30,
+      1,
+      "*"
+    ],
+    [
+      51,
+      30,
+      0,
+      31,
+      0,
+      "*"
+    ],
+    [
+      52,
+      30,
+      0,
+      32,
+      0,
+      "*"
+    ],
+    [
+      53,
+      22,
+      0,
+      32,
+      1,
+      "*"
+    ],
+    [
+      54,
+      21,
+      0,
+      32,
+      2,
+      "*"
+    ],
+    [
+      55,
+      3,
+      0,
+      33,
+      0,
+      "*"
+    ],
+    [
+      56,
       2,
       0,
       34,
@@ -3347,7 +3478,7 @@
       "*"
     ],
     [
-      51,
+      57,
       33,
       0,
       34,
@@ -3355,7 +3486,7 @@
       "*"
     ],
     [
-      52,
+      58,
       8,
       0,
       35,
@@ -3363,7 +3494,7 @@
       "*"
     ],
     [
-      53,
+      59,
       8,
       0,
       36,
@@ -3371,7 +3502,31 @@
       "*"
     ],
     [
-      54,
+      60,
+      4,
+      0,
+      37,
+      0,
+      "*"
+    ],
+    [
+      61,
+      4,
+      1,
+      37,
+      1,
+      "*"
+    ],
+    [
+      62,
+      4,
+      2,
+      37,
+      2,
+      "*"
+    ],
+    [
+      63,
       35,
       0,
       38,
@@ -3379,7 +3534,7 @@
       "*"
     ],
     [
-      55,
+      64,
       36,
       0,
       38,
@@ -3387,7 +3542,7 @@
       "*"
     ],
     [
-      56,
+      65,
       6,
       2,
       38,
@@ -3395,7 +3550,7 @@
       "*"
     ],
     [
-      57,
+      66,
       37,
       0,
       38,
@@ -3403,7 +3558,7 @@
       "*"
     ],
     [
-      58,
+      67,
       31,
       0,
       38,
@@ -3411,87 +3566,87 @@
       "*"
     ],
     [
-      59,
-      6,
-      0,
-      39,
-      0,
-      "*"
-    ],
-    [
-      60,
-      38,
-      0,
-      39,
-      1,
-      "*"
-    ],
-    [
-      61,
-      10,
-      0,
-      40,
-      0,
-      "*"
-    ],
-    [
-      62,
-      39,
-      0,
-      40,
-      1,
-      "*"
-    ],
-    [
-      63,
-      11,
-      0,
-      40,
-      2,
-      "*"
-    ],
-    [
-      64,
-      9,
-      0,
-      40,
-      3,
-      "*"
-    ],
-    [
-      65,
-      38,
-      2,
-      40,
-      4,
-      "*"
-    ],
-    [
-      66,
-      40,
-      0,
-      41,
-      0,
-      "*"
-    ],
-    [
-      67,
-      6,
-      2,
-      41,
-      1,
-      "*"
-    ],
-    [
       68,
-      41,
+      6,
       0,
-      42,
+      39,
       0,
       "*"
     ],
     [
       69,
+      38,
+      0,
+      39,
+      1,
+      "*"
+    ],
+    [
+      70,
+      10,
+      0,
+      40,
+      0,
+      "*"
+    ],
+    [
+      71,
+      39,
+      0,
+      40,
+      1,
+      "*"
+    ],
+    [
+      72,
+      11,
+      0,
+      40,
+      2,
+      "*"
+    ],
+    [
+      73,
+      9,
+      0,
+      40,
+      3,
+      "*"
+    ],
+    [
+      74,
+      38,
+      2,
+      40,
+      4,
+      "*"
+    ],
+    [
+      75,
+      40,
+      0,
+      41,
+      0,
+      "*"
+    ],
+    [
+      76,
+      6,
+      2,
+      41,
+      1,
+      "*"
+    ],
+    [
+      77,
+      41,
+      0,
+      42,
+      0,
+      "*"
+    ],
+    [
+      78,
       41,
       0,
       43,
@@ -3499,7 +3654,7 @@
       "*"
     ],
     [
-      70,
+      79,
       33,
       0,
       43,
@@ -3507,7 +3662,7 @@
       "*"
     ],
     [
-      71,
+      80,
       32,
       0,
       43,
@@ -3515,7 +3670,7 @@
       "*"
     ],
     [
-      72,
+      81,
       3,
       0,
       44,
@@ -3523,7 +3678,7 @@
       "*"
     ],
     [
-      73,
+      82,
       2,
       0,
       45,
@@ -3531,7 +3686,7 @@
       "*"
     ],
     [
-      74,
+      83,
       44,
       0,
       45,
@@ -3539,7 +3694,7 @@
       "*"
     ],
     [
-      75,
+      84,
       8,
       0,
       46,
@@ -3547,7 +3702,7 @@
       "*"
     ],
     [
-      76,
+      85,
       8,
       0,
       47,
@@ -3555,7 +3710,31 @@
       "*"
     ],
     [
-      77,
+      86,
+      4,
+      0,
+      48,
+      0,
+      "*"
+    ],
+    [
+      87,
+      4,
+      1,
+      48,
+      1,
+      "*"
+    ],
+    [
+      88,
+      4,
+      2,
+      48,
+      2,
+      "*"
+    ],
+    [
+      89,
       46,
       0,
       49,
@@ -3563,7 +3742,7 @@
       "*"
     ],
     [
-      78,
+      90,
       47,
       0,
       49,
@@ -3571,7 +3750,7 @@
       "*"
     ],
     [
-      79,
+      91,
       6,
       2,
       49,
@@ -3579,7 +3758,7 @@
       "*"
     ],
     [
-      80,
+      92,
       48,
       0,
       49,
@@ -3587,7 +3766,7 @@
       "*"
     ],
     [
-      81,
+      93,
       42,
       0,
       49,
@@ -3595,7 +3774,7 @@
       "*"
     ],
     [
-      82,
+      94,
       6,
       0,
       50,
@@ -3603,7 +3782,7 @@
       "*"
     ],
     [
-      83,
+      95,
       49,
       0,
       50,
@@ -3611,7 +3790,7 @@
       "*"
     ],
     [
-      84,
+      96,
       10,
       0,
       51,
@@ -3619,7 +3798,7 @@
       "*"
     ],
     [
-      85,
+      97,
       50,
       0,
       51,
@@ -3627,7 +3806,7 @@
       "*"
     ],
     [
-      86,
+      98,
       11,
       0,
       51,
@@ -3635,7 +3814,7 @@
       "*"
     ],
     [
-      87,
+      99,
       9,
       0,
       51,
@@ -3643,7 +3822,7 @@
       "*"
     ],
     [
-      88,
+      100,
       49,
       2,
       51,
@@ -3651,119 +3830,143 @@
       "*"
     ],
     [
-      89,
+      101,
       51,
       0,
       52,
       0,
-      "*"
-    ],
-    [
-      90,
-      6,
-      2,
-      52,
-      1,
-      "*"
-    ],
-    [
-      91,
-      52,
-      0,
-      53,
-      0,
-      "*"
-    ],
-    [
-      92,
-      52,
-      0,
-      54,
-      0,
-      "*"
-    ],
-    [
-      93,
-      44,
-      0,
-      54,
-      1,
-      "*"
-    ],
-    [
-      94,
-      43,
-      0,
-      54,
-      2,
-      "*"
-    ],
-    [
-      95,
-      3,
-      0,
-      55,
-      0,
-      "*"
-    ],
-    [
-      96,
-      2,
-      0,
-      56,
-      0,
-      "*"
-    ],
-    [
-      97,
-      55,
-      0,
-      56,
-      1,
-      "*"
-    ],
-    [
-      98,
-      8,
-      0,
-      57,
-      0,
-      "*"
-    ],
-    [
-      99,
-      8,
-      0,
-      58,
-      0,
-      "*"
-    ],
-    [
-      100,
-      57,
-      0,
-      60,
-      0,
-      "*"
-    ],
-    [
-      101,
-      58,
-      0,
-      60,
-      1,
       "*"
     ],
     [
       102,
       6,
       2,
+      52,
+      1,
+      "*"
+    ],
+    [
+      103,
+      52,
+      0,
+      53,
+      0,
+      "*"
+    ],
+    [
+      104,
+      52,
+      0,
+      54,
+      0,
+      "*"
+    ],
+    [
+      105,
+      44,
+      0,
+      54,
+      1,
+      "*"
+    ],
+    [
+      106,
+      43,
+      0,
+      54,
+      2,
+      "*"
+    ],
+    [
+      107,
+      3,
+      0,
+      55,
+      0,
+      "*"
+    ],
+    [
+      108,
+      2,
+      0,
+      56,
+      0,
+      "*"
+    ],
+    [
+      109,
+      55,
+      0,
+      56,
+      1,
+      "*"
+    ],
+    [
+      110,
+      8,
+      0,
+      57,
+      0,
+      "*"
+    ],
+    [
+      111,
+      8,
+      0,
+      58,
+      0,
+      "*"
+    ],
+    [
+      112,
+      4,
+      0,
+      59,
+      0,
+      "*"
+    ],
+    [
+      113,
+      4,
+      1,
+      59,
+      1,
+      "*"
+    ],
+    [
+      114,
+      4,
+      2,
+      59,
+      2,
+      "*"
+    ],
+    [
+      115,
+      57,
+      0,
+      60,
+      0,
+      "*"
+    ],
+    [
+      116,
+      58,
+      0,
+      60,
+      1,
+      "*"
+    ],
+    [
+      117,
+      6,
+      2,
       60,
       2,
       "*"
     ],
     [
-      103,
+      118,
       59,
       0,
       60,
@@ -3771,7 +3974,7 @@
       "*"
     ],
     [
-      104,
+      119,
       53,
       0,
       60,
@@ -3779,7 +3982,7 @@
       "*"
     ],
     [
-      105,
+      120,
       6,
       0,
       61,
@@ -3787,7 +3990,7 @@
       "*"
     ],
     [
-      106,
+      121,
       60,
       0,
       61,
@@ -3795,7 +3998,7 @@
       "*"
     ],
     [
-      107,
+      122,
       10,
       0,
       62,
@@ -3803,7 +4006,7 @@
       "*"
     ],
     [
-      108,
+      123,
       61,
       0,
       62,
@@ -3811,7 +4014,7 @@
       "*"
     ],
     [
-      109,
+      124,
       11,
       0,
       62,
@@ -3819,7 +4022,7 @@
       "*"
     ],
     [
-      110,
+      125,
       9,
       0,
       62,
@@ -3827,7 +4030,7 @@
       "*"
     ],
     [
-      111,
+      126,
       60,
       2,
       62,
@@ -3835,7 +4038,7 @@
       "*"
     ],
     [
-      112,
+      127,
       62,
       0,
       63,
@@ -3843,7 +4046,7 @@
       "*"
     ],
     [
-      113,
+      128,
       6,
       2,
       63,
@@ -3851,7 +4054,7 @@
       "*"
     ],
     [
-      114,
+      129,
       63,
       0,
       64,
@@ -3859,7 +4062,7 @@
       "*"
     ],
     [
-      115,
+      130,
       63,
       0,
       65,
@@ -3867,7 +4070,7 @@
       "*"
     ],
     [
-      116,
+      131,
       55,
       0,
       65,
@@ -3875,7 +4078,7 @@
       "*"
     ],
     [
-      117,
+      132,
       54,
       0,
       65,
@@ -3883,7 +4086,7 @@
       "*"
     ],
     [
-      118,
+      133,
       65,
       0,
       66,
