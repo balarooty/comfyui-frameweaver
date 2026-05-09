@@ -4290,30 +4290,22 @@
         {
           "name": "checkpoint_name",
           "type": "COMBO",
-          "links": [
-            24
-          ]
+          "links": []
         },
         {
           "name": "distilled_lora_name",
           "type": "COMBO",
-          "links": [
-            25
-          ]
+          "links": []
         },
         {
           "name": "text_encoder_name",
           "type": "COMBO",
-          "links": [
-            26
-          ]
+          "links": []
         },
         {
           "name": "upscale_model_name",
           "type": "COMBO",
-          "links": [
-            27
-          ]
+          "links": []
         }
       ],
       "properties": {
@@ -4322,8 +4314,14 @@
       "widgets_values": [
         1280,
         720,
+        "frames",
         97,
-        24
+        4.0,
+        24,
+        "ltx-2.3-22b-dev-fp8.safetensors",
+        "ltx-2.3-22b-distilled-lora-384.safetensors",
+        "gemma_3_12B_it_fp4_mixed.safetensors",
+        "ltx-2.3-spatial-upscaler-x2-1.1.safetensors"
       ]
     },
     {
@@ -4475,23 +4473,23 @@
         {
           "name": "ckpt_name",
           "type": "COMBO",
-          "link": 24
+          "link": null
         },
         {
           "name": "lora_name",
           "type": "COMBO",
-          "link": 25,
+          "link": null,
           "label": "distilled_lora"
         },
         {
           "name": "text_encoder",
           "type": "COMBO",
-          "link": 26
+          "link": null
         },
         {
           "name": "model_name",
           "type": "COMBO",
-          "link": 27,
+          "link": null,
           "label": "latent_upscale_model"
         },
         {
@@ -4877,38 +4875,6 @@
       53,
       1,
       "AUDIO"
-    ],
-    [
-      24,
-      15,
-      5,
-      50,
-      6,
-      "*"
-    ],
-    [
-      25,
-      15,
-      6,
-      50,
-      7,
-      "*"
-    ],
-    [
-      26,
-      15,
-      7,
-      50,
-      8,
-      "*"
-    ],
-    [
-      27,
-      15,
-      8,
-      50,
-      9,
-      "*"
     ]
   ],
   "last_node_id": 54,

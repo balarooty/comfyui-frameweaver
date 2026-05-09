@@ -4729,38 +4729,6 @@
       340,
       7,
       "FLOAT"
-    ],
-    [
-      756,
-      342,
-      5,
-      340,
-      8,
-      "*"
-    ],
-    [
-      757,
-      342,
-      6,
-      340,
-      9,
-      "*"
-    ],
-    [
-      758,
-      342,
-      7,
-      340,
-      10,
-      "*"
-    ],
-    [
-      759,
-      342,
-      8,
-      340,
-      11,
-      "*"
     ]
   ],
   "nodes": [
@@ -5009,23 +4977,23 @@
         {
           "name": "ckpt_name",
           "type": "COMBO",
-          "link": 756
+          "link": null
         },
         {
           "name": "lora_name",
           "type": "COMBO",
-          "link": 757,
+          "link": null,
           "label": "distilled_lora"
         },
         {
           "name": "text_encoder",
           "type": "COMBO",
-          "link": 758
+          "link": null
         },
         {
           "name": "model_name",
           "type": "COMBO",
-          "link": 759,
+          "link": null,
           "label": "upscale_model"
         }
       ],
@@ -5166,30 +5134,22 @@
         {
           "name": "checkpoint_name",
           "type": "STRING",
-          "links": [
-            756
-          ]
+          "links": []
         },
         {
           "name": "distilled_lora_name",
           "type": "STRING",
-          "links": [
-            757
-          ]
+          "links": []
         },
         {
           "name": "text_encoder_name",
           "type": "STRING",
-          "links": [
-            758
-          ]
+          "links": []
         },
         {
           "name": "upscale_model_name",
           "type": "STRING",
-          "links": [
-            759
-          ]
+          "links": []
         }
       ],
       "properties": {
@@ -5198,8 +5158,14 @@
       "widgets_values": [
         1280,
         720,
+        "frames",
         217,
-        24
+        4.0,
+        24,
+        "ltx-2.3-22b-dev-fp8.safetensors",
+        "ltx-2.3-22b-distilled-lora-384.safetensors",
+        "gemma_3_12B_it_fp4_mixed.safetensors",
+        "ltx-2.3-spatial-upscaler-x2-1.1.safetensors"
       ]
     },
     {
