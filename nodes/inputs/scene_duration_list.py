@@ -6,7 +6,7 @@ except ImportError:
 
 class FW_SceneDurationList:
     CATEGORY = "FrameWeaver/Input"
-    RETURN_TYPES = ("FW_DURATION_LIST", "INT", "INT", "INT", "INT", "INT", "INT")
+    RETURN_TYPES = ("FW_DURATION_LIST", "INT", "INT", "INT", "INT", "INT", "INT", "INT", "INT", "INT", "INT", "INT")
     RETURN_NAMES = (
         "duration_list",
         "scene_1_frames",
@@ -14,6 +14,11 @@ class FW_SceneDurationList:
         "scene_3_frames",
         "scene_4_frames",
         "scene_5_frames",
+        "scene_6_frames",
+        "scene_7_frames",
+        "scene_8_frames",
+        "scene_9_frames",
+        "scene_10_frames",
         "total_frames",
     )
     FUNCTION = "build"
@@ -27,20 +32,25 @@ class FW_SceneDurationList:
                 "scene_3_frames": ("INT", {"default": 97, "min": 9, "max": 241, "step": 8}),
                 "scene_4_frames": ("INT", {"default": 97, "min": 9, "max": 241, "step": 8}),
                 "scene_5_frames": ("INT", {"default": 97, "min": 9, "max": 241, "step": 8}),
-                "scene_count": ("INT", {"default": 1, "min": 1, "max": 5, "step": 1}),
+                "scene_6_frames": ("INT", {"default": 97, "min": 9, "max": 241, "step": 8}),
+                "scene_7_frames": ("INT", {"default": 97, "min": 9, "max": 241, "step": 8}),
+                "scene_8_frames": ("INT", {"default": 97, "min": 9, "max": 241, "step": 8}),
+                "scene_9_frames": ("INT", {"default": 97, "min": 9, "max": 241, "step": 8}),
+                "scene_10_frames": ("INT", {"default": 97, "min": 9, "max": 241, "step": 8}),
+                "scene_count": ("INT", {"default": 1, "min": 1, "max": 10, "step": 1}),
             }
         }
 
-    def build(self, scene_1_frames, scene_2_frames, scene_3_frames, scene_4_frames, scene_5_frames, scene_count):
-        raw = [scene_1_frames, scene_2_frames, scene_3_frames, scene_4_frames, scene_5_frames]
+    def build(self, scene_1_frames, scene_2_frames, scene_3_frames, scene_4_frames, scene_5_frames,
+              scene_6_frames, scene_7_frames, scene_8_frames, scene_9_frames, scene_10_frames,
+              scene_count):
+        raw = [scene_1_frames, scene_2_frames, scene_3_frames, scene_4_frames, scene_5_frames,
+               scene_6_frames, scene_7_frames, scene_8_frames, scene_9_frames, scene_10_frames]
         frames = [nearest_valid_frame_count(value) for value in raw]
         active = frames[: int(scene_count)]
         return (
             active,
-            frames[0],
-            frames[1],
-            frames[2],
-            frames[3],
-            frames[4],
+            frames[0], frames[1], frames[2], frames[3], frames[4],
+            frames[5], frames[6], frames[7], frames[8], frames[9],
             sum(active),
         )

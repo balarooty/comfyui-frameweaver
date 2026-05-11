@@ -31,11 +31,11 @@ PHASE_5_NODES = [
     "FW_WhisperTranscriber",
 ]
 
-ALL_NODES = PHASE_1_NODES + PHASE_2_NODES + PHASE_3_NODES + PHASE_4_NODES + PHASE_5_NODES
+ALL_NODES = PHASE_1_NODES + PHASE_2_NODES + PHASE_3_NODES + PHASE_4_NODES + PHASE_5_NODES + ["FW_SceneQueue"]
 
 
 def test_total_node_count():
-    assert len(NODE_CLASS_MAPPINGS) == 30, f"Expected 30 nodes, got {len(NODE_CLASS_MAPPINGS)}"
+    assert len(NODE_CLASS_MAPPINGS) == 31, f"Expected 31 nodes, got {len(NODE_CLASS_MAPPINGS)}"
 
 
 def test_all_nodes_registered():
@@ -81,11 +81,12 @@ def test_all_classes_have_return_types():
 def test_ltx_settings_defaults():
     cls = NODE_CLASS_MAPPINGS["FW_LTX23Settings"]
     result = cls().settings(
-        1281, 721, 96, 24,
-        "ltx-2.3-22b-dev-fp8.safetensors",
-        "ltx-2.3-22b-distilled-lora-384.safetensors",
-        "gemma_3_12B_it_fp4_mixed.safetensors",
-        "ltx-2.3-spatial-upscaler-x2-1.1.safetensors",
+        width=1281, height=721,
+        duration_mode="frames", frames=96, fps=24,
+        checkpoint_name="ltx-2.3-22b-dev-fp8.safetensors",
+        distilled_lora_name="ltx-2.3-22b-distilled-lora-384.safetensors",
+        text_encoder_name="gemma_3_12B_it_fp4_mixed.safetensors",
+        upscale_model_name="ltx-2.3-spatial-upscaler-x2-1.1.safetensors",
     )
     assert result[:4] == (1280, 704, 97, 24)
     assert result[5] == "ltx-2.3-22b-dev-fp8.safetensors"

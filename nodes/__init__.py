@@ -159,6 +159,12 @@ try:
 except Exception as e:
     _IMPORT_ERRORS.append(("FW_AutoQueue", str(e)))
 
+try:
+    from .output.scene_queue import FW_SceneQueue
+    _reg("FW_SceneQueue", "FrameWeaver Scene Queue", FW_SceneQueue)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_SceneQueue", str(e)))
+
 # ---- PostProcess ---- #
 try:
     from .postprocess.color_match import FW_ColorMatch
@@ -201,7 +207,7 @@ except Exception as e:
 
 
 # ---- Report ---- #
-_TOTAL = 30
+_TOTAL = 31
 _LOADED = len(NODE_CLASS_MAPPINGS)
 
 if _IMPORT_ERRORS:

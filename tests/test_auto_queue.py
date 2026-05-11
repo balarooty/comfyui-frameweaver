@@ -103,6 +103,7 @@ class TestSmartAssemblerSchema:
         assert "scene_collection" in it["required"]
         assert "blend_mode" in it["required"]
         assert "blend_frames" in it["required"]
+        assert "crossfade_easing" in it["required"]
 
     def test_optional_inputs(self):
         it = FW_SmartAssembler.INPUT_TYPES()
@@ -114,6 +115,13 @@ class TestSmartAssemblerSchema:
         modes = it["required"]["blend_mode"][0]
         assert "cut" in modes
         assert "crossfade" in modes
+
+    def test_crossfade_easing_options(self):
+        it = FW_SmartAssembler.INPUT_TYPES()
+        easings = it["required"]["crossfade_easing"][0]
+        assert "linear" in easings
+        assert "smoothstep" in easings
+        assert "ease_in_out" in easings
 
     def test_output_node(self):
         assert FW_SmartAssembler.OUTPUT_NODE is True

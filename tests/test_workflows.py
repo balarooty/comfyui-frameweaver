@@ -50,3 +50,37 @@ def test_ltx_combo_inputs_are_not_linked_to_generic_outputs():
         inputs = {item["name"]: item for item in ltx_node["inputs"]}
         for combo_name in ["ckpt_name", "lora_name", "text_encoder", "model_name"]:
             assert inputs[combo_name]["link"] is None
+
+
+def test_10scene_veo_workflow_loads_and_has_core_nodes():
+    workflow = load("frameweaver_ltx23_10scene_veo.json")
+    node_types = {node["type"] for node in workflow["nodes"]}
+    required = [
+        "FW_SceneQueue", "FW_ScenePromptEvolver", "FW_ScenePromptSelector",
+        "FW_StyleAnchor", "FW_ContinuityEncoder", "FW_LTX23Settings",
+        "FW_LoadStarterFrame", "FW_LastFrameExtractor", "FW_SceneCollector",
+        "FW_SmartAssembler", "FW_CinematicPolish", "FW_FilmGrain",
+        "EmptyLTXVLatentVideo", "LTXVAddGuide", "SamplerCustomAdvanced",
+        "VHS_VideoCombine",
+    ]
+    for node_type in required:
+        assert node_type in node_types, f"Missing node: {node_type}"
+
+
+def test_10scene_veo_links_valid():
+    workflow = load("frameweaver_ltx23_10scene_veo.json")
+    node_ids = {node["id"] for node in workflow["nodes"]}
+    for link in workflow["links"]:
+        assert link[1] in node_ids, f"Source node {link[1]} not found"
+        if link[3] is not None:
+            assert link[3] in node_ids, f"Target node {link[3]} not found"
+
+
+def test_10scene_veo_scene_queue_wired():
+    workflow = load("frameweaver_ltx23_10scene_veo.json")
+    scene_queue = [n for n in workflow["nodes"] if n["type"] == "FW_SceneQueue"][0]
+    selectors = [n for n in workflow["nodes"] if n["type"] == "FW_ScenePromptSelector"]
+    assert selectors, "Missing ScenePromptSelector"
+    # SceneQueue scene_index output should connect to Selector's scene_index input
+    sq_output = [o for o in scene_queue["outputs"] if o["name"] == "scene_index"][0]
+    assert sq_output["links"], "SceneQueue scene_index should be linked to Selector"

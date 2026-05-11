@@ -67,6 +67,11 @@ class FW_SmartAssembler:
                     "default": 0, "min": 0, "max": 30, "step": 1,
                     "tooltip": "Number of frames to crossfade between scenes (0 = hard cut).",
                 }),
+                "crossfade_easing": (["linear", "smoothstep", "ease_in_out"], {
+                    "default": "linear",
+                    "tooltip": "Easing curve for crossfade. smoothstep = S-curve (most natural), "
+                              "ease_in_out = cubic hermite, linear = uniform blend.",
+                }),
             },
             "optional": {
                 "audio_meta": ("FW_AUDIO_META", {
@@ -90,7 +95,7 @@ class FW_SmartAssembler:
             },
         }
 
-    def assemble(self, scene_collection, blend_mode, blend_frames,
+    def assemble(self, scene_collection, blend_mode, blend_frames, crossfade_easing,
                  audio_meta=None, audio=None, fps=24.0,
                  output_filename="frameweaver_final", save_video=False):
         items = [scene_collection[key] for key in sorted(scene_collection)]
@@ -107,7 +112,7 @@ class FW_SmartAssembler:
 
         # ---- Blend ----
         if blend_mode == "crossfade" and blend_frames > 0 and len(frames) > 1:
-            combined = self._crossfade(frames, int(blend_frames))
+            combined = self._crossfade(frames, int(blend_frames), crossfade_easing)
         else:
             combined = torch.cat(frames, dim=0)
 
@@ -164,18 +169,24 @@ class FW_SmartAssembler:
     #  Crossfade
     # ------------------------------------------------------------------ #
 
-    def _crossfade(self, frame_batches, blend_frames):
-        """Apply linear crossfade between adjacent scenes."""
+    def _crossfade(self, frame_batches, blend_frames, easing="linear"):
+        """Apply crossfade between adjacent scenes with configurable easing."""
         output = frame_batches[0]
         for next_batch in frame_batches[1:]:
             n = min(blend_frames, int(output.shape[0]), int(next_batch.shape[0]))
             if n <= 0:
                 output = torch.cat([output, next_batch], dim=0)
                 continue
-            weights = torch.linspace(
+            t = torch.linspace(
                 0.0, 1.0, n,
                 device=output.device, dtype=output.dtype,
-            ).view(n, 1, 1, 1)
+            )
+            if easing == "smoothstep":
+                t = t * t * (3.0 - 2.0 * t)
+            elif easing == "ease_in_out":
+                t = t * t * (3.0 - 2.0 * t)
+                t = 0.5 * (torch.sin((t - 0.5) * 3.1415926535) + 1.0)
+            weights = t.view(n, 1, 1, 1)
             blended = output[-n:] * (1.0 - weights) + next_batch[:n] * weights
             output = torch.cat([output[:-n], blended, next_batch[n:]], dim=0)
         return output

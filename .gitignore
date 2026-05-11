@@ -44,6 +44,8 @@ tutorial.md
 # Agent / tool artifacts
 .agent_history/
 .minimax/
+.commandcode/
+.claude/
 
 
 
