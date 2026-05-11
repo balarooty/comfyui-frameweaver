@@ -1,6 +1,6 @@
 {
-  "last_node_id": 30,
-  "last_link_id": 63,
+  "last_node_id": 36,
+  "last_link_id": 74,
   "nodes": [
     {
       "id": 1,
@@ -642,7 +642,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 22
+          "link": 73
         },
         {
           "name": "text",
@@ -664,14 +664,14 @@
     },
     {
       "id": 15,
-      "type": "BasicGuider",
+      "type": "CFGGuider",
       "pos": [
         -400,
         0
       ],
       "size": [
         300,
-        80
+        106
       ],
       "flags": {},
       "order": 15,
@@ -680,12 +680,17 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 17
+          "link": 68
         },
         {
-          "name": "conditioning",
+          "name": "positive",
           "type": "CONDITIONING",
           "link": 23
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 69
         }
       ],
       "outputs": [
@@ -697,8 +702,14 @@
           ]
         }
       ],
-      "properties": {},
-      "widgets_values": []
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.64",
+        "Node name for S&R": "CFGGuider"
+      },
+      "widgets_values": [
+        1
+      ]
     },
     {
       "id": 16,
@@ -755,7 +766,7 @@
       ],
       "properties": {},
       "widgets_values": [
-        20,
+        8,
         0.95,
         2.05,
         true,
@@ -869,7 +880,7 @@
         {
           "name": "latent",
           "type": "LATENT",
-          "link": 30
+          "link": 70
         },
         {
           "name": "image",
@@ -961,14 +972,14 @@
     },
     {
       "id": 22,
-      "type": "VAEDecode",
+      "type": "VAEDecodeTiled",
       "pos": [
         480,
         0
       ],
       "size": [
         300,
-        80
+        150
       ],
       "flags": {},
       "order": 22,
@@ -994,8 +1005,17 @@
           ]
         }
       ],
-      "properties": {},
-      "widgets_values": []
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "Node name for S&R": "VAEDecodeTiled"
+      },
+      "widgets_values": [
+        512,
+        64,
+        4096,
+        8
+      ]
     },
     {
       "id": 23,
@@ -1142,7 +1162,7 @@
         {
           "name": "prompt_used",
           "type": "STRING",
-          "link": 8
+          "link": 74
         },
         {
           "name": "seed_used",
@@ -1335,6 +1355,277 @@
         false,
         false
       ]
+    },
+    {
+      "id": 31,
+      "type": "LoraLoaderModelOnly",
+      "pos": [
+        -200,
+        -780
+      ],
+      "size": [
+        340,
+        82
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 17
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            64
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.75",
+        "Node name for S&R": "LoraLoaderModelOnly"
+      },
+      "widgets_values": [
+        "ltx-2.3-22b-distilled-lora-384.safetensors",
+        0.6
+      ]
+    },
+    {
+      "id": 32,
+      "type": "PathchSageAttentionKJ",
+      "pos": [
+        -200,
+        -680
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 64
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            65
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "204f6d5aae73b10c0fe2fb26e61405fd6337bb77",
+        "Node name for S&R": "PathchSageAttentionKJ"
+      },
+      "widgets_values": [
+        "auto",
+        false
+      ]
+    },
+    {
+      "id": 33,
+      "type": "LTX2MemoryEfficientSageAttentionPatch",
+      "pos": [
+        -200,
+        -580
+      ],
+      "size": [
+        275,
+        58
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 65
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            66
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "2acdef1766026ff3be00daf3c45f6a064db9100f",
+        "Node name for S&R": "LTX2MemoryEfficientSageAttentionPatch"
+      },
+      "widgets_values": [
+        true
+      ]
+    },
+    {
+      "id": 34,
+      "type": "LTX2AttentionTunerPatch",
+      "pos": [
+        -200,
+        -480
+      ],
+      "size": [
+        283,
+        178
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 34,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 66
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            67
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "5b38397a6430fdb16c7bd14a6bd64c2b0e69a5f0",
+        "Node name for S&R": "LTX2AttentionTunerPatch"
+      },
+      "widgets_values": [
+        "",
+        1,
+        1,
+        1,
+        1,
+        true
+      ]
+    },
+    {
+      "id": 35,
+      "type": "LTXVChunkFeedForward",
+      "pos": [
+        -200,
+        -380
+      ],
+      "size": [
+        272,
+        82
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 67
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            68
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "0ea5ece1793263d9fb0ad97bb067f96b83a9dea3",
+        "Node name for S&R": "LTXVChunkFeedForward"
+      },
+      "widgets_values": [
+        2,
+        4096
+      ]
+    },
+    {
+      "id": 36,
+      "type": "LTXVImgToVideoInplaceKJ",
+      "pos": [
+        100,
+        -500
+      ],
+      "size": [
+        300,
+        214
+      ],
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 71
+        },
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "link": 30
+        },
+        {
+          "label": "strength_1",
+          "name": "num_images.strength_1",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": null
+        },
+        {
+          "label": "image_1",
+          "name": "num_images.image_1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 72
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": [
+            70
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "71578cf49e48978cf1c6714494b669b1e571777b",
+        "Node name for S&R": "LTXVImgToVideoInplaceKJ"
+      },
+      "widgets_values": [
+        "1",
+        1,
+        0
+      ]
     }
   ],
   "links": [
@@ -1454,7 +1745,7 @@
       17,
       10,
       0,
-      15,
+      31,
       0,
       "*"
     ],
@@ -1558,8 +1849,8 @@
       30,
       19,
       0,
-      20,
-      3,
+      36,
+      1,
       "*"
     ],
     [
@@ -1663,6 +1954,94 @@
       9,
       1,
       23,
+      2,
+      "*"
+    ],
+    [
+      64,
+      31,
+      0,
+      32,
+      0,
+      "*"
+    ],
+    [
+      65,
+      32,
+      0,
+      33,
+      0,
+      "*"
+    ],
+    [
+      66,
+      33,
+      0,
+      34,
+      0,
+      "*"
+    ],
+    [
+      67,
+      34,
+      0,
+      35,
+      0,
+      "*"
+    ],
+    [
+      68,
+      35,
+      0,
+      15,
+      0,
+      "*"
+    ],
+    [
+      69,
+      14,
+      0,
+      15,
+      2,
+      "*"
+    ],
+    [
+      70,
+      36,
+      0,
+      20,
+      3,
+      "*"
+    ],
+    [
+      71,
+      10,
+      2,
+      36,
+      0,
+      "*"
+    ],
+    [
+      72,
+      2,
+      0,
+      36,
+      3,
+      "*"
+    ],
+    [
+      73,
+      12,
+      0,
+      14,
+      0,
+      "*"
+    ],
+    [
+      74,
+      6,
+      0,
+      26,
       2,
       "*"
     ]

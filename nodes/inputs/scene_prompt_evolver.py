@@ -3,6 +3,11 @@ try:
 except ImportError:
     from utils.prompt_utils import build_scene_prompts, select_scene
 
+try:
+    from ...utils.prompt_relay.parser import parse_smart_prompt
+except ImportError:
+    from utils.prompt_relay.parser import parse_smart_prompt
+
 
 class FW_ScenePromptEvolver:
     """Build a list of scene prompts with style inheritance.
@@ -20,8 +25,8 @@ class FW_ScenePromptEvolver:
     """
 
     CATEGORY = "FrameWeaver/Input"
-    RETURN_TYPES = ("FW_PROMPT_LIST", "STRING", "STRING", "INT")
-    RETURN_NAMES = ("prompt_list", "scene_1_positive", "negative", "scene_count")
+    RETURN_TYPES = ("FW_PROMPT_LIST", "STRING", "STRING", "INT", "STRING")
+    RETURN_NAMES = ("prompt_list", "scene_1_positive", "negative", "scene_count", "duration_weights")
     FUNCTION = "build_evolved_list"
 
     @classmethod
@@ -44,6 +49,7 @@ class FW_ScenePromptEvolver:
                 ),
                 "scene_1": ("STRING", {"multiline": True, "default": "A character starts moving through the scene."}),
                 "inheritance_mode": (["cumulative", "replace", "blend"], {"default": "cumulative"}),
+                "syntax_mode": (["plain", "smart"], {"default": "plain"}),
             },
             "optional": {
                 "scene_2": ("STRING", {"multiline": True, "default": ""}),
@@ -66,7 +72,7 @@ class FW_ScenePromptEvolver:
             },
         }
 
-    def build_evolved_list(self, base_style, base_negative, scene_1, inheritance_mode, **kwargs):
+    def build_evolved_list(self, base_style, base_negative, scene_1, inheritance_mode, syntax_mode="plain", **kwargs):
         pipe_text = kwargs.get("pipe_text", "").strip()
         pipe_text_input = kwargs.get("pipe_text_input", None)
 
@@ -74,12 +80,22 @@ class FW_ScenePromptEvolver:
         if pipe_text_input is not None and isinstance(pipe_text_input, str) and pipe_text_input.strip():
             pipe_text = pipe_text_input.strip()
 
+        duration_weights = ""
+
         if pipe_text:
             # Pipe-delimited mode — split and map to scene slots
-            parts = [p.strip() for p in pipe_text.split("|") if p.strip()]
-            # Map to scene_1..scene_N
-            scene_inputs = parts[:50]  # Cap at 50 scenes
-            # Build using the existing utility but with dynamic scene count
+            if syntax_mode == "smart":
+                # Parse smart syntax to extract weights and cleaned text
+                segments = parse_smart_prompt(pipe_text)
+                scene_inputs = [seg["text"] for seg in segments if seg["text"]]
+                weights = [seg["weight"] for seg in segments if seg["text"]]
+                if weights:
+                    # Format as comma-separated weights for downstream duration calculation
+                    duration_weights = ",".join(str(int(w)) for w in weights)
+            else:
+                scene_inputs = [p.strip() for p in pipe_text.split("|") if p.strip()]
+
+            scene_inputs = scene_inputs[:50]  # Cap at 50 scenes
             scenes = self._build_from_pipe(base_style, base_negative, scene_inputs, inheritance_mode)
         else:
             # Classic individual-field mode
@@ -99,7 +115,7 @@ class FW_ScenePromptEvolver:
             )
 
         first = scenes[0] if scenes else {"positive": "", "negative": base_negative}
-        return (scenes, first["positive"], first.get("negative", base_negative), len(scenes))
+        return (scenes, first["positive"], first.get("negative", base_negative), len(scenes), duration_weights)
 
     def _build_from_pipe(self, base_style, base_negative, scene_inputs, inheritance_mode):
         """Build scene prompts from a list of pipe-delimited strings."""

@@ -70,6 +70,12 @@ try:
 except Exception as e:
     _IMPORT_ERRORS.append(("FW_GlobalSequencer", str(e)))
 
+try:
+    from .sequencing.scene_splitter import FW_SceneSplitter
+    _reg("FW_SceneSplitter", "FrameWeaver Scene Splitter", FW_SceneSplitter)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_SceneSplitter", str(e)))
+
 # ---- Continuity ---- #
 try:
     from .continuity.style_anchor import FW_StyleAnchor
@@ -127,6 +133,24 @@ try:
 except Exception as e:
     _IMPORT_ERRORS.append(("FW_DecodeVideo", str(e)))
 
+try:
+    from .generation.temporal_prompt_encode import FW_TemporalPromptEncode
+    _reg("FW_TemporalPromptEncode", "FrameWeaver Temporal Prompt Encode", FW_TemporalPromptEncode)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_TemporalPromptEncode", str(e)))
+
+try:
+    from .generation.relay_options import FW_RelayOptions
+    _reg("FW_RelayOptions", "FrameWeaver Relay Options", FW_RelayOptions)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_RelayOptions", str(e)))
+
+try:
+    from .generation.relay_bridge_encoder import FW_RelayBridgeEncoder
+    _reg("FW_RelayBridgeEncoder", "FrameWeaver Relay Bridge Encoder", FW_RelayBridgeEncoder)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_RelayBridgeEncoder", str(e)))
+
 # ---- Bridge ---- #
 try:
     from .bridge.last_frame_extractor import FW_LastFrameExtractor
@@ -164,6 +188,12 @@ try:
     _reg("FW_SceneQueue", "FrameWeaver Scene Queue", FW_SceneQueue)
 except Exception as e:
     _IMPORT_ERRORS.append(("FW_SceneQueue", str(e)))
+
+try:
+    from .output.scene_iterator import FW_SceneIterator
+    _reg("FW_SceneIterator", "FrameWeaver Scene Iterator", FW_SceneIterator)
+except Exception as e:
+    _IMPORT_ERRORS.append(("FW_SceneIterator", str(e)))
 
 # ---- PostProcess ---- #
 try:
@@ -207,7 +237,7 @@ except Exception as e:
 
 
 # ---- Report ---- #
-_TOTAL = 31
+_TOTAL = 36
 _LOADED = len(NODE_CLASS_MAPPINGS)
 
 if _IMPORT_ERRORS:

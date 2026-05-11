@@ -29,9 +29,9 @@ htmlcov/
 .coverage
 
 # ComfyUI runtime
-output/
-input/
-temp/
+/output/
+/input/
+/temp/
 
 
 #plans
@@ -48,4 +48,4 @@ tutorial.md
 .claude/
 
 
-
+ComfyUI-PromptRelay/
